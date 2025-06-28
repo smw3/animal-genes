@@ -4,6 +4,7 @@ using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -38,8 +39,16 @@ namespace AnimalGenes
         {
             newThing.SetStatBaseValue(BSDefs.SM_FlirtChance, 1);
             newThing.SetStatBaseValue(StatDefOf.Fertility, 1);
+        }
+    }
 
-            //Log.Message($"Set flirt chance for {newThing.defName} to {newThing.GetStatValueAbstract(BSDefs.SM_FlirtChance)}");
+    [HarmonyPatch(typeof(BigAndSmall.RaceMorpher), nameof(BigAndSmall.RaceMorpher.SwapAnimalToSapientVersion))]
+    static class RaceMorpher_SwapAnimalToSapientVersion_Patch
+    {
+        static void Postfix(Pawn __result, Pawn aniPawn)
+        {
+            Check.DebugLog($"RaceMorpher_SwapAnimalToSapientVersion_Patch: Adding genes to sapient animal {__result.Name}.");
+            RaceMorpher.AddAppropriateAffinityGenes(__result);
         }
     }
 
@@ -54,15 +63,14 @@ namespace AnimalGenes
             {
                 if (GeneGenerator.affinityGenes.ContainsKey(gene.def))
                 {
-                    Check.DebugLog($"Gene_OverrideBy_Patch: Gene {__instance.def.defName} is being overridden by {overriddenBy?.def.defName ?? "null"}");
                     if (PrerequisiteValidator.Validate(gene.def, gene.pawn) is string pFailReason && pFailReason != "") {
                         Check.DebugLog($"Gene {gene.def.defName} failed prerequisite validation: {pFailReason}");
                     } else { 
                         HumanlikeAnimal target = gene.def.GetModExtension<GeneModExtension_TargetAffinity>()?.targetAnimal;
                         Check.NotNull(target, "target cannot be null in GeneModExtension_TargetAffinity Gene_OverrideBy_Patch");
-                        if (gene.pawn.def != target.animal)
+                        if (gene.pawn.def != target.humanlikeThing)
                         {
-                            Check.DebugLog($"Gene {gene.def.defName} has ACTIVE affinity for target: {target?.animal.defName ?? "null"} and is not target def yet.");
+                            Check.DebugLog($"Pawn of def {gene.pawn.def} has ACTIVE affinity (Gene {gene.def.defName}) for target: {target.humanlikeThing.defName} but is {gene.pawn.def.defName}");
                             RaceMorpher.SwapPawnToSapientAnimal(gene.pawn, target);
                         }
                     }

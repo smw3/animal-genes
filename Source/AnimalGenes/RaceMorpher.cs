@@ -29,8 +29,12 @@ namespace AnimalGenes
             string geneDefName = $"ANG_{humanlikeAnimal.animal.defName}_Affinity";
             GeneDef affinityGeneDef = DefDatabase<GeneDef>.GetNamed(geneDefName);
 
+            humanPawn.genes.SetXenotypeDirect(DefDatabase<XenotypeDef>.GetNamed("SapientAnimal"));
+
             if (humanPawn.genes.HasXenogene(affinityGeneDef) || humanPawn.genes.HasEndogene(affinityGeneDef))
             {
+                RemoveExistingEndogenes(humanPawn);
+
                 Endogenify(affinityGeneDef.GetModExtension<BigAndSmall.GenePrerequisites>()?.prerequisiteSets
                     .Where(ps => ps.type == BigAndSmall.PrerequisiteSet.PrerequisiteType.AllOf)
                     .SelectMany(ps => ps.prerequisites).ToList(), humanPawn);
@@ -38,23 +42,55 @@ namespace AnimalGenes
             }
         }
 
+        public static void AddAppropriateAffinityGenes(Pawn pawn)
+        {
+            HumanlikeAnimalGenerator.humanlikeAnimals.TryGetValue(pawn.def, out HumanlikeAnimal humanlikeAnimal);
+            if (humanlikeAnimal != null)
+            {
+                pawn.genes.SetXenotypeDirect(DefDatabase<XenotypeDef>.GetNamed("SapientAnimal"));
+
+                GeneDef affinityGeneDef = GeneGenerator.affinityGenes.Where(kvp => kvp.Value == humanlikeAnimal).First().Key;
+
+                List<string> preReqDefNames = affinityGeneDef.GetModExtension<GenePrerequisites>().prerequisiteSets.Where(ps => ps.type == PrerequisiteSet.PrerequisiteType.AllOf).First().prerequisites;
+                foreach (var preReqDefName in preReqDefNames)
+                {
+                    GeneDef preReqGene = DefDatabase<GeneDef>.GetNamed(preReqDefName, true);
+                    pawn.genes.AddGene(preReqGene, false);
+                }
+                pawn.genes.AddGene(affinityGeneDef, false);
+            } else
+            {
+                Check.DebugLog($"AddAppropriateAffinityGenes: No humanlike animal found for pawn {pawn.Name} with def {pawn.def.defName}. Cannot add affinity genes.");
+                Check.DebugLog($"Available humanlike animals: {string.Join(", ", HumanlikeAnimalGenerator.humanlikeAnimals.Keys.Select(h => h.defName))}");
+            }
+        }
+
+        public static void RemoveExistingEndogenes(Pawn pawn)
+        {
+            List<Gene> genesToRemove = [.. pawn.genes.Endogenes];
+            foreach (var gene in genesToRemove)
+            {
+                Check.DebugLog($"Removing existing endogene {gene.def.defName} from pawn {pawn.Name}");
+                pawn.genes.RemoveGene(gene);
+            }
+        }
+
         public static void Endogenify(List<string> geneDefNames, Pawn pawn)
         {
-            foreach (var geneDefName in geneDefNames)
+            List<Gene> genesToEndogenify = [.. pawn.genes.Xenogenes.Where(g => geneDefNames.Contains(g.def.defName))];
+            Check.DebugLog($"Endogenifying genes for pawn {pawn.Name}: {string.Join(", ", genesToEndogenify.Select(g => g.def.defName))}");
+            foreach (var gene in genesToEndogenify)
             {
-                List<Gene> genesListForReading = pawn.genes.GenesListForReading;
-                for (int i = 0; i < genesListForReading.Count; i++)
+                GeneDef geneDef = gene.def;
+                if (!pawn.genes.HasEndogene(geneDef))
                 {
-                    if (genesListForReading[i].def.defName == geneDefName)
-                    {
-                        Gene gene = genesListForReading[i];
-                        GeneDef geneDef = gene.def;
-                        if (pawn.genes.IsXenogene(gene) && !pawn.genes.HasEndogene(geneDef))
-                        {
-                            pawn.genes.RemoveGene(gene);
-                            pawn.genes.AddGene(geneDef, false);
-                        }
-                    }
+                    Check.DebugLog($"Removing gene {gene.def.defName} for pawn {pawn.Name}");
+                    pawn.genes.RemoveGene(gene);
+                    Check.DebugLog($"Adding gene {geneDef.defName} as endogene for pawn {pawn.Name}");
+                    pawn.genes.AddGene(geneDef, false);
+                } else
+                {
+                    Check.DebugLog($"Gene {geneDef.defName} is already an endogene for pawn {pawn.Name}, skipping.");
                 }
             }
         }

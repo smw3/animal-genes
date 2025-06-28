@@ -36,10 +36,6 @@ namespace AnimalGenes
                             {
                                 stat = BSDefs.SM_BodySizeMultiplier,
                                 value = roundedBodySize
-                            },new StatModifier
-                            {
-                                stat = StatDefOf.CarryingCapacity,
-                                value = roundedBodySize
                             }];
                         newGene.ResolveReferences();
                         DefDatabase<GeneDef>.Add(newGene);

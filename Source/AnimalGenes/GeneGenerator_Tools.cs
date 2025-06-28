@@ -49,11 +49,11 @@ namespace AnimalGenes
 
             foreach (var sapientAnimal in sapientAnimals)
             {
+                HashSet<string> toolsHandledForCurrentAnimal = [];
                 foreach (Tool t in sapientAnimal.animal.tools)
                 {
-                    if (t.label.NullOrEmpty())
+                    if (t.label.NullOrEmpty() || toolsHandledForCurrentAnimal.Contains(t.label))
                     {
-                        //Log.Message($"Skipping tool with empty label for {sapientAnimal.animal.defName}");
                         continue;
                     }
 
@@ -142,6 +142,7 @@ namespace AnimalGenes
                     }
 
                     GeneGenerator.AddGeneToHumanLikeAnimal(sapientAnimal, newGene);
+                    toolsHandledForCurrentAnimal.Add(cleanedLabel);
                     createdTools.Add(cleanedLabel, newGene);
                     Check.DebugLog($"Generated new tool gene {newGene.defName} for {sapientAnimal.animal.defName} with tool {cleanedLabel}");
                 }

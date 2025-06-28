@@ -1,0 +1,10 @@
+<Defs>
+  <XenotypeDef>
+    <defName>SapientAnimal</defName>
+    <label>sapientAnimal</label>
+    <description>A genetically modified animal with humanlike intellect.</description>
+    <iconPath>UI/Icons/Xenotypes/Custom/CustomXenotypeIcon3</iconPath>
+    <displayPriority>1000</displayPriority>
+    <factionlessGenerationWeight>0</factionlessGenerationWeight>
+  </XenotypeDef>
+</Defs>

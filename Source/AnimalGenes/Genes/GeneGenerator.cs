@@ -1,4 +1,5 @@
-﻿using BigAndSmall;
+﻿using AnimalGenes.GeneModExtensions;
+using BigAndSmall;
 using RimWorld;
 using System;
 using System.Collections.Generic;
@@ -132,7 +133,7 @@ namespace AnimalGenes
                                 }
                             ]
                         },
-                        new GeneModExtension_TargetAffinity
+                        new TargetAffinity
                         {
                             targetAnimal = sapientAnimal
                         }

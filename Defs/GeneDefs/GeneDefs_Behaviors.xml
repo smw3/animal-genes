@@ -10,7 +10,7 @@
         <displayCategory>ANG_Behavior</displayCategory>
         <selectionWeight>0.5</selectionWeight>
         <modExtensions>
-            <li Class="AnimalGenes.Genes.GeneModExtension_EnableBehavior">
+            <li Class="AnimalGenes.GeneModExtensions.EnableBehavior">
                 <canGraze>true</canGraze>
             </li>
         </modExtensions>
@@ -26,7 +26,7 @@
         <displayCategory>ANG_Behavior</displayCategory>
         <selectionWeight>0.5</selectionWeight>
         <modExtensions>
-            <li Class="AnimalGenes.Genes.GeneModExtension_EnableBehavior">
+            <li Class="AnimalGenes.GeneModExtensions.EnableBehavior">
                 <canEatTrees>true</canEatTrees>
             </li>
         </modExtensions>
@@ -42,7 +42,7 @@
         <displayCategory>ANG_Behavior</displayCategory>
         <selectionWeight>0.5</selectionWeight>
         <modExtensions>
-            <li Class="AnimalGenes.Genes.GeneModExtension_EnableBehavior">
+            <li Class="AnimalGenes.GeneModExtensions.EnableBehavior">
                 <isPredator>true</isPredator>
             </li>
         </modExtensions>

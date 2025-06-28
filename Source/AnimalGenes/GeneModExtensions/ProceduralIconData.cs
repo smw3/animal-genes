@@ -6,10 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Verse;
 
-namespace AnimalGenes
+namespace AnimalGenes.GeneModExtensions
 {
-    public class GeneModExtension_TargetAffinity : DefModExtension
+    public class ProceduralIconData : DefModExtension
     {
-        public HumanlikeAnimal targetAnimal;
+        public List<Pair<ThingDef, float>> iconThingDefsAndScale;
     }
 }

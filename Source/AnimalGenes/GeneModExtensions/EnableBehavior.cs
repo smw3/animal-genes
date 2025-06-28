@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Verse;
 
-namespace AnimalGenes.Genes
+namespace AnimalGenes.GeneModExtensions
 {
-    public class GeneModExtension_EnableBehavior : DefModExtension
+    public class EnableBehavior : DefModExtension
     {
         public bool canGraze = false;
         public bool canEatTrees = false;

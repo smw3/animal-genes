@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AnimalGenes.GeneModExtensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
@@ -12,16 +13,16 @@ namespace AnimalGenes
 {
     public class IconHelper
     {
-        public static GeneModExtension_ProceduralIconData GetProceduralIconData(List<Pair<ThingDef, float>> iconThingDefsAndScale)
+        public static ProceduralIconData GetProceduralIconData(List<Pair<ThingDef, float>> iconThingDefsAndScale)
         {
-            return new GeneModExtension_ProceduralIconData
+            return new ProceduralIconData
             {
                 iconThingDefsAndScale = iconThingDefsAndScale
             };
         }
         public static void GenerateAndCacheIcon(GeneDef geneDef)
         {
-            List<Pair<ThingDef, float>> iconThingDefs = geneDef.GetModExtension<GeneModExtension_ProceduralIconData>()?.iconThingDefsAndScale;
+            List<Pair<ThingDef, float>> iconThingDefs = geneDef.GetModExtension<ProceduralIconData>()?.iconThingDefsAndScale;
             if (iconThingDefs.NullOrEmpty())
             {
                 return;

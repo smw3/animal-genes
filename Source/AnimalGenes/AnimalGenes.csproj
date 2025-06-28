@@ -68,9 +68,11 @@
   <ItemGroup>
     <Compile Include="ANGDefs.cs" />
     <Compile Include="Behaviors\DietBehaviors.cs" />
+    <Compile Include="Behaviors\ProductionBehaviors.cs" />
     <Compile Include="DebugHelpers\Check.cs" />
     <Compile Include="Defs\AnimalGeneSettings.cs" />
-    <Compile Include="Genes\GeneModExtension_EnableBehavior.cs" />
+    <Compile Include="GeneModExtensions\EnableBehavior.cs" />
+    <Compile Include="GeneModExtensions\ProductionDependsOnGender.cs" />
     <Compile Include="Graphics\PawnRenderNodeWorker_Fur_OnlyNonSapient.cs" />
     <Compile Include="Helpers\ColorHelper.cs" />
     <Compile Include="Helpers\DefHelper.cs" />
@@ -87,8 +89,8 @@
     <Compile Include="Genes\GeneGenerator_Temperature.cs" />
     <Compile Include="Genes\GeneGenerator_Tools.cs" />
     <Compile Include="Components\GeneIconGeneratorComponent.cs" />
-    <Compile Include="Genes\GeneModExtension_ProceduralIcon.cs" />
-    <Compile Include="Genes\GeneModExtension_TargetAffinity.cs" />
+    <Compile Include="GeneModExtensions\ProceduralIconData.cs" />
+    <Compile Include="GeneModExtensions\TargetAffinity.cs" />
     <Compile Include="Helpers\IconHelper.cs" />
     <Compile Include="Main_early.cs" />
     <Compile Include="Graphics\PawnRenderNodeWorker_FlipWhenCrawling_OnlyNonSapient.cs" />

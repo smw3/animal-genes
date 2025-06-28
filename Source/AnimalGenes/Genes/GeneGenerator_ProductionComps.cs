@@ -1,4 +1,5 @@
-﻿using BigAndSmall;
+﻿using AnimalGenes.GeneModExtensions;
+using BigAndSmall;
 using RimWorld;
 using System;
 using System.Collections.Generic;
@@ -69,12 +70,14 @@ namespace AnimalGenes
                 newGene.label = $"{shearableComp.woolDef.label.CapitalizeFirst()} producer ({sapientAnimal.animal.label})";
                 newGene.generated = true;
 
-                BigAndSmall.ProductionGeneSettings settings = typeof(BigAndSmall.ProductionGeneSettings).GetConstructor([]).Invoke([]) as BigAndSmall.ProductionGeneSettings;
-                settings.product = shearableComp.woolDef;
-                settings.baseAmount = (int)Math.Ceiling(shearableComp.woolAmount / sapientAnimal.animal.race.baseBodySize);
-                settings.frequencyInDays = shearableComp.shearIntervalDays;
-                settings.progressName = "Growing";
-                settings.saveKey = newGene.defName;
+                BigAndSmall.ProductionGeneSettings settings = new()
+                {
+                    product = shearableComp.woolDef,
+                    baseAmount = (int)Math.Ceiling(shearableComp.woolAmount / sapientAnimal.animal.race.baseBodySize),
+                    frequencyInDays = shearableComp.shearIntervalDays,
+                    progressName = "Growing",
+                    saveKey = newGene.defName
+                };
 
                 newGene.modExtensions = new List<DefModExtension>([settings, IconHelper.GetProceduralIconData([new Pair<ThingDef, float>(sapientAnimal.animal, 0.95f), new Pair<ThingDef, float>(shearableComp.woolDef, 0.4f)])]);
 
@@ -123,14 +126,23 @@ namespace AnimalGenes
                 newGene.label = $"{sapientAnimal.animal.label} {milkableComp.milkDef.label} producer";
                 newGene.generated = true;
 
-                BigAndSmall.ProductionGeneSettings settings = typeof(BigAndSmall.ProductionGeneSettings).GetConstructor([]).Invoke([]) as BigAndSmall.ProductionGeneSettings;
-                settings.product = milkableComp.milkDef;
-                settings.baseAmount = (int)Math.Ceiling(milkableComp.milkAmount / sapientAnimal.animal.race.baseBodySize);
-                settings.frequencyInDays = milkableComp.milkIntervalDays;
-                settings.progressName = "Filling";
-                settings.saveKey = newGene.defName;
+                BigAndSmall.ProductionGeneSettings settings = new()
+                {
+                    product = milkableComp.milkDef,
+                    baseAmount = (int)Math.Ceiling(milkableComp.milkAmount / sapientAnimal.animal.race.baseBodySize),
+                    frequencyInDays = milkableComp.milkIntervalDays,
+                    progressName = "Filling",
+                    saveKey = newGene.defName
+                };
 
-                newGene.modExtensions = new List<DefModExtension>([settings, IconHelper.GetProceduralIconData([new Pair<ThingDef, float>(sapientAnimal.animal, 0.95f), new Pair<ThingDef, float>(milkableComp.milkDef, 0.4f)])]);
+                ProductionDependsOnGender productionDependsOnGender = new()
+                {
+                    activeIfGender = Gender.Female
+                };
+
+                newGene.modExtensions = new List<DefModExtension>([
+                    settings, productionDependsOnGender,
+                    IconHelper.GetProceduralIconData([new Pair<ThingDef, float>(sapientAnimal.animal, 0.95f), new Pair<ThingDef, float>(milkableComp.milkDef, 0.4f)])]);
                 newGene.ResolveReferences();
                 DefDatabase<GeneDef>.Add(newGene);
             }

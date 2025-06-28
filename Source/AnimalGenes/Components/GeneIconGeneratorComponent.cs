@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AnimalGenes.GeneModExtensions;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -32,7 +33,7 @@ namespace AnimalGenes
             Check.DebugLog("Generating gene icons...");
             foreach (var geneDef in DefDatabase<GeneDef>.AllDefsListForReading)
             {
-                if (geneDef.GetModExtension<GeneModExtension_ProceduralIconData>() != null)
+                if (geneDef.GetModExtension<ProceduralIconData>() != null)
                 {
                     IconHelper.GenerateAndCacheIcon(geneDef);
                 }

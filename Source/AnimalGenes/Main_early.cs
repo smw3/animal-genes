@@ -1,4 +1,5 @@
-﻿using BigAndSmall;
+﻿using AnimalGenes.GeneModExtensions;
+using BigAndSmall;
 using HarmonyLib;
 using RimWorld;
 using System;
@@ -88,7 +89,7 @@ namespace AnimalGenes
                     if (PrerequisiteValidator.Validate(gene.def, gene.pawn) is string pFailReason && pFailReason != "") {
                         Check.DebugLog($"Gene {gene.def.defName} failed prerequisite validation: {pFailReason}");
                     } else { 
-                        HumanlikeAnimal target = gene.def.GetModExtension<GeneModExtension_TargetAffinity>()?.targetAnimal;
+                        HumanlikeAnimal target = gene.def.GetModExtension<TargetAffinity>()?.targetAnimal;
                         Check.NotNull(target, "target cannot be null in GeneModExtension_TargetAffinity Gene_OverrideBy_Patch");
                         if (gene.pawn.def != target.humanlikeThing)
                         {

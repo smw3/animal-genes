@@ -1,4 +1,4 @@
-﻿using AnimalGenes.Genes;
+﻿using AnimalGenes.GeneModExtensions;
 using HarmonyLib;
 using RimWorld;
 using System;
@@ -22,19 +22,19 @@ namespace AnimalGenes.Behaviors
         {
             return pawn.genes != null &&
                 pawn.genes.DontMindRawFood &&
-                pawn.genes.GenesListForReading.Where(g => g.def.GetModExtension<GeneModExtension_EnableBehavior>()?.canGraze ?? false).Any();
+                pawn.genes.GenesListForReading.Where(g => g.def.GetModExtension<EnableBehavior>()?.canGraze ?? false).Any();
         }
         public static bool IsDendrovore(this Pawn pawn)
         {
             return pawn.genes != null &&
                 pawn.genes.DontMindRawFood &&
-                pawn.genes.GenesListForReading.Where(g => g.def.GetModExtension<GeneModExtension_EnableBehavior>()?.canEatTrees ?? false).Any();
+                pawn.genes.GenesListForReading.Where(g => g.def.GetModExtension<EnableBehavior>()?.canEatTrees ?? false).Any();
         }
         public static bool IsPredator(this Pawn pawn)
         {
             return pawn.genes != null &&
                 pawn.genes.DontMindRawFood &&
-                pawn.genes.GenesListForReading.Where(g => g.def.GetModExtension<GeneModExtension_EnableBehavior>()?.isPredator ?? false).Any();
+                pawn.genes.GenesListForReading.Where(g => g.def.GetModExtension<EnableBehavior>()?.isPredator ?? false).Any();
         }
     }
 

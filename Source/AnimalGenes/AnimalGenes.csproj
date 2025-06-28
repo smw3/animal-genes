@@ -63,12 +63,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>D:\SteamLibrary\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.ImageConversionModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Check.cs" />
     <Compile Include="ColorHelper.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="DefHelper.cs" />
+    <Compile Include="GeneDebugMenu.cs" />
     <Compile Include="GeneGenerator.cs" />
     <Compile Include="GeneGenerator_Armor.cs" />
     <Compile Include="GeneGenerator_BodySizes.cs" />

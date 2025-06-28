@@ -6,6 +6,7 @@ using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using Verse;
@@ -75,12 +76,12 @@ namespace AnimalGenes.Behaviors
     }
 
     [HarmonyPatch(typeof(SocialCardUtility), "ShouldShowPawnRelations")]
-    [HarmonyPriority(Priority.Last)]
+    [HarmonyPriority(Priority.First)]
     public static class SocialCardUtility_ShouldShowPawnRelations
     {
         public static void Postfix(ref bool __result, Pawn pawn, Pawn selPawnForSocialInfo)
         {
-            if (__result) return;
+            if (__result || !AnimalGenesModSettings.Settings.EnableCrossbreeding) return;
             __result = ((!pawn.Dead || pawn.Corpse != null) && pawn.Name != null && !pawn.relations.hidePawnRelations && !selPawnForSocialInfo.relations.hidePawnRelations && pawn.relations.everSeenByPlayer);
         }
     }

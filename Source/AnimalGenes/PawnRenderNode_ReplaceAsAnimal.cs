@@ -18,7 +18,7 @@ namespace AnimalGenes
         {
         }
 
-        private int getEquivalentLifeStageIndex(Pawn pawn)
+        private int GetEquivalentLifeStageIndex(Pawn pawn)
         {
             // If Adult, then just use oldest stage
             if (pawn.ageTracker.Adult)
@@ -51,7 +51,7 @@ namespace AnimalGenes
 
         public override Graphic GraphicFor(Pawn pawn)
         {
-            return this.animal.lifeStages[getEquivalentLifeStageIndex(pawn)].bodyGraphicData.Graphic;
+            return this.animal.lifeStages[GetEquivalentLifeStageIndex(pawn)].bodyGraphicData.Graphic;
         }
     }
 }

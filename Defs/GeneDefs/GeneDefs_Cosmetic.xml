@@ -21,6 +21,7 @@
           <li>East</li>
           <li>South</li>
           <li>West</li>
+		  <li>North</li>
         </visibleFacing>
         <narrowCrownHorizontalOffset>0.03</narrowCrownHorizontalOffset>
         <baseLayer>51</baseLayer>

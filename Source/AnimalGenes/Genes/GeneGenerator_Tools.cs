@@ -55,6 +55,8 @@ namespace AnimalGenes
                     if (t.label.NullOrEmpty()) continue;
 
                     var cleanedLabel = TextHelper.RemoveWordsFromLabel(t.label, stripLabels);
+                    cleanedLabel = cleanedLabel.Replace(" ", "_");
+
                     if (aliases.TryGetValue(cleanedLabel.ToLower(), out string alias))
                     {
                         cleanedLabel = alias;

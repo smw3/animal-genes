@@ -76,7 +76,7 @@ namespace AnimalGenes
                 sapientAnimal.humanlikeThing.SetStatBaseValue(BSDefs.SM_BodySizeOffset, 1.0f - sapientAnimal.humanlikeThing.race.baseBodySize);
 
                 SetBaseToDefault(sapientAnimal, StatDefOf.MoveSpeed);
-                SetBaseToDefault(sapientAnimal, StatDefOf.CarryingCapacity);
+                sapientAnimal.humanlikeThing.SetStatBaseValue(StatDefOf.CarryingCapacity, 75.0f);
                 SetBaseToDefault(sapientAnimal, StatDefOf.ToxicEnvironmentResistance);
                 SetBaseToDefault(sapientAnimal, StatDefOf.ToxicResistance);
                 SetBaseToDefault(sapientAnimal, StatDefOf.ComfyTemperatureMin);

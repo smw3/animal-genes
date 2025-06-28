@@ -14,9 +14,9 @@ namespace AnimalGenes
 {
     public static class GeneGenerator
     {
-        public static List<HumanlikeAnimal> SapientAnimals => HumanlikeAnimalGenerator.humanlikeAnimals.Values.ToList();
-        private static Dictionary<HumanlikeAnimal, List<GeneDef>> humanLikeGenes = new Dictionary<HumanlikeAnimal, List<GeneDef>>();
-        public static Dictionary<GeneDef, HumanlikeAnimal> affinityGenes = new Dictionary<GeneDef, HumanlikeAnimal>();
+        public static List<HumanlikeAnimal> SapientAnimals => [.. HumanlikeAnimalGenerator.humanlikeAnimals.Values];
+        public static Dictionary<HumanlikeAnimal, List<GeneDef>> humanLikeGenes = [];
+        public static Dictionary<GeneDef, HumanlikeAnimal> affinityGenes = [];
 
         public static void AddGeneToHumanLikeAnimal(HumanlikeAnimal animal, GeneDef geneDef)
         {
@@ -57,20 +57,22 @@ namespace AnimalGenes
 
             RemoveStatDefsThatHaveGenesNow();
         }
-        private static void RemoveStatDefsThatHaveGenesNow()
+
+        private static void setBaseToDefault(HumanlikeAnimal sapientAnimal, StatDef statDef)
         {
             ThingDef baseliner = DefDatabase<ThingDef>.GetNamed("Human");
+            sapientAnimal.humanlikeThing.SetStatBaseValue(statDef, baseliner.statBases.GetStatValueFromList(statDef, 0.0f));
+        }
 
-            void setBaseToDefault(HumanlikeAnimal sapientAnimal, StatDef statDef)
-            {
-                sapientAnimal.humanlikeThing.statBases.GetStatValueFromList(statDef, baseliner.statBases.GetStatValueFromList(statDef,0.0f));
-            }
-
+        private static void RemoveStatDefsThatHaveGenesNow()
+        {
             foreach (var sapientAnimal in SapientAnimals)
             {
                 // I thought I might have to remove natural armor here, but they don't get any in the first place..
 
-                sapientAnimal.humanlike.race.baseBodySize = 1.0f; // Reset body size to default, as it is now handled by genes
+                // set body size to default, as it is now handled by genes
+                sapientAnimal.humanlikeThing.SetStatBaseValue(BSDefs.SM_BodySizeOffset, 1.0f - sapientAnimal.humanlikeThing.race.baseBodySize);
+
                 setBaseToDefault(sapientAnimal, StatDefOf.MoveSpeed);
                 setBaseToDefault(sapientAnimal, StatDefOf.CarryingCapacity);
             }
@@ -125,6 +127,7 @@ namespace AnimalGenes
                             targetAnimal = sapientAnimal
                         }
                     ];
+                    newGene.biostatMet = -requiredGenes.Select(g => g.biostatMet).Sum();
 
                     newGene.modExtensions.Add(IconHelper.GetProceduralIconData([new Pair<ThingDef, float>(sapientAnimal.animal, 0.95f)]));
 

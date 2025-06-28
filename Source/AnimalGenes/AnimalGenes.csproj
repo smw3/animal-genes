@@ -87,6 +87,7 @@
     <Compile Include="GeneModExtension_TargetAffinity.cs" />
     <Compile Include="IconHelper.cs" />
     <Compile Include="Main_early.cs" />
+    <Compile Include="PawnRenderNodeWorker_FlipWhenCrawling_OnlyNonSapient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RaceMorpher.cs" />
     <Compile Include="TextHelper.cs" />

@@ -40,5 +40,21 @@ namespace AnimalGenes
                 }
             }
         }
+
+        public static void CopyRenderNodePropertiesDefFields(PawnRenderNodeProperties sThing, PawnRenderNodeProperties newThing)
+        {
+            foreach (var field in sThing.GetType().GetFields().Where(x => !x.IsLiteral && !x.IsStatic))
+            {
+                try
+                {
+                    field.SetValue(newThing, field.GetValue(sThing));
+                }
+                catch (Exception e)
+                {
+                    Log.Error($"Failed to copy field {field.Name} from HediffDef.");
+                    Log.Error(e.ToString());
+                }
+            }
+        }
     }
 }

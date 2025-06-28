@@ -24,6 +24,39 @@ namespace AnimalGenes
 
             var targetDef = humanlikeAnimal.humanlikeThing;
             BigAndSmall.RaceMorpher.SwapThingDef(humanPawn, targetDef, true, 9001, force: true, permitFusion: false, clearHediffsToReapply: false);
+
+            // Turn all affinity prerequisite genes into endogenes
+            string geneDefName = $"ANG_{humanlikeAnimal.animal.defName}_Affinity";
+            GeneDef affinityGeneDef = DefDatabase<GeneDef>.GetNamed(geneDefName);
+
+            if (humanPawn.genes.HasXenogene(affinityGeneDef) || humanPawn.genes.HasEndogene(affinityGeneDef))
+            {
+                Endogenify(affinityGeneDef.GetModExtension<BigAndSmall.GenePrerequisites>()?.prerequisiteSets
+                    .Where(ps => ps.type == BigAndSmall.PrerequisiteSet.PrerequisiteType.AllOf)
+                    .SelectMany(ps => ps.prerequisites).ToList(), humanPawn);
+                Endogenify([affinityGeneDef.defName], humanPawn);
+            }
+        }
+
+        public static void Endogenify(List<string> geneDefNames, Pawn pawn)
+        {
+            foreach (var geneDefName in geneDefNames)
+            {
+                List<Gene> genesListForReading = pawn.genes.GenesListForReading;
+                for (int i = 0; i < genesListForReading.Count; i++)
+                {
+                    if (genesListForReading[i].def.defName == geneDefName)
+                    {
+                        Gene gene = genesListForReading[i];
+                        GeneDef geneDef = gene.def;
+                        if (pawn.genes.IsXenogene(gene) && !pawn.genes.HasEndogene(geneDef))
+                        {
+                            pawn.genes.RemoveGene(gene);
+                            pawn.genes.AddGene(geneDef, false);
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -14,7 +14,7 @@ namespace AnimalGenes
             Dictionary<float, GeneDef> bodySizeGenes = [];
             foreach (var sapientAnimal in sapientAnimals)
             {
-                float roundedBodySize = Mathf.Round(sapientAnimal.animal.race.baseBodySize * 5) / 5; // Round bodysize to nearest 0.2
+                float roundedBodySize = Mathf.Round(sapientAnimal.animal.race.baseBodySize * 5.0f) / 5.0f; // Round bodysize to nearest 0.2
                 roundedBodySize = Mathf.Clamp(roundedBodySize, 0.2f, 5.0f); // Ensure it is within a reasonable range
 
                 if (roundedBodySize == 1.0f) continue; // Skip size 1.0 as it is the default and doesn't need a gene
@@ -35,7 +35,7 @@ namespace AnimalGenes
                             new StatModifier
                             {
                                 stat = BSDefs.SM_BodySizeMultiplier,
-                                value = roundedBodySize > 1.0f ? Mathf.Sqrt(roundedBodySize) : roundedBodySize
+                                value = roundedBodySize
                             },new StatModifier
                             {
                                 stat = StatDefOf.CarryingCapacity,

@@ -40,6 +40,23 @@ namespace AnimalGenes.Debugging
 
             List<FloatMenuOption> list =
             [
+                new FloatMenuOption("Add only prereqs...", delegate
+                {
+                    List<DebugMenuOption> list = [];
+                    foreach (var def in DefDatabase<GeneDef>.AllDefs.Where(x => x.defName.StartsWith("ANG_") && x.defName.EndsWith("Affinity")))
+                    {
+                        list.Add(new DebugMenuOption($"{def.defName,-0}\t ({def.LabelCap})", DebugMenuOptionMode.Action, delegate
+                        {
+                            List<string> preReqDefNames = def.GetModExtension<GenePrerequisites>().prerequisiteSets.Where(ps => ps.type == PrerequisiteSet.PrerequisiteType.AllOf).First().prerequisites;
+                            foreach (var preReqDefName in preReqDefNames)
+                            {
+                                GeneDef preReqGene = DefDatabase<GeneDef>.GetNamed(preReqDefName, true);
+                                pawn.genes.AddGene(preReqGene, true);
+                            }
+                        }));
+                    }
+                    Find.WindowStack.Add(new Dialog_DebugOptionListLister(list));
+                }),
                 new FloatMenuOption("Add affinity and prereqs...", delegate
                 {
                     List<DebugMenuOption> list = [];

@@ -49,12 +49,12 @@ namespace AnimalGenes
     {
         public static void Postfix(Gene __instance, Gene overriddenBy)
         {
-            Check.DebugLog($"Gene_OverrideBy_Patch: Gene {__instance.def.defName} is being overridden by {overriddenBy?.def.defName ?? "null"}");
             Gene gene = __instance;
             if (gene != null && gene.pawn != null && gene.pawn.Spawned)
             {
                 if (GeneGenerator.affinityGenes.ContainsKey(gene.def))
                 {
+                    Check.DebugLog($"Gene_OverrideBy_Patch: Gene {__instance.def.defName} is being overridden by {overriddenBy?.def.defName ?? "null"}");
                     if (PrerequisiteValidator.Validate(gene.def, gene.pawn) is string pFailReason && pFailReason != "") {
                         Check.DebugLog($"Gene {gene.def.defName} failed prerequisite validation: {pFailReason}");
                     } else { 

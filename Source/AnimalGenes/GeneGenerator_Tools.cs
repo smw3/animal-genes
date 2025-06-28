@@ -11,7 +11,8 @@ namespace AnimalGenes
     public class GeneGenerator_Tools
     {
 
-        private static readonly Dictionary<string, string> toolDefaultLocations = new Dictionary<string, string> {
+        private static readonly Dictionary<string, string> toolDefaultLocations = new()
+        {
             { "claw", "Hand" },
             { "hoof", "Leg" },
             { "paw", "Hand" },
@@ -24,7 +25,8 @@ namespace AnimalGenes
             { "fang", "Jaw" }
         };
 
-        private static readonly Dictionary<string, string> aliases = new Dictionary<string, string> {
+        private static readonly Dictionary<string, string> aliases = new()
+        {
             { "claws", "claw" },
             { "fangs", "fang" },
             { "horns", "horn" },
@@ -33,11 +35,17 @@ namespace AnimalGenes
             { "wings", "wing" }
         };
 
+        public delegate void AddCosmetic(string label, HumanlikeAnimal animal, GeneDef toolGene);
+        private static readonly Dictionary<string, AddCosmetic> cosmeticAdditions = new()
+        {
+            { "horn", (string label, HumanlikeAnimal animal, GeneDef toolGene) => AddRenderNodePropertiesFromOtherGene(label, animal, toolGene, DefDatabase<GeneDef>.GetNamed("Headbone_CenterHorn", false)) }
+        };
+
         public static void GenerateGenes(List<HumanlikeAnimal> sapientAnimals)
         {
             List<String> toolLabelBlackList = ["head", "fist", "teeth", "foot"];
             List<String> stripLabels = ["left", "right", "front", "back", "hind"];
-            HashSet<String> createdTools = [];
+            Dictionary<String, GeneDef> createdTools = [];
 
             foreach (var sapientAnimal in sapientAnimals)
             {
@@ -55,9 +63,10 @@ namespace AnimalGenes
                         cleanedLabel = alias;
                     }
 
-                    if (createdTools.Contains(cleanedLabel))
+                    if (createdTools.TryGetValue(cleanedLabel, out var toolGene))
                     {
-                        //Log.Message($"Skipping tool {t.label} for {sapientAnimal.animal.defName} as it has already been created.");
+                        Check.DebugLog($"Assigning already created tool {cleanedLabel} for {sapientAnimal.animal.defName}.");
+                        GeneGenerator.AddGeneToHumanLikeAnimal(sapientAnimal, toolGene);
                         continue;
                     }
 
@@ -67,8 +76,13 @@ namespace AnimalGenes
                         continue;
                     }
 
-                    string geneDefName = $"ANG_{sapientAnimal.animal.defName}_{cleanedLabel}";
-                    GeneDef newGene = geneDefName.TryGetExistingDef<GeneDef>();
+                    // See if there is a specific, pre-made gene
+                    string specificGeneDefName = $"ANG_Animal_Tool_{sapientAnimal.animal.label}_{cleanedLabel}";
+                    GeneDef newGene = specificGeneDefName.TryGetExistingDef<GeneDef>();
+
+                    // See if there is a generic gene for this tool
+                    string geneDefName = $"ANG_Animal_Tool_{cleanedLabel}";
+                    newGene ??= geneDefName.TryGetExistingDef<GeneDef>();
 
                     if (newGene == null)
                     {
@@ -77,7 +91,7 @@ namespace AnimalGenes
                         DefHelper.CopyGeneDefFields(templateGene, newGene);
 
                         newGene.defName = geneDefName;
-                        newGene.label = $"{sapientAnimal.animal.label} {cleanedLabel}";
+                        newGene.label = $"Natural Weapon ({cleanedLabel})";
                         newGene.generated = true;
 
                         HediffDef toolHediff = CreateHediffDefForTool(t, cleanedLabel);
@@ -118,12 +132,17 @@ namespace AnimalGenes
 
                         newGene.modExtensions.Add(IconHelper.GetProceduralIconData([new Pair<ThingDef, float>(sapientAnimal.animal, 0.95f)]));
 
+                        if (cosmeticAdditions.ContainsKey(cleanedLabel))
+                        {
+                            cosmeticAdditions[cleanedLabel].Invoke(cleanedLabel, sapientAnimal, newGene);
+                        }
+
                         newGene.ResolveReferences();
                         DefDatabase<GeneDef>.Add(newGene);
                     }
 
                     GeneGenerator.AddGeneToHumanLikeAnimal(sapientAnimal, newGene);
-                    createdTools.Add(cleanedLabel);
+                    createdTools.Add(cleanedLabel, newGene);
                     Check.DebugLog($"Generated new tool gene {newGene.defName} for {sapientAnimal.animal.defName} with tool {cleanedLabel}");
                 }
             }
@@ -177,6 +196,25 @@ namespace AnimalGenes
             }
 
             return newHediff;
+        }
+
+        static void AddRenderNodePropertiesFromOtherGene(string label, HumanlikeAnimal animal, GeneDef toolGene, GeneDef graphicGene)
+        {
+            if (graphicGene == null)
+            {
+                // This is fine, we can reference genes from other mods that may not be loaded
+                return;
+            }
+            toolGene.renderNodeProperties ??= [];
+            foreach (var renderNodeProperty in graphicGene.renderNodeProperties)
+            {
+                var newRenderNodeProperty = typeof(PawnRenderNodeProperties).GetConstructor([]).Invoke([]) as PawnRenderNodeProperties;
+                DefHelper.CopyRenderNodePropertiesDefFields(renderNodeProperty, newRenderNodeProperty);
+
+                newRenderNodeProperty.workerClass = typeof(PawnRenderNodeWorker_FlipWhenCrawling_OnlyNonSapient);
+
+                toolGene.renderNodeProperties.Add(newRenderNodeProperty);
+            }
         }
     }
 }

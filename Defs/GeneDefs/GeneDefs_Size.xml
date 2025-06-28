@@ -8,13 +8,12 @@
 		<description>Carriers of this gene are noticably smaller (or larger).</description>
 		<iconPath>UI/Icons/Genes/Skills/Animals/Strong</iconPath>
 		<displayOrderInCategory>775</displayOrderInCategory>
-		<biostatCpx>0</biostatCpx>
-		<biostatMet>0</biostatMet>
+		<biostatCpx>2</biostatCpx>
+		<biostatMet>-2</biostatMet>
 		<displayCategory>ANG_Size</displayCategory>
 		<selectionWeight>0.5</selectionWeight>
 		<statFactors>
 			<CarryingCapacity>1</CarryingCapacity>
-			<VEF_MassCarryCapacity MayRequire="OskarPotocki.VanillaFactionsExpanded.Core">1</VEF_MassCarryCapacity>
 		</statFactors>
 	</GeneDef>
 </Defs>

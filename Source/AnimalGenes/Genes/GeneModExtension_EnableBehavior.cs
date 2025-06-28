@@ -11,5 +11,6 @@ namespace AnimalGenes.Genes
     {
         public bool canGraze = false;
         public bool canEatTrees = false;
+        public bool isPredator = false;
     }
 }

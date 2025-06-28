@@ -59,6 +59,11 @@ namespace AnimalGenes
                 {
                     GeneGenerator.AddGeneToHumanLikeAnimal(sapientAnimal, ANGDefs.DendrovoreGene);
                 }
+
+                if (sapientAnimal.animal.race.predator)
+                {
+                    GeneGenerator.AddGeneToHumanLikeAnimal(sapientAnimal, ANGDefs.PredatorGene);
+                }
             }                    
         }
     }

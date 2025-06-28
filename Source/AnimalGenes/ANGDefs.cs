@@ -11,5 +11,6 @@ namespace AnimalGenes
     {
         public static GeneDef GrazingGene = DefDatabase<GeneDef>.GetNamed("ANG_Grazing_Behavior");
         public static GeneDef DendrovoreGene = DefDatabase<GeneDef>.GetNamed("ANG_Dendrovore_Behavior");
+        public static GeneDef PredatorGene = DefDatabase<GeneDef>.GetNamed("ANG_Predator_Behavior");
     }
 }

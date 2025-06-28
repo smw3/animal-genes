@@ -124,7 +124,7 @@ namespace AnimalGenes
 
                     GeneGenerator.AddGeneToHumanLikeAnimal(sapientAnimal, newGene);
                     createdTools.Add(cleanedLabel);
-                    Log.Message($"Generated new tool gene {newGene.defName} for {sapientAnimal.animal.defName} with tool {cleanedLabel}");
+                    Check.DebugLog($"Generated new tool gene {newGene.defName} for {sapientAnimal.animal.defName} with tool {cleanedLabel}");
                 }
             }
         }

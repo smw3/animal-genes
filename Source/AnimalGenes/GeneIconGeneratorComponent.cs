@@ -29,7 +29,7 @@ namespace AnimalGenes
 
         private void GenerateIcons()
         {
-            Log.Message("[AnimalGenes] Generating gene icons...");
+            Check.DebugLog("Generating gene icons...");
             foreach (var geneDef in DefDatabase<GeneDef>.AllDefsListForReading)
             {
                 if (geneDef.GetModExtension<GeneModExtension_ProceduralIconData>() != null)

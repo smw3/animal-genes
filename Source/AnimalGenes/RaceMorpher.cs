@@ -129,7 +129,7 @@ namespace AnimalGenes
             {
                 if (newPawn.genes.Xenotype != XenotypeDefOf.Baseliner)
                 {
-                    Log.Message($"[Big and Small] {newPawn} had a xenotype {newPawn.genes.Xenotype.defName} but was supossed to generate as a baseliner." +
+                    Check.DebugLog($"{newPawn} had a xenotype {newPawn.genes.Xenotype.defName} but was supossed to generate as a baseliner." +
                         $"Removing xenotype and genes.");
                     // Somehow they can still end up having a xenotype.
                     for (int idx = newPawn.genes.GenesListForReading.Count - 1; idx >= 0; idx--)
@@ -176,7 +176,7 @@ namespace AnimalGenes
                 }
                 catch (Exception e)
                 {
-                    Log.Error($"[Big and Small] Error trying to equip {newPawn} with a weapon from {aniPawn.kindDef}: {e.Message}");
+                    Log.Error($"Error trying to equip {newPawn} with a weapon from {aniPawn.kindDef}: {e.Message}");
                 }
             }
 

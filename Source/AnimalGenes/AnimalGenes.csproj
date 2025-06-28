@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="Check.cs" />
     <Compile Include="ColorHelper.cs" />
+    <Compile Include="Config.cs" />
     <Compile Include="DefHelper.cs" />
     <Compile Include="GeneGenerator.cs" />
     <Compile Include="GeneGenerator_Armor.cs" />

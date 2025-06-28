@@ -25,7 +25,7 @@ namespace AnimalGenes
             {
                 return;
             }
-            Log.Message($"[AnimalGenes] Generating icon for gene {geneDef.defName} with {iconThingDefs.Count} thing defs.");
+            Check.DebugLog($"Generating icon for gene {geneDef.defName} with {iconThingDefs.Count} thing defs.");
             Texture2D icon = GenerateGeneIcon(iconThingDefs);
 
             var prop = geneDef.GetType().GetField("cachedIcon", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);

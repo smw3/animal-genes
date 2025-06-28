@@ -35,7 +35,7 @@ namespace AnimalGenes
                         newGene.label = $"{bodyType.label.CapitalizeFirst()} body type";
                         newGene.description += $"{bodyType.label.CapitalizeFirst()}";
                         newGene.generated = true;
-                        Log.Message($"Generating body type gene {newGene.defName} for {bodyType.label}.");
+                        Check.DebugLog($"Generating body type gene {newGene.defName} for {bodyType.label}.");
 
                         newGene.modExtensions = [IconHelper.GetProceduralIconData([new Pair<ThingDef, float>(sapientAnimal.animal, 0.95f)])];
 

@@ -34,5 +34,13 @@ namespace AnimalGenes
                 throw new InvalidOperationException(message);
             }
         }
+
+        public static void DebugLog(string message)
+        {
+            if (Config.EnableDebugLogging)
+            {
+                Log.Message($"[AnimalGenes DEBUG] {message}");
+            }
+        }
     }
 }

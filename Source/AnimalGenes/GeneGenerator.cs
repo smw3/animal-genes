@@ -60,7 +60,7 @@ namespace AnimalGenes
                 }
                 if (requiredGenes.Count == 1)
                 {
-                    Log.Message($"Sapient animal {sapientAnimal.animal.defName} has only one gene, that's quite few.");
+                    Check.DebugLog($"Sapient animal {sapientAnimal.animal.defName} has only one gene, that's quite few.");
                 }
 
                 string geneDefName = $"AG_{sapientAnimal.animal.defName}_Affinity";
@@ -79,7 +79,7 @@ namespace AnimalGenes
                     newGene.label = $"{sapientAnimal.animal.label.CapitalizeFirst()} Affinity";
                     newGene.generated = true;
 
-                    Log.Message($"Generating affinity gene {newGene.defName} for {sapientAnimal.animal.defName} with {requiredGenes.Count} required genes.");
+                    Check.DebugLog($"Generating affinity gene {newGene.defName} for {sapientAnimal.animal.defName} with {requiredGenes.Count} required genes.");
                     newGene.modExtensions =
                     [
                         new BigAndSmall.GenePrerequisites

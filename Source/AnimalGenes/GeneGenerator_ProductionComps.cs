@@ -46,7 +46,7 @@ namespace AnimalGenes
                         default:
                             if (comp.GetType() != typeof(CompProperties))
                             {
-                                Log.Message($"Unhandled comp type {comp.GetType()} on {sapientAnimal.animal.defName}");
+                                Check.DebugLog($"Unhandled comp type {comp.GetType()} on {sapientAnimal.animal.defName}");
                             }
                             break;
                     }
@@ -80,6 +80,7 @@ namespace AnimalGenes
 
                 newGene.ResolveReferences();
                 DefDatabase<GeneDef>.Add(newGene);
+                Check.DebugLog($"Generated shearable gene {newGene.defName} for {sapientAnimal.animal.defName} with wool {shearableComp.woolDef.label}");
             }
             GeneGenerator.AddGeneToHumanLikeAnimal(sapientAnimal, newGene);
 
@@ -89,12 +90,15 @@ namespace AnimalGenes
             {
                 GeneDef skinColorGene = ColorHelper.GeneDefForSkinColor(wool.stuffProps.color);
                 GeneGenerator.AddGeneToHumanLikeAnimal(sapientAnimal, skinColorGene);
+                Check.DebugLog($"Added skin color gene {skinColorGene.defName} for wool color {wool.stuffProps.color} to {sapientAnimal.animal.defName}");
 
                 // If the wool is a textile, add furry gene as well
-                if (wool.thingCategories.Contains(ThingCategoryDefOf.Textiles))
-                {
-                    GeneDef furryGene = DefDatabase<GeneDef>.GetNamedSilentFail("Furskin");
+                Check.DebugLog($"Wool has categories: {string.Join(", ", wool.thingCategories.Select(c => c.defName))}");
+                if (wool.thingCategories.Contains(ThingCategoryDefOf.Textiles) || wool.thingCategories.Contains(ThingCategoryDefOf.Wools))
+                {                    
+                    GeneDef furryGene = DefDatabase<GeneDef>.GetNamed("Furskin");
                     GeneGenerator.AddGeneToHumanLikeAnimal(sapientAnimal, furryGene);
+                    Check.DebugLog($"Added furry gene {furryGene.defName} for wool {wool.defName} to {sapientAnimal.animal.defName}");
                 }
             }
         }

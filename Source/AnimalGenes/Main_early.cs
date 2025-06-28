@@ -49,20 +49,20 @@ namespace AnimalGenes
     {
         public static void Postfix(Gene __instance, Gene overriddenBy)
         {
-            Log.Message($"Gene_OverrideBy_Patch: Gene {__instance.def.defName} is being overridden by {overriddenBy?.def.defName ?? "null"}");
+            Check.DebugLog($"Gene_OverrideBy_Patch: Gene {__instance.def.defName} is being overridden by {overriddenBy?.def.defName ?? "null"}");
             Gene gene = __instance;
             if (gene != null && gene.pawn != null && gene.pawn.Spawned)
             {
                 if (GeneGenerator.affinityGenes.ContainsKey(gene.def))
                 {
                     if (PrerequisiteValidator.Validate(gene.def, gene.pawn) is string pFailReason && pFailReason != "") {
-                        Log.Message($"Gene {gene.def.defName} failed prerequisite validation: {pFailReason}");
+                        Check.DebugLog($"Gene {gene.def.defName} failed prerequisite validation: {pFailReason}");
                     } else { 
                         HumanlikeAnimal target = gene.def.GetModExtension<GeneModExtension_TargetAffinity>()?.targetAnimal;
                         Check.NotNull(target, "target cannot be null in GeneModExtension_TargetAffinity Gene_OverrideBy_Patch");
                         if (gene.pawn.def != target.animal)
                         {
-                            Log.Message($"Gene {gene.def.defName} has ACTIVE affinity for target: {target?.animal.defName ?? "null"} and is not target def yet.");
+                            Check.DebugLog($"Gene {gene.def.defName} has ACTIVE affinity for target: {target?.animal.defName ?? "null"} and is not target def yet.");
                             RaceMorpher.SwapPawnToSapientAnimal(gene.pawn, target);
                         }
                     }

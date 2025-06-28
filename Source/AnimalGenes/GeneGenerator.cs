@@ -28,6 +28,15 @@ namespace AnimalGenes
             geneList.Add(geneDef);
         }
 
+        public static List<GeneDef> GetGenesForHumanLikeAnimal(HumanlikeAnimal animal)
+        {
+            if (humanLikeGenes.TryGetValue(animal, out var genes))
+            {
+                return genes;
+            }
+            return [];
+        }
+
         public static void GenerateGenes()
         {
             GeneGenerator_ProductionComps.GenerateGenes(SapientAnimals);
@@ -40,6 +49,7 @@ namespace AnimalGenes
             Genegenerator_SkinColor.AssignGenes(SapientAnimals);
             GeneGenerator_Diet.AssignGenes(SapientAnimals);
             GeneGenerator_Speed.AssignGenes(SapientAnimals);
+            GeneGenerator_Temperature.AssignGenes(SapientAnimals);
 
             // Must be done last, after all other genes have been generated
             GenerateAffinityGenes();
@@ -49,14 +59,19 @@ namespace AnimalGenes
         private static void RemoveStatDefsThatHaveGenesNow()
         {
             ThingDef baseliner = DefDatabase<ThingDef>.GetNamed("Human");
-            float baseSpeed = baseliner.statBases.GetStatValueFromList(StatDefOf.MoveSpeed, 0.0f);
+
+            void setBaseToDefault(HumanlikeAnimal sapientAnimal, StatDef statDef)
+            {
+                sapientAnimal.humanlikeThing.statBases.GetStatValueFromList(statDef, baseliner.statBases.GetStatValueFromList(statDef,0.0f));
+            }
 
             foreach (var sapientAnimal in SapientAnimals)
             {
                 // I thought I might have to remove natural armor here, but they don't get any in the first place..
 
-                sapientAnimal.humanlikeThing.statBases.GetStatValueFromList(StatDefOf.MoveSpeed, baseSpeed);
                 sapientAnimal.humanlike.race.baseBodySize = 1.0f; // Reset body size to default, as it is now handled by genes
+                setBaseToDefault(sapientAnimal, StatDefOf.MoveSpeed);
+                setBaseToDefault(sapientAnimal, StatDefOf.CarryingCapacity);
             }
         }
 

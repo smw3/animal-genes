@@ -79,6 +79,7 @@
     <Compile Include="GeneGenerator_ProductionComps.cs" />
     <Compile Include="Genegenerator_SkinColor.cs" />
     <Compile Include="GeneGenerator_Speed.cs" />
+    <Compile Include="GeneGenerator_Temperature.cs" />
     <Compile Include="GeneGenerator_Tools.cs" />
     <Compile Include="GeneIconGeneratorComponent.cs" />
     <Compile Include="GeneModExtension_ProceduralIcon.cs" />

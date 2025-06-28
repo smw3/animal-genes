@@ -14,14 +14,16 @@ namespace AnimalGenes
     {
         public static void SwapPawnToSapientAnimal(this Pawn humanPawn, HumanlikeAnimal humanlikeAnimal)
         {
-            var targetDef = humanlikeAnimal.humanlikeThing;
-            BigAndSmall.RaceMorpher.SwapThingDef(humanPawn, targetDef, true, 9001, force: true, permitFusion: false, clearHediffsToReapply: false);
-
             // Empty inventory
             if (humanPawn.inventory != null && humanPawn.inventory?.innerContainer != null)
             {
                 humanPawn.inventory.DropAllNearPawn(humanPawn.Position);
             }
+            humanPawn.equipment?.DropAllEquipment(humanPawn.Position);
+
+
+            var targetDef = humanlikeAnimal.humanlikeThing;
+            BigAndSmall.RaceMorpher.SwapThingDef(humanPawn, targetDef, true, 9001, force: true, permitFusion: false, clearHediffsToReapply: false);
         }
     }
 }

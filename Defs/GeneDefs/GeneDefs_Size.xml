@@ -12,9 +12,6 @@
 		<biostatMet>0</biostatMet>
 		<displayCategory>AG_Size</displayCategory>
 		<selectionWeight>0.5</selectionWeight>
-		<statOffsets>
-			<SM_BodySizeOffset>1</SM_BodySizeOffset>
-		</statOffsets>
 		<statFactors>
 			<CarryingCapacity>1</CarryingCapacity>
 			<VEF_MassCarryCapacity MayRequire="OskarPotocki.VanillaFactionsExpanded.Core">1</VEF_MassCarryCapacity>

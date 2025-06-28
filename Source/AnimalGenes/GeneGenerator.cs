@@ -34,6 +34,9 @@ namespace AnimalGenes
             GeneGenerator_Armor.GenerateGenes(SapientAnimals);
             GeneGenerator_Tools.GenerateGenes(SapientAnimals);
             GeneGenerator_BodyTypes.GenerateGenes(SapientAnimals);
+            GeneGenerator_BodySizes.GenerateGenes(SapientAnimals);
+
+            Genegenerator_SkinColor.AssignGenes(SapientAnimals);
 
             // Must be done last, after all other genes have been generated
             GenerateAffinityGenes();

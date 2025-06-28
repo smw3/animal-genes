@@ -20,9 +20,15 @@
 		<displayPriorityInXenotype>713</displayPriorityInXenotype>
 	</GeneCategoryDef>
 	<GeneCategoryDef>
+		<defName>AG_Size</defName>
+		<label>animal sizes</label>
+		<displayPriorityInXenotype>714</displayPriorityInXenotype>
+	</GeneCategoryDef>
+	
+	<GeneCategoryDef>
 		<defName>AG_Affinity</defName>
 		<label>animal affinities</label>
-		<displayPriorityInXenotype>714</displayPriorityInXenotype>
+		<displayPriorityInXenotype>715</displayPriorityInXenotype>
 	</GeneCategoryDef>
 	
 </Defs>

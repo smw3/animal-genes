@@ -88,9 +88,9 @@ namespace AnimalGenes
             ThingDef wool = newGene.GetModExtension<BigAndSmall.ProductionGeneSettings>()?.product;
             if (wool != null)
             {
-                GeneDef skinColorGene = ColorHelper.GeneDefForSkinColor(wool.stuffProps.color);
-                GeneGenerator.AddGeneToHumanLikeAnimal(sapientAnimal, skinColorGene);
-                Check.DebugLog($"Added skin color gene {skinColorGene.defName} for wool color {wool.stuffProps.color} to {sapientAnimal.animal.defName}");
+                GeneDef hairColorGene = ColorHelper.GeneDefForHairColor(wool.stuffProps.color);
+                GeneGenerator.AddGeneToHumanLikeAnimal(sapientAnimal, hairColorGene);
+                Check.DebugLog($"Added skin color gene {hairColorGene.defName} for wool color {wool.stuffProps.color} to {sapientAnimal.animal.defName}");
 
                 // If the wool is a textile, add furry gene as well
                 Check.DebugLog($"Wool has categories: {string.Join(", ", wool.thingCategories.Select(c => c.defName))}");

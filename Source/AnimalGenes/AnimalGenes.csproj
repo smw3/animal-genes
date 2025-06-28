@@ -66,11 +66,13 @@
     <Reference Include="UnityEngine.TextRenderingModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behaviors\GrazingBehavior.cs" />
     <Compile Include="DebugHelpers\Check.cs" />
     <Compile Include="Defs\AnimalGeneSettings.cs" />
     <Compile Include="Graphics\PawnRenderNodeWorker_Fur_OnlyNonSapient.cs" />
     <Compile Include="Helpers\ColorHelper.cs" />
     <Compile Include="Config.cs" />
+    <Compile Include="Helpers\DefCache.cs" />
     <Compile Include="Helpers\DefHelper.cs" />
     <Compile Include="DebugHelpers\GeneDebugMenu.cs" />
     <Compile Include="Genes\GeneGenerator.cs" />
@@ -90,6 +92,7 @@
     <Compile Include="Helpers\IconHelper.cs" />
     <Compile Include="Main_early.cs" />
     <Compile Include="Graphics\PawnRenderNodeWorker_FlipWhenCrawling_OnlyNonSapient.cs" />
+    <Compile Include="ModSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\RaceMorpher.cs" />
     <Compile Include="Helpers\TextHelper.cs" />

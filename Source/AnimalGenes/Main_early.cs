@@ -15,10 +15,28 @@ namespace AnimalGenes
 {
     class Main_early : Mod
     {
+        AnimalGenesModSettings settings;
         public Main_early(ModContentPack content) : base(content)
         {
+            this.settings = GetSettings<AnimalGenesModSettings>();
+
             var harmony = new Harmony("ingendum.animalgenes");
             harmony.PatchAll();
+        }
+        public override void DoSettingsWindowContents(Rect inRect)
+        {
+            Listing_Standard listingStandard = new();
+            listingStandard.Begin(inRect);
+            listingStandard.Label("Experimental Features");
+            listingStandard.CheckboxLabeled("Enable grazing behavior", ref settings.AllowGrazingBehavior, "Allow genes that change Pawns food-seeking behavior. This may have minor performance impacts.");
+            listingStandard.CheckboxLabeled("Enable dendrovore behavior", ref settings.AllowDendrovoreBehavior, "Allow genes that change Pawns food-seeking behavior. This may have minor performance impacts.");
+            listingStandard.End();
+
+            base.DoSettingsWindowContents(inRect);
+        }
+        public override string SettingsCategory()
+        {
+            return "AnimalGenes";
         }
     }
 

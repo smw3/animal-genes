@@ -24,11 +24,15 @@
 		<label>animal sizes</label>
 		<displayPriorityInXenotype>714</displayPriorityInXenotype>
 	</GeneCategoryDef>
-	
+	<GeneCategoryDef>
+		<defName>ANG_Behavior</defName>
+		<label>animal behaviors</label>
+		<displayPriorityInXenotype>715</displayPriorityInXenotype>
+	</GeneCategoryDef>	
 	<GeneCategoryDef>
 		<defName>ANG_Affinity</defName>
 		<label>animal affinities</label>
-		<displayPriorityInXenotype>715</displayPriorityInXenotype>
+		<displayPriorityInXenotype>716</displayPriorityInXenotype>
 	</GeneCategoryDef>
 	
 </Defs>

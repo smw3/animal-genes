@@ -40,6 +40,9 @@ namespace AnimalGenes
                     .SelectMany(ps => ps.prerequisites).ToList(), humanPawn);
                 Endogenify([affinityGeneDef.defName], humanPawn);
             }
+
+            // Remove any other affinity genes that might be present
+            RemoveAffinityGenes(humanPawn, affinityGeneDef.defName);
         }
 
         public static void AddAppropriateAffinityGenes(Pawn pawn)
@@ -75,6 +78,19 @@ namespace AnimalGenes
             }
         }
 
+        public static void RemoveAffinityGenes(Pawn pawn, string ExceptDefName)
+        {
+            List<Gene> affinityGenes = [.. pawn.genes.GenesListForReading
+                .Where(g => GeneGenerator.affinityGenes.ContainsKey(g.def) && g.def.defName != ExceptDefName)
+                ];
+            Check.DebugLog($"Removing extra affinity genes for pawn {pawn.Name}: {string.Join(", ", affinityGenes.Select(g => g.def.defName))}");
+            foreach (var gene in affinityGenes)
+            {
+                Check.DebugLog($"Removing gene {gene.def.defName} for pawn {pawn.Name}");
+                pawn.genes.RemoveGene(gene);
+            }
+        }
+
         public static void Endogenify(List<string> geneDefNames, Pawn pawn)
         {
             List<Gene> genesToEndogenify = [.. pawn.genes.Xenogenes.Where(g => geneDefNames.Contains(g.def.defName))];
@@ -93,6 +109,11 @@ namespace AnimalGenes
                     Check.DebugLog($"Gene {geneDef.defName} is already an endogene for pawn {pawn.Name}, skipping.");
                 }
             }
+        }
+
+        public static bool IsSapientAnimal(this Pawn pawn)
+        {            
+            return HumanlikeAnimalGenerator.humanlikeAnimals.Values.Select(h => h.humanlikeThing).Contains(pawn.def);
         }
     }
 }

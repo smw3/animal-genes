@@ -50,6 +50,11 @@ namespace AnimalGenes
                         GeneGenerator.AddGeneToHumanLikeAnimal(sapientAnimal, herbivoreGene);
                     }
                 }
+
+                if (foodType.HasFlag(FoodTypeFlags.VegetarianRoughAnimal)) {
+                    GeneDef grazer = DefDatabase<GeneDef>.GetNamed("ANG_Grazing_Behavior");
+                    GeneGenerator.AddGeneToHumanLikeAnimal(sapientAnimal, grazer);
+                }
             }                    
         }
     }

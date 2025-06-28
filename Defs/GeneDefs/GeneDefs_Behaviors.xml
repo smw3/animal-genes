@@ -1,13 +1,18 @@
 <Defs>
-	<GeneDef>
-		<defName>ANG_Grazing_Behavior</defName>
-		<label>grazing behavior</label>
-		<description>Carriers of this gene will not mind eating grass and other plants if times are tough.\nNOTE: Behavior needs to be enabled in mod settings.</description>
-		<iconPath>UI/Icons/Genes/Skills/Plants/Strong</iconPath>
-		<displayOrderInCategory>775</displayOrderInCategory>
-		<biostatCpx>0</biostatCpx>
-		<biostatMet>0</biostatMet>
-		<displayCategory>ANG_Behavior</displayCategory>
-		<selectionWeight>0.5</selectionWeight>
-	</GeneDef>
+    <GeneDef>
+        <defName>ANG_Grazing_Behavior</defName>
+        <label>can graze</label>
+        <description>Carriers of this gene will not mind eating grass and other plants if times are tough.\nNOTE: Behavior needs to be enabled in mod settings.</description>
+        <iconPath>UI/Icons/Genes/Skills/Plants/Strong</iconPath>
+        <displayOrderInCategory>775</displayOrderInCategory>
+        <biostatCpx>0</biostatCpx>
+        <biostatMet>0</biostatMet>
+        <displayCategory>ANG_Behavior</displayCategory>
+        <selectionWeight>0.5</selectionWeight>
+        <modExtensions>
+            <li Class="AnimalGenes.Genes.GeneModExtension_EnableBehavior">
+                <canGraze>true</canGraze>
+            </li>
+        </modExtensions>
+    </GeneDef>
 </Defs>

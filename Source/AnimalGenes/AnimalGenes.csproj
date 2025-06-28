@@ -66,9 +66,11 @@
     <Reference Include="UnityEngine.TextRenderingModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ANGDefs.cs" />
     <Compile Include="Behaviors\GrazingBehavior.cs" />
     <Compile Include="DebugHelpers\Check.cs" />
     <Compile Include="Defs\AnimalGeneSettings.cs" />
+    <Compile Include="Genes\GeneModExtension_EnableBehavior.cs" />
     <Compile Include="Graphics\PawnRenderNodeWorker_Fur_OnlyNonSapient.cs" />
     <Compile Include="Helpers\ColorHelper.cs" />
     <Compile Include="Config.cs" />

@@ -30,6 +30,7 @@ namespace AnimalGenes
                         string sizeLabel = roundedBodySize < 1.0f ? "smaller" : "larger";
                         newGene = GeneDefFromTemplate.GenerateGeneDef(template, null, [sizeLabel]);
                         newGene.defName = geneDefName;
+                        newGene.label = $"x{roundedBodySize} bodysize";
 
                         newGene.statFactors = [
                             new StatModifier

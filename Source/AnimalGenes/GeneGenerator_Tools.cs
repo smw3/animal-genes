@@ -52,29 +52,24 @@ namespace AnimalGenes
                 HashSet<string> toolsHandledForCurrentAnimal = [];
                 foreach (Tool t in sapientAnimal.animal.tools)
                 {
-                    if (t.label.NullOrEmpty() || toolsHandledForCurrentAnimal.Contains(t.label))
-                    {
-                        continue;
-                    }
+                    if (t.label.NullOrEmpty()) continue;
 
                     var cleanedLabel = TextHelper.RemoveWordsFromLabel(t.label, stripLabels);
                     if (aliases.TryGetValue(cleanedLabel.ToLower(), out string alias))
                     {
                         cleanedLabel = alias;
                     }
+                    if (toolsHandledForCurrentAnimal.Contains(cleanedLabel)) continue;
 
                     if (createdTools.TryGetValue(cleanedLabel, out var toolGene))
                     {
                         Check.DebugLog($"Assigning already created tool {cleanedLabel} for {sapientAnimal.animal.defName}.");
+                        toolsHandledForCurrentAnimal.Add(cleanedLabel);
                         GeneGenerator.AddGeneToHumanLikeAnimal(sapientAnimal, toolGene);
                         continue;
                     }
 
-                    if (cleanedLabel.NullOrEmpty() || toolLabelBlackList.Any(x => cleanedLabel.ToLower().Contains(x)))
-                    {
-                        //Log.Message($"Skipping tool {t.label} for {sapientAnimal.animal.defName} due to blacklisted label.");
-                        continue;
-                    }
+                    if (cleanedLabel.NullOrEmpty() || toolLabelBlackList.Any(x => cleanedLabel.ToLower().Contains(x))) continue;
 
                     // See if there is a specific, pre-made gene
                     string specificGeneDefName = $"ANG_Animal_Tool_{sapientAnimal.animal.label}_{cleanedLabel}";

@@ -37,7 +37,7 @@ namespace AnimalGenes
 
         public static void DebugLog(string message)
         {
-            if (Config.EnableDebugLogging)
+            if (AnimalGenesModSettings.Settings.DebugEnabled)
             {
                 Log.Message($"[AnimalGenes DEBUG] {message}");
             }

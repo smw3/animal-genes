@@ -5,13 +5,29 @@
         <description>Carriers of this gene will not mind eating grass and other plants if times are tough.\nNOTE: Behavior needs to be enabled in mod settings.</description>
         <iconPath>UI/Icons/Genes/Skills/Plants/Strong</iconPath>
         <displayOrderInCategory>775</displayOrderInCategory>
-        <biostatCpx>0</biostatCpx>
-        <biostatMet>0</biostatMet>
+        <biostatCpx>2</biostatCpx>
+        <biostatMet>2</biostatMet>
         <displayCategory>ANG_Behavior</displayCategory>
         <selectionWeight>0.5</selectionWeight>
         <modExtensions>
             <li Class="AnimalGenes.Genes.GeneModExtension_EnableBehavior">
                 <canGraze>true</canGraze>
+            </li>
+        </modExtensions>
+    </GeneDef>
+	    <GeneDef>
+        <defName>ANG_Dendrovore_Behavior</defName>
+        <label>dendrovore</label>
+        <description>Carriers of this gene can consume trees if times are rough.\nNOTE: Behavior needs to be enabled in mod settings.</description>
+        <iconPath>UI/Icons/Genes/Skills/Plants/Strong</iconPath>
+        <displayOrderInCategory>776</displayOrderInCategory>
+        <biostatCpx>2</biostatCpx>
+        <biostatMet>2</biostatMet>
+        <displayCategory>ANG_Behavior</displayCategory>
+        <selectionWeight>0.5</selectionWeight>
+        <modExtensions>
+            <li Class="AnimalGenes.Genes.GeneModExtension_EnableBehavior">
+                <canEatTrees>true</canEatTrees>
             </li>
         </modExtensions>
     </GeneDef>

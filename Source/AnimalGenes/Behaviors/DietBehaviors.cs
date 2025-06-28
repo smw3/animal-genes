@@ -16,13 +16,19 @@ using static RimWorld.Dialog_EditIdeoStyleItems;
 
 namespace AnimalGenes.Behaviors
 {
-    public static class GrazingBehavior
+    public static class DietBehaviors
     {       
         public static bool CanGraze(this Pawn pawn)
         {
             return pawn.genes != null &&
                 pawn.genes.DontMindRawFood &&
                 pawn.genes.GenesListForReading.Where(g => g.def.GetModExtension<GeneModExtension_EnableBehavior>()?.canGraze ?? false).Any();
+        }
+        public static bool IsDendrovore(this Pawn pawn)
+        {
+            return pawn.genes != null &&
+                pawn.genes.DontMindRawFood &&
+                pawn.genes.GenesListForReading.Where(g => g.def.GetModExtension<GeneModExtension_EnableBehavior>()?.canEatTrees ?? false).Any();
         }
     }
 
@@ -41,7 +47,8 @@ namespace AnimalGenes.Behaviors
 
         public static void Postfix(ref Thing __result, Pawn getter, Pawn eater, bool desperate, ref ThingDef foodDef, FoodPreferability maxPref = FoodPreferability.MealLavish, bool allowPlant = true, bool allowDrug = true, bool allowCorpse = true, bool allowDispenserFull = true, bool allowDispenserEmpty = true, bool allowForbidden = false, bool allowSociallyImproper = false, bool allowHarvest = false, bool forceScanWholeMap = false, bool ignoreReservations = false, bool calculateWantedStackCount = false, FoodPreferability minPrefOverride = FoodPreferability.Undefined, float? minNutrition = null, bool allowVenerated = false)
         {
-            if (__result == null && !eater.CanGraze() && AnimalGenesModSettings.Settings.AllowGrazingBehavior) return;
+            if (__result != null) return;
+            if (!(eater.CanGraze() && AnimalGenesModSettings.Settings.AllowGrazingBehavior) && !(eater.IsDendrovore() && AnimalGenesModSettings.Settings.AllowDendrovoreBehavior)) return;
 
             int maxRegionsToScan = 100;
             // All things, including plants
@@ -62,9 +69,13 @@ namespace AnimalGenes.Behaviors
         public static void Postfix(ref bool __result, Pawn p, ThingDef food, Pawn getter, bool careIfNotAcceptableForTitle, bool allowVenerated)
         {
             if (__result == true) return;
-            if (food.plant != null && p.CanGraze() && AnimalGenesModSettings.Settings.AllowGrazingBehavior)
+            if (food.plant != null)
             {
-                if (food.ingestible.foodType == FoodTypeFlags.Plant && food.ingestible.preferability >= FoodPreferability.RawBad)
+                if (p.CanGraze() && AnimalGenesModSettings.Settings.AllowGrazingBehavior && food.ingestible.foodType == FoodTypeFlags.Plant && food.ingestible.preferability >= FoodPreferability.RawBad)
+                {
+                    __result = true;
+                }
+                if (p.IsDendrovore() && AnimalGenesModSettings.Settings.AllowDendrovoreBehavior && food.ingestible.foodType == FoodTypeFlags.Tree && food.ingestible.preferability >= FoodPreferability.RawBad)
                 {
                     __result = true;
                 }
@@ -77,7 +88,7 @@ namespace AnimalGenes.Behaviors
     {
         public static void Postfix(ref IEnumerable<Toil> __result, JobDriver_Ingest __instance, bool ___usingNutrientPasteDispenser, Toil chewToil)
         {
-            if (!___usingNutrientPasteDispenser && __instance.pawn.CanGraze() && __instance.job.GetTarget(TargetIndex.A).Thing is Plant)
+            if (!___usingNutrientPasteDispenser && (__instance.pawn.CanGraze() || __instance.pawn.IsDendrovore()) && __instance.job.GetTarget(TargetIndex.A).Thing is Plant)
             {
                 MethodInfo dynMethod = __instance.GetType().GetMethod("PrepareToIngestToils_NonToolUser",
                     BindingFlags.NonPublic | BindingFlags.Instance);

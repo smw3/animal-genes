@@ -10,5 +10,6 @@ namespace AnimalGenes.Genes
     public class GeneModExtension_EnableBehavior : DefModExtension
     {
         public bool canGraze = false;
+        public bool canEatTrees = false;
     }
 }

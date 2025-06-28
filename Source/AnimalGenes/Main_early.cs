@@ -27,9 +27,11 @@ namespace AnimalGenes
         {
             Listing_Standard listingStandard = new();
             listingStandard.Begin(inRect);
-            listingStandard.Label("Experimental Features");
+            listingStandard.Label("Behavior Features");
             listingStandard.CheckboxLabeled("Enable grazing behavior", ref settings.AllowGrazingBehavior, "Allow genes that change Pawns food-seeking behavior. This may have minor performance impacts.");
             listingStandard.CheckboxLabeled("Enable dendrovore behavior", ref settings.AllowDendrovoreBehavior, "Allow genes that change Pawns food-seeking behavior. This may have minor performance impacts.");
+            listingStandard.Label("Debug");
+            listingStandard.CheckboxLabeled("Enable debug log", ref settings.DebugEnabled, "Enable verbose logging. Use only for debugging purposes.");
             listingStandard.End();
 
             base.DoSettingsWindowContents(inRect);

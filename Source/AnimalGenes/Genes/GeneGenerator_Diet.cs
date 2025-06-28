@@ -9,15 +9,15 @@ namespace AnimalGenes
 {
     public class GeneGenerator_Diet
     {
-        private static List<FoodTypeFlags> flagsThatRequireRobustStomach = new List<FoodTypeFlags>
-        {
+        private static readonly List<FoodTypeFlags> flagsThatRequireRobustStomach =
+        [
             FoodTypeFlags.Corpse,
             FoodTypeFlags.VegetarianRoughAnimal,
             FoodTypeFlags.CarnivoreAnimalStrict,
             FoodTypeFlags.CarnivoreAnimal,
             FoodTypeFlags.OmnivoreRoughAnimal,
             FoodTypeFlags.OvivoreAnimal
-        };
+        ];
         public static void AssignGenes(List<HumanlikeAnimal> sapientAnimals)
         {
             // Genes depending on what the animal eats
@@ -51,9 +51,13 @@ namespace AnimalGenes
                     }
                 }
 
-                if (foodType.HasFlag(FoodTypeFlags.VegetarianRoughAnimal)) {
-                    GeneDef grazer = DefDatabase<GeneDef>.GetNamed("ANG_Grazing_Behavior");
-                    GeneGenerator.AddGeneToHumanLikeAnimal(sapientAnimal, grazer);
+                if (foodType.HasFlag(FoodTypeFlags.Plant)) {
+                    GeneGenerator.AddGeneToHumanLikeAnimal(sapientAnimal, ANGDefs.GrazingGene);
+                }
+
+                if (foodType.HasFlag(FoodTypeFlags.Tree))
+                {
+                    GeneGenerator.AddGeneToHumanLikeAnimal(sapientAnimal, ANGDefs.DendrovoreGene);
                 }
             }                    
         }

@@ -10,5 +10,6 @@ namespace AnimalGenes
     public class ANGDefs
     {
         public static GeneDef GrazingGene = DefDatabase<GeneDef>.GetNamed("ANG_Grazing_Behavior");
+        public static GeneDef DendrovoreGene = DefDatabase<GeneDef>.GetNamed("ANG_Dendrovore_Behavior");
     }
 }

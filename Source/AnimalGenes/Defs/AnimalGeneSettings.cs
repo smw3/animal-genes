@@ -9,7 +9,7 @@ namespace AnimalGenes.Defs
 {
     public class GeneForLeatherDefs : DefModExtension
     {
-        public string geneDefName;
+        public List<string> geneDefNames = [];
         public List<string> thingDefNames = [];
     }
 

@@ -37,6 +37,17 @@ namespace AnimalGenes
                                 stat = BSDefs.SM_BodySizeMultiplier,
                                 value = roundedBodySize
                             }];
+
+                        if (roundedBodySize < 1.0f)
+                        {
+                            newGene.description = "Carriers of this gene are noticably smaller.";
+                            newGene.iconPath = "UI/Icons/Genes/Skills/Animals/Poor";
+                        }
+                        else
+                        {
+                            newGene.description = "Carriers of this gene are noticably larger.";
+                        }
+
                         newGene.ResolveReferences();
                         DefDatabase<GeneDef>.Add(newGene);
                     }

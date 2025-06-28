@@ -22,12 +22,14 @@ namespace AnimalGenes
                 foreach (var setting in AnimalGeneSettingsDef.AllSettings) {
                     if (setting.GeneForLeatherDefs.thingDefNames.Contains(leather.defName))
                     {
-                        GeneDef geneDef = DefDatabase<GeneDef>.GetNamed(setting.GeneForLeatherDefs.geneDefName);
-                        if (geneDef == null)
+                        foreach (var geneDefName in setting.GeneForLeatherDefs.geneDefNames)
                         {
-                            Log.Error($"[AnimalGenes] No gene definition found for {setting.GeneForLeatherDefs.geneDefName} for leather {leather.defName} override.");
-                        } else  {
-                            GeneGenerator.AddGeneToHumanLikeAnimal(sapientAnimal, geneDef);
+                            GeneDef geneDef = DefDatabase<GeneDef>.GetNamedSilentFail(geneDefName);
+                            if (geneDef != null)
+                            {   
+                                // May reference genes of mods that aren't loaded, so just silently ignore those
+                                GeneGenerator.AddGeneToHumanLikeAnimal(sapientAnimal, geneDef);
+                            }
                         }
                     }
                 }

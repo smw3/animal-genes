@@ -1,0 +1,85 @@
+<Defs>
+    <!-- While a LOT of stuff is figured out automatically, the information for some details is just missing -->
+    <!-- No way to determine whether an animal is feathery or furry or scaly for example -->
+    <!-- it is always best to have the condition be as generic as possible, i.e. check for "lizard leather" rather than "is it a lizard" -->
+    <!-- That way it catches more modded animals -->
+    
+    <!-- Feathers -->
+    <AnimalGenes.Defs.AnimalGeneSettingsDef>
+        <defName>ANG_Gene_Override_Defs_Feathers_By_Leather</defName>
+        <GeneForLeatherDefs>
+            <thingDefNames>
+                <li>Leather_Bird</li>
+            </thingDefNames>
+            <geneDefNames>
+                <li>ANG_Feathers</li>
+            </geneDefNames>
+        </GeneForLeatherDefs>
+    </AnimalGenes.Defs.AnimalGeneSettingsDef>
+    
+    <!-- Fur -->
+    <!-- Everything that is shearable has fur by default, but other things just look better with it too -->
+    <AnimalGenes.Defs.AnimalGeneSettingsDef>
+        <defName>ANG_Gene_Override_Defs_Fur_By_Leather</defName>
+        <GeneForLeatherDefs>
+            <thingDefNames>
+                <li>Leather_Fox</li>
+                <li>Leather_Wolf</li>
+                <li>Leather_Dog</li>
+                <li>Leather_Bluefur</li>
+                <li>Leather_Bear</li>
+                <li>Leather_Thrumbo</li>
+            </thingDefNames>
+            <geneDefNames>
+                <li>Furskin</li>
+            </geneDefNames>
+        </GeneForLeatherDefs>
+    </AnimalGenes.Defs.AnimalGeneSettingsDef>
+    
+    <!-- Hairless -->
+    <AnimalGenes.Defs.AnimalGeneSettingsDef>
+        <defName>ANG_Gene_Override_Defs_Hairless_By_Leather</defName>
+        <GeneForLeatherDefs>
+            <thingDefNames>
+                <li>Leather_Pig</li>
+                <li>Leather_Lizard</li>
+                <li>Leather_Elephant</li>
+                <li>Leather_Rhinoceros</li>
+            </thingDefNames>
+            <geneDefNames>
+                <li>Hair_BaldOnly</li>
+                <!-- technically beardless would fit, but hairless should be fine -->
+            </geneDefNames>
+        </GeneForLeatherDefs>
+    </AnimalGenes.Defs.AnimalGeneSettingsDef>
+    
+    <!-- Pig features -->
+    <AnimalGenes.Defs.AnimalGeneSettingsDef>
+        <defName>ANG_Gene_Override_Defs_Pig_By_Leather</defName>
+        <GeneForLeatherDefs>
+            <thingDefNames>
+                <li>Leather_Pig</li>
+            </thingDefNames>
+            <geneDefNames>
+                <li>Hands_Pig</li>
+                <li>Nose_Pig</li>
+            </geneDefNames>
+        </GeneForLeatherDefs>
+    </AnimalGenes.Defs.AnimalGeneSettingsDef>
+    
+    <!-- Fluffy tail -->
+    <!-- A lot of animals have tails, but large, fluffy one is more specific -->
+    <AnimalGenes.Defs.AnimalGeneSettingsDef>
+        <defName>ANG_Gene_Override_Defs_Fluffy_Tail_By_Leather</defName>
+        <GeneForLeatherDefs>
+            <thingDefNames>
+                <li>Leather_Fox</li>
+                <li>Leather_Wolf</li>
+                <li>Leather_Dog</li>
+            </thingDefNames>
+            <geneDefNames>
+                <li>Tail_Furry</li>
+            </geneDefNames>
+        </GeneForLeatherDefs>
+    </AnimalGenes.Defs.AnimalGeneSettingsDef>
+</Defs>

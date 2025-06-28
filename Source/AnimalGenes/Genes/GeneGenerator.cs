@@ -25,7 +25,10 @@ namespace AnimalGenes
                 geneList = [];
                 humanLikeGenes[animal] = geneList;
             }
-            geneList.Add(geneDef);
+            if (!geneList.Contains(geneDef))
+            {
+                geneList.Add(geneDef);
+            }
         }
 
         public static List<GeneDef> GetGenesForHumanLikeAnimal(HumanlikeAnimal animal)
@@ -58,7 +61,7 @@ namespace AnimalGenes
             RemoveStatDefsThatHaveGenesNow();
         }
 
-        private static void setBaseToDefault(HumanlikeAnimal sapientAnimal, StatDef statDef)
+        private static void SetBaseToDefault(HumanlikeAnimal sapientAnimal, StatDef statDef)
         {
             ThingDef baseliner = DefDatabase<ThingDef>.GetNamed("Human");
             sapientAnimal.humanlikeThing.SetStatBaseValue(statDef, baseliner.statBases.GetStatValueFromList(statDef, 0.0f));
@@ -73,16 +76,16 @@ namespace AnimalGenes
                 // set body size to default, as it is now handled by genes
                 sapientAnimal.humanlikeThing.SetStatBaseValue(BSDefs.SM_BodySizeOffset, 1.0f - sapientAnimal.humanlikeThing.race.baseBodySize);
 
-                setBaseToDefault(sapientAnimal, StatDefOf.MoveSpeed);
-                setBaseToDefault(sapientAnimal, StatDefOf.CarryingCapacity);
-                setBaseToDefault(sapientAnimal, StatDefOf.ToxicEnvironmentResistance);
-                setBaseToDefault(sapientAnimal, StatDefOf.ToxicResistance);
-                setBaseToDefault(sapientAnimal, StatDefOf.ComfyTemperatureMin);
-                setBaseToDefault(sapientAnimal, StatDefOf.ComfyTemperatureMax);
+                SetBaseToDefault(sapientAnimal, StatDefOf.MoveSpeed);
+                SetBaseToDefault(sapientAnimal, StatDefOf.CarryingCapacity);
+                SetBaseToDefault(sapientAnimal, StatDefOf.ToxicEnvironmentResistance);
+                SetBaseToDefault(sapientAnimal, StatDefOf.ToxicResistance);
+                SetBaseToDefault(sapientAnimal, StatDefOf.ComfyTemperatureMin);
+                SetBaseToDefault(sapientAnimal, StatDefOf.ComfyTemperatureMax);
                 // I thought I might have to remove natural armor here, but they don't get any in the first place.. still, just in case
-                setBaseToDefault(sapientAnimal, StatDefOf.ArmorRating_Sharp);
-                setBaseToDefault(sapientAnimal, StatDefOf.ArmorRating_Blunt);
-                setBaseToDefault(sapientAnimal, StatDefOf.ArmorRating_Heat);
+                SetBaseToDefault(sapientAnimal, StatDefOf.ArmorRating_Sharp);
+                SetBaseToDefault(sapientAnimal, StatDefOf.ArmorRating_Blunt);
+                SetBaseToDefault(sapientAnimal, StatDefOf.ArmorRating_Heat);
             }
         }
 

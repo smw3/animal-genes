@@ -5,7 +5,7 @@
 			<li>BodySize</li>
 		</exclusionTags>
 		<label>Animal size</label>
-		<description>Carriers of this gene are noticably smaller (or larger).</description>
+		<description>Animal size template</description>
 		<iconPath>UI/Icons/Genes/Skills/Animals/Strong</iconPath>
 		<displayOrderInCategory>775</displayOrderInCategory>
 		<biostatCpx>2</biostatCpx>

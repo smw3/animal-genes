@@ -66,13 +66,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Check.cs" />
+    <Compile Include="DefHelper.cs" />
     <Compile Include="GeneGenerator.cs" />
+    <Compile Include="GeneGenerator_Armor.cs" />
+    <Compile Include="GeneGenerator_BodyTypes.cs" />
+    <Compile Include="GeneGenerator_ProductionComps.cs" />
+    <Compile Include="GeneGenerator_Tools.cs" />
     <Compile Include="GeneIconGeneratorComponent.cs" />
     <Compile Include="GeneModExtension_ProceduralIcon.cs" />
     <Compile Include="GeneModExtension_TargetAffinity.cs" />
+    <Compile Include="IconHelper.cs" />
     <Compile Include="Main_early.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RaceMorpher.cs" />
+    <Compile Include="TextHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

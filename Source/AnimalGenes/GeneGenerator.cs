@@ -50,6 +50,7 @@ namespace AnimalGenes
             GeneGenerator_Diet.AssignGenes(SapientAnimals);
             GeneGenerator_Speed.AssignGenes(SapientAnimals);
             GeneGenerator_Temperature.AssignGenes(SapientAnimals);
+            GeneGenerator_Health.AssignGenes(SapientAnimals);
 
             // Must be done last, after all other genes have been generated
             GenerateAffinityGenes();

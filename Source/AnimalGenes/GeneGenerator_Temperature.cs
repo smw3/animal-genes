@@ -6,7 +6,7 @@ using Verse;
 
 namespace AnimalGenes
 {
-    internal class GeneGenerator_Temperature
+    public class GeneGenerator_Temperature
     {
         public static void AssignGenes(List<HumanlikeAnimal> sapientAnimals)
         {

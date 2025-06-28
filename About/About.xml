@@ -26,6 +26,7 @@
 		<li>ludeon.rimworld.ideology</li>
 		<li>ludeon.rimworld.biotech</li>
 		<li>ludeon.rimworld.anomaly</li>
+		<li>RedMattis.Genes</li>
 		<li>RedMattis.SapientAnimals</li>
 	</loadAfter>
 </ModMetaData>

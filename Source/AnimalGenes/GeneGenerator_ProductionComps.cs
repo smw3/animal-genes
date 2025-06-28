@@ -56,11 +56,11 @@ namespace AnimalGenes
 
         private static void CreateShearableGene(HumanlikeAnimal sapientAnimal, CompProperties_Shearable shearableComp)
         {
-            string geneDefName = $"HL_{sapientAnimal.animal.defName}_shearable";
+            string geneDefName = $"ANG_{sapientAnimal.animal.defName}_shearable";
             GeneDef newGene = geneDefName.TryGetExistingDef<GeneDef>();
             if (newGene == null)
             {
-                GeneDef templateGene = DefDatabase<GeneDef>.GetNamed("AG_ProductionTemplate");
+                GeneDef templateGene = DefDatabase<GeneDef>.GetNamed("ANG_ProductionTemplate");
 
                 newGene = typeof(GeneDef).GetConstructor([]).Invoke([]) as GeneDef;
                 DefHelper.CopyGeneDefFields(templateGene, newGene);
@@ -111,11 +111,11 @@ namespace AnimalGenes
 
         private static void CreateMilkableGene(HumanlikeAnimal sapientAnimal, CompProperties_Milkable milkableComp)
         {
-            string geneDefName = $"HL_{sapientAnimal.animal.defName}_milkable";
+            string geneDefName = $"ANG_{sapientAnimal.animal.defName}_milkable";
             GeneDef newGene = geneDefName.TryGetExistingDef<GeneDef>();
             if (newGene == null)
             {
-                GeneDef templateGene = DefDatabase<GeneDef>.GetNamed("AG_ProductionTemplate");
+                GeneDef templateGene = DefDatabase<GeneDef>.GetNamed("ANG_ProductionTemplate");
                 newGene = typeof(GeneDef).GetConstructor([]).Invoke([]) as GeneDef;
                 DefHelper.CopyGeneDefFields(templateGene, newGene);
 

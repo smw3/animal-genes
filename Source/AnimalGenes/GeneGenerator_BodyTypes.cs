@@ -19,12 +19,12 @@ namespace AnimalGenes
                 if (existingGene == null)
                 {
                     var bodyType = sapientAnimal.animal.race.body;
-                    string geneDefName = $"AG_{bodyType.defName}_BodyType";
+                    string geneDefName = $"ANG_{bodyType.defName}_BodyType";
                     GeneDef newGene = geneDefName.TryGetExistingDef<GeneDef>();
                     if (newGene == null)
                     {
-                        GeneDef templateGene = DefDatabase<GeneDef>.GetNamed("AG_BodyType_Template");
-                        Check.NotNull(templateGene, "AG_BodyType_Template gene template not found");
+                        GeneDef templateGene = DefDatabase<GeneDef>.GetNamed("ANG_BodyType_Template");
+                        Check.NotNull(templateGene, "ANG_BodyType_Template gene template not found");
 
                         newGene = typeof(GeneDef).GetConstructor([]).Invoke([]) as GeneDef;
                         DefHelper.CopyGeneDefFields(templateGene, newGene);

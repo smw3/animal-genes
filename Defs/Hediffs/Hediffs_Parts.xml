@@ -1,6 +1,6 @@
 <Defs>
 	<HediffDef>
-		<defName>AG_NaturalWeapon_Template_Hediff</defName>
+		<defName>ANG_NaturalWeapon_Template_Hediff</defName>
 		<label>Natural Weapon</label>
 		<description>Natural Weapons</description>
 		<hediffClass>HediffWithComps</hediffClass>

@@ -1,12 +1,12 @@
 <Defs>
   <GeneDef>
-    <defName>AG_ProductionTemplate</defName>
+    <defName>ANG_ProductionTemplate</defName>
     <label>chocolate production</label>
     <description>Carriers of this gene produce something like an animal would.</description>
     <geneClass>BigAndSmall.ProductionGene</geneClass>
     <iconPath>UI/Icons/Genes/Skills/Animals/Strong</iconPath>
     <displayOrderInCategory>666</displayOrderInCategory>
-    <displayCategory>AG_Production</displayCategory>
+    <displayCategory>ANG_Production</displayCategory>
     <minAgeActive>15</minAgeActive>
     <biostatCpx>1</biostatCpx>
     <biostatMet>-2</biostatMet>

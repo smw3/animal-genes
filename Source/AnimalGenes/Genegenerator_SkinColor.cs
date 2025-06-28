@@ -18,6 +18,10 @@ namespace AnimalGenes
                     continue;
                 }
                 GeneDef skinColorGene = ColorHelper.GeneDefForSkinColor(leather.graphicData.color);
+                // If you ignore human skin tones, orange and pale yellow end up being very close to the default skin color
+                if (skinColorGene.defName == "Skin_Orange" || skinColorGene.defName == "Skin_PaleYellow") { 
+                    continue;
+                }
                 GeneGenerator.AddGeneToHumanLikeAnimal(sapientAnimal, skinColorGene);
             }
         }

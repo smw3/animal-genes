@@ -34,9 +34,12 @@ namespace AnimalGenes
             GeneGenerator_Armor.GenerateGenes(SapientAnimals);
             GeneGenerator_Tools.GenerateGenes(SapientAnimals);
             GeneGenerator_BodyTypes.GenerateGenes(SapientAnimals);
-            GeneGenerator_BodySizes.GenerateGenes(SapientAnimals);
+            GeneGenerator_BodySizes.GenerateGenes(SapientAnimals);  
 
+            // Assign existing genes
             Genegenerator_SkinColor.AssignGenes(SapientAnimals);
+            GeneGenerator_Diet.AssignGenes(SapientAnimals);
+            GeneGenerator_Speed.AssignGenes(SapientAnimals);
 
             // Must be done last, after all other genes have been generated
             GenerateAffinityGenes();
@@ -45,9 +48,15 @@ namespace AnimalGenes
         }
         private static void RemoveStatDefsThatHaveGenesNow()
         {
+            ThingDef baseliner = DefDatabase<ThingDef>.GetNamed("Human");
+            float baseSpeed = baseliner.statBases.GetStatValueFromList(StatDefOf.MoveSpeed, 0.0f);
+
             foreach (var sapientAnimal in SapientAnimals)
             {
                 // I thought I might have to remove natural armor here, but they don't get any in the first place..
+
+                sapientAnimal.humanlikeThing.statBases.GetStatValueFromList(StatDefOf.MoveSpeed, baseSpeed);
+                sapientAnimal.humanlike.race.baseBodySize = 1.0f; // Reset body size to default, as it is now handled by genes
             }
         }
 
@@ -66,12 +75,12 @@ namespace AnimalGenes
                     Check.DebugLog($"Sapient animal {sapientAnimal.animal.defName} has only one gene, that's quite few.");
                 }
 
-                string geneDefName = $"AG_{sapientAnimal.animal.defName}_Affinity";
+                string geneDefName = $"ANG_{sapientAnimal.animal.defName}_Affinity";
                 GeneDef newGene = geneDefName.TryGetExistingDef<GeneDef>();
                 if (newGene == null)
                 {
-                    GeneDef templateGene = DefDatabase<GeneDef>.GetNamed("AG_Animal_Affinity_Template");
-                    Check.NotNull(templateGene, "AG_Animal_Affinity_Template gene template not found");
+                    GeneDef templateGene = DefDatabase<GeneDef>.GetNamed("ANG_Animal_Affinity_Template");
+                    Check.NotNull(templateGene, "ANG_Animal_Affinity_Template gene template not found");
 
                     newGene = typeof(GeneDef).GetConstructor([]).Invoke([]) as GeneDef;
                     DefHelper.CopyGeneDefFields(templateGene, newGene);

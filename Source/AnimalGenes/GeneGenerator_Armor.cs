@@ -26,11 +26,11 @@ namespace AnimalGenes
                     continue;
                 }
 
-                string geneDefName = $"HL_{sapientAnimal.animal.defName}_armor";
+                string geneDefName = $"ANG_{sapientAnimal.animal.defName}_armor";
                 GeneDef newGene = geneDefName.TryGetExistingDef<GeneDef>();
                 if (newGene == null)
                 {
-                    GeneDef templateGene = DefDatabase<GeneDef>.GetNamed("AG_ArmorTemplate");
+                    GeneDef templateGene = DefDatabase<GeneDef>.GetNamed("ANG_ArmorTemplate");
                     newGene = typeof(GeneDef).GetConstructor([]).Invoke([]) as GeneDef;
                     DefHelper.CopyGeneDefFields(templateGene, newGene);
 

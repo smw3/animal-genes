@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 	<GeneDef>
-		<defName>AG_BodyType_Template</defName>
+		<defName>ANG_BodyType_Template</defName>
 		<label>Bodytype affinity</label>
 		<description>While still seeming perfectly humanoid, carriers of this gene possess a bone structure that is somewhat similar to that of a </description>
 		<iconPath>UI/Icons/Genes/Skills/Animals/Strong</iconPath>
 		<displayOrderInCategory>775</displayOrderInCategory>
 		<biostatCpx>2</biostatCpx>
 		<biostatMet>-2</biostatMet>
-		<displayCategory>AG_Bodytypes</displayCategory>
+		<displayCategory>ANG_Bodytypes</displayCategory>
 		<selectionWeight>0.5</selectionWeight>
 	</GeneDef>
 </Defs>

@@ -1,6 +1,6 @@
 <Defs>
 	<GeneDef>
-		<defName>AG_Animal_Size_Template</defName>
+		<defName>ANG_Animal_Size_Template</defName>
 		<exclusionTags>
 			<li>BodySize</li>
 		</exclusionTags>
@@ -10,7 +10,7 @@
 		<displayOrderInCategory>775</displayOrderInCategory>
 		<biostatCpx>0</biostatCpx>
 		<biostatMet>0</biostatMet>
-		<displayCategory>AG_Size</displayCategory>
+		<displayCategory>ANG_Size</displayCategory>
 		<selectionWeight>0.5</selectionWeight>
 		<statFactors>
 			<CarryingCapacity>1</CarryingCapacity>

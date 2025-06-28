@@ -1,9 +1,9 @@
 <Defs>
-	<GeneDef Name="AG_Base_Armor" Abstract="True">
-		<displayCategory>AG_Armor</displayCategory>
+	<GeneDef Name="ANG_Base_Armor" Abstract="True">
+		<displayCategory>ANG_Armor</displayCategory>
 		
 		<exclusionTags>
-			<li>AG_Base_Armor</li>
+			<li>ANG_Base_Armor</li>
 			<li>BS_Armour</li>
 			<li>Armor</li>
 			<li>Armour</li>
@@ -11,8 +11,8 @@
 		</exclusionTags>
 	</GeneDef>
 	
-	<GeneDef Name="AG_ArmorTemplate" ParentName="AG_Base_Armor">
-		<defName>AG_ArmorTemplate</defName>
+	<GeneDef Name="ANG_ArmorTemplate" ParentName="ANG_Base_Armor">
+		<defName>ANG_ArmorTemplate</defName>
 		<label>Tough Skin</label>
 		<description>Carriers of this gene have naturally tough skin.</description>
 		<iconPath>UI/Icons/Genes/Skills/Animals/Strong</iconPath>

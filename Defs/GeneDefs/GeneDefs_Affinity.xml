@@ -1,13 +1,13 @@
 <Defs>
 	<GeneDef>
-		<defName>AG_Animal_Affinity_Template</defName>
+		<defName>ANG_Animal_Affinity_Template</defName>
 		<label>Animal affinity</label>
 		<description>Carriers of this gene may be indistinguishable from the real animal, if their genes agree.</description>
 		<iconPath>UI/Icons/Genes/Skills/Animals/Strong</iconPath>
 		<displayOrderInCategory>775</displayOrderInCategory>
 		<biostatCpx>2</biostatCpx>
 		<biostatMet>-2</biostatMet>
-		<displayCategory>AG_Affinity</displayCategory>
+		<displayCategory>ANG_Affinity</displayCategory>
 		<selectionWeight>0.5</selectionWeight>
 	</GeneDef>
 </Defs>

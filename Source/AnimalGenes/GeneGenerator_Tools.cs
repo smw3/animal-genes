@@ -67,12 +67,12 @@ namespace AnimalGenes
                         continue;
                     }
 
-                    string geneDefName = $"AG_{sapientAnimal.animal.defName}_{cleanedLabel}";
+                    string geneDefName = $"ANG_{sapientAnimal.animal.defName}_{cleanedLabel}";
                     GeneDef newGene = geneDefName.TryGetExistingDef<GeneDef>();
 
                     if (newGene == null)
                     {
-                        GeneDef templateGene = DefDatabase<GeneDef>.GetNamed("AG_ToolTemplate");
+                        GeneDef templateGene = DefDatabase<GeneDef>.GetNamed("ANG_ToolTemplate");
                         newGene = typeof(GeneDef).GetConstructor([]).Invoke([]) as GeneDef;
                         DefHelper.CopyGeneDefFields(templateGene, newGene);
 
@@ -81,7 +81,7 @@ namespace AnimalGenes
                         newGene.generated = true;
 
                         HediffDef toolHediff = CreateHediffDefForTool(t, cleanedLabel);
-                        string? toolLocation = GetToolLocationForLabel(cleanedLabel);
+                        string toolLocation = GetToolLocationForLabel(cleanedLabel);
 
                         if (toolLocation == null)
                         {
@@ -144,12 +144,12 @@ namespace AnimalGenes
 
         private static HediffDef CreateHediffDefForTool(Tool t, string cleanedLabel)
         {
-            string gediffDefDefName = $"AG_natural_{cleanedLabel}";
+            string gediffDefDefName = $"ANG_natural_{cleanedLabel}";
             HediffDef newHediff = gediffDefDefName.TryGetExistingDef<HediffDef>();
 
             if (newHediff == null)
             {
-                HediffDef hediffTemplate = DefDatabase<HediffDef>.GetNamed("AG_NaturalWeapon_Template_Hediff");
+                HediffDef hediffTemplate = DefDatabase<HediffDef>.GetNamed("ANG_NaturalWeapon_Template_Hediff");
                 newHediff = typeof(HediffDef).GetConstructor([]).Invoke([]) as HediffDef;
                 DefHelper.CopyHediffDefFields(hediffTemplate, newHediff);
 
@@ -161,7 +161,7 @@ namespace AnimalGenes
                     new HediffCompProperties_VerbGiver {
                     tools = [
                         new Tool {
-                            id = $"AG_tool_{cleanedLabel}",
+                            id = $"ANG_tool_{cleanedLabel}",
                             label = cleanedLabel.CapitalizeFirst(),
                             power = t.power,
                             chanceFactor = t.chanceFactor,

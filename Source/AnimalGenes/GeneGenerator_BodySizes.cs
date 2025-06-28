@@ -20,12 +20,12 @@ namespace AnimalGenes
                 if (roundedBodySize == 1.0f) continue; // Skip size 1.0 as it is the default and doesn't need a gene
 
                 if (!bodySizeGenes.ContainsKey(roundedBodySize)) {
-                    string geneDefName = $"AG_Animal_Size_{roundedBodySize}";
+                    string geneDefName = $"ANG_Animal_Size_{roundedBodySize}";
                     GeneDef newGene = geneDefName.TryGetExistingDef<GeneDef>();
                     if (newGene == null)
                     {
-                        GeneDef templateGene = DefDatabase<GeneDef>.GetNamed("AG_Animal_Size_Template");
-                        Check.NotNull(templateGene, "AG_BodySize_Template gene template not found");
+                        GeneDef templateGene = DefDatabase<GeneDef>.GetNamed("ANG_Animal_Size_Template");
+                        Check.NotNull(templateGene, "ANG_BodySize_Template gene template not found");
                         newGene = typeof(GeneDef).GetConstructor([]).Invoke([]) as GeneDef;
                         DefHelper.CopyGeneDefFields(templateGene, newGene);
                         newGene.defName = geneDefName;

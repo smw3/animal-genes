@@ -66,7 +66,7 @@ namespace AnimalGenes
                 DefHelper.CopyGeneDefFields(templateGene, newGene);
 
                 newGene.defName = geneDefName;
-                newGene.label = $"{sapientAnimal.animal.label} {shearableComp.woolDef.label} producer";
+                newGene.label = $"{shearableComp.woolDef.label.CapitalizeFirst()} producer ({sapientAnimal.animal.label})";
                 newGene.generated = true;
 
                 BigAndSmall.ProductionGeneSettings settings = typeof(BigAndSmall.ProductionGeneSettings).GetConstructor([]).Invoke([]) as BigAndSmall.ProductionGeneSettings;
@@ -82,6 +82,21 @@ namespace AnimalGenes
                 DefDatabase<GeneDef>.Add(newGene);
             }
             GeneGenerator.AddGeneToHumanLikeAnimal(sapientAnimal, newGene);
+
+            // Also add appropriate color genes if they exist, based on the wool color
+            ThingDef wool = newGene.GetModExtension<BigAndSmall.ProductionGeneSettings>()?.product;
+            if (wool != null)
+            {
+                GeneDef skinColorGene = ColorHelper.GeneDefForSkinColor(wool.stuffProps.color);
+                GeneGenerator.AddGeneToHumanLikeAnimal(sapientAnimal, skinColorGene);
+
+                // If the wool is a textile, add furry gene as well
+                if (wool.thingCategories.Contains(ThingCategoryDefOf.Textiles))
+                {
+                    GeneDef furryGene = DefDatabase<GeneDef>.GetNamedSilentFail("Furskin");
+                    GeneGenerator.AddGeneToHumanLikeAnimal(sapientAnimal, furryGene);
+                }
+            }
         }
 
         private static void CreateEggGene(HumanlikeAnimal sapientAnimal, CompProperties_EggLayer eggLayerComp)

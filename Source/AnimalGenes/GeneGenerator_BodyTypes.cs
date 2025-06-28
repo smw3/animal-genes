@@ -32,7 +32,7 @@ namespace AnimalGenes
                         newGene.defName = geneDefName;
                         Check.NotNull(newGene, "Failed to create new GeneDef instance for body type gene");
 
-                        newGene.label = $"{bodyType.label.CapitalizeFirst()} Body Type";
+                        newGene.label = $"{bodyType.label.CapitalizeFirst()} body type";
                         newGene.description += $"{bodyType.label.CapitalizeFirst()}";
                         newGene.generated = true;
                         Log.Message($"Generating body type gene {newGene.defName} for {bodyType.label}.");

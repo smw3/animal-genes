@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -49,7 +50,7 @@ namespace AnimalGenes
 
             return tex;
         }
-        public static void DrawTextureCentered(Texture2D source, RenderTexture destination, float scale)
+        public static void DrawTextureCentered(Texture2D source, Material sourceMaterial, RenderTexture destination, float scale)
         {
             RenderTexture previous = RenderTexture.active;
             RenderTexture.active = destination;
@@ -62,8 +63,7 @@ namespace AnimalGenes
             int x = (destination.width - drawWidth) / 2;
             int y = (destination.height - drawHeight) / 2;
 
-            // Draw the texture scaled and centered
-            Graphics.DrawTexture(new Rect(x, y, drawWidth, drawHeight), source);
+            Graphics.DrawTexture(new Rect(x, y, drawWidth, drawHeight), source, sourceMaterial);
 
             GL.PopMatrix();
             RenderTexture.active = previous;
@@ -85,13 +85,9 @@ namespace AnimalGenes
                 float iconScale = iconThingDefAndScale.Second;
 
                 Texture2D thingDefTexture = iconThingDef.uiIcon;
-                // Copy pixels from the thingDefTexture to texture.
-                if (thingDefTexture == null)
-                {
-                    Log.Warning($"[AnimalGenes] Failed to load texture for {iconThingDef.defName} at path {iconThingDef.uiIconPath}");
-                    continue;
-                }
-                DrawTextureCentered(thingDefTexture, temporary, iconScale);
+                Check.NotNull(thingDefTexture, "Texture for " + iconThingDef.defName + " is null.");
+
+                DrawTextureCentered(thingDefTexture, iconThingDef.uiIconMaterial, temporary, iconScale);
             }
 
             Texture2D texture = RenderTextureToTexture2D(temporary);

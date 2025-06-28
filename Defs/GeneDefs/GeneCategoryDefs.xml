@@ -1,17 +1,28 @@
 <Defs>
-  <GeneCategoryDef>
-    <defName>AG_Production</defName>
-    <label>animal production</label>
-    <displayPriorityInXenotype>710</displayPriorityInXenotype>
-  </GeneCategoryDef>
-  <GeneCategoryDef>
-    <defName>AG_Armor</defName>
-    <label>animal armor</label>
-    <displayPriorityInXenotype>711</displayPriorityInXenotype>
-  </GeneCategoryDef>
-  <GeneCategoryDef>
-    <defName>AG_Weapons</defName>
-    <label>animal weapons</label>
-    <displayPriorityInXenotype>712</displayPriorityInXenotype>
-  </GeneCategoryDef>  
+	<GeneCategoryDef>
+		<defName>AG_Production</defName>
+		<label>animal production</label>
+		<displayPriorityInXenotype>710</displayPriorityInXenotype>
+	</GeneCategoryDef>
+	<GeneCategoryDef>
+		<defName>AG_Armor</defName>
+		<label>animal armor</label>
+		<displayPriorityInXenotype>711</displayPriorityInXenotype>
+	</GeneCategoryDef>
+	<GeneCategoryDef>
+		<defName>AG_Weapons</defName>
+		<label>animal weapons</label>
+		<displayPriorityInXenotype>712</displayPriorityInXenotype>
+	</GeneCategoryDef>
+	<GeneCategoryDef>
+		<defName>AG_Bodytypes</defName>
+		<label>animal bodytypes</label>
+		<displayPriorityInXenotype>713</displayPriorityInXenotype>
+	</GeneCategoryDef>
+	<GeneCategoryDef>
+		<defName>AG_Affinity</defName>
+		<label>animal affinities</label>
+		<displayPriorityInXenotype>714</displayPriorityInXenotype>
+	</GeneCategoryDef>
+	
 </Defs>

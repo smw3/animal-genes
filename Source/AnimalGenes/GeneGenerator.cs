@@ -3,8 +3,10 @@ using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 using Verse;
 using Verse.AI;
 
@@ -13,7 +15,8 @@ namespace AnimalGenes
     public static class GeneGenerator
     {
         public static List<HumanlikeAnimal> SapientAnimals => HumanlikeAnimalGenerator.humanlikeAnimals.Values.ToList();
-        public static Dictionary<HumanlikeAnimal, List<GeneDef>> humanLikeGenes = new Dictionary<HumanlikeAnimal, List<GeneDef>>();
+        private static Dictionary<HumanlikeAnimal, List<GeneDef>> humanLikeGenes = new Dictionary<HumanlikeAnimal, List<GeneDef>>();
+        public static Dictionary<GeneDef, HumanlikeAnimal> affinityGenes = new Dictionary<GeneDef, HumanlikeAnimal>();
 
         private static readonly Dictionary<string, string> toolDefaultLocations = new Dictionary<string, string> {
             { "claw", "Hand" },
@@ -52,15 +55,118 @@ namespace AnimalGenes
             GenerateGeneForComps();
             GenerateGenesForArmor();
             GenerateGenesForTools();
+            GenerateGenesForBodyTypes();
+
+            // Must be done last, after all other genes have been generated
+            GenerateAffinityGenes();
 
             RemoveStatDefsThatHaveGenesNow();
         }
-
         private static void RemoveStatDefsThatHaveGenesNow()
         {
             foreach (var sapientAnimal in SapientAnimals)
             {
-               // I thought I might have to remove natural armor here, but they don't get any in the first place..
+                // I thought I might have to remove natural armor here, but they don't get any in the first place..
+            }
+        }
+
+        private static void GenerateGenesForBodyTypes()
+        {
+            Dictionary<String, GeneDef> bodyTypeGenes = new Dictionary<String, GeneDef>();
+            foreach (var sapientAnimal in SapientAnimals)
+            {
+                bodyTypeGenes.TryGetValue(sapientAnimal.animal.race.body.label, out var existingGene);
+                if (existingGene == null)
+                {
+                    var bodyType = sapientAnimal.animal.race.body;
+                    string geneDefName = $"AG_{bodyType.defName}_BodyType";
+                    GeneDef newGene = geneDefName.TryGetExistingDef<GeneDef>();
+                    if (newGene == null)
+                    {
+                        GeneDef templateGene = DefDatabase<GeneDef>.GetNamed("AG_BodyType_Template");
+                        Check.NotNull(templateGene, "AG_BodyType_Template gene template not found");
+
+                        newGene = typeof(GeneDef).GetConstructor([]).Invoke([]) as GeneDef;
+                        CopyGeneDefFields(templateGene, newGene);
+
+                        newGene.defName = geneDefName;
+                        Check.NotNull(newGene, "Failed to create new GeneDef instance for body type gene");
+
+                        newGene.label = $"{bodyType.label.CapitalizeFirst()} Body Type";
+                        newGene.description += $"{bodyType.label.CapitalizeFirst()}";
+                        newGene.generated = true;
+                        Log.Message($"Generating body type gene {newGene.defName} for {bodyType.label}.");
+
+                        newGene.modExtensions = [GetProceduralIconData([new Pair<ThingDef, float>(sapientAnimal.animal, 0.95f)])];
+
+                        newGene.ResolveReferences();
+                        DefDatabase<GeneDef>.Add(newGene);
+                    }
+                    existingGene = newGene;
+                    bodyTypeGenes[bodyType.label] = existingGene;
+                }
+                AddGeneToHumanLikeAnimal(sapientAnimal, existingGene);
+            }
+        }
+
+
+        private static void GenerateAffinityGenes()
+        {
+            foreach (var sapientAnimal in SapientAnimals)
+            {
+                humanLikeGenes.TryGetValue(sapientAnimal, out var requiredGenes);
+                if (requiredGenes.NullOrEmpty())
+                {
+                    Log.Error("Failed to find any genes for sapient animal " + sapientAnimal.animal.defName + ", cannot generate affinity gene.");
+                    continue;
+                }
+                if (requiredGenes.Count == 1)
+                {
+                    Log.Message($"Sapient animal {sapientAnimal.animal.defName} has only one gene, that's quite few.");
+                }
+
+                string geneDefName = $"AG_{sapientAnimal.animal.defName}_Affinity";
+                GeneDef newGene = geneDefName.TryGetExistingDef<GeneDef>();
+                if (newGene == null)
+                {
+                    GeneDef templateGene = DefDatabase<GeneDef>.GetNamed("AG_Animal_Affinity_Template");
+                    Check.NotNull(templateGene, "AG_Animal_Affinity_Template gene template not found");
+
+                    newGene = typeof(GeneDef).GetConstructor([]).Invoke([]) as GeneDef;
+                    CopyGeneDefFields(templateGene, newGene);
+
+                    newGene.defName = geneDefName;
+                    Check.NotNull(newGene, "Failed to create new GeneDef instance for affinity gene");
+                    Check.NotNull(sapientAnimal.animal.label, sapientAnimal.animal + " label is null");
+                    newGene.label = $"{sapientAnimal.animal.label.CapitalizeFirst()} Affinity";
+                    newGene.generated = true;
+
+                    Log.Message($"Generating affinity gene {newGene.defName} for {sapientAnimal.animal.defName} with {requiredGenes.Count} required genes.");
+                    newGene.modExtensions =
+                    [
+                        new BigAndSmall.GenePrerequisites
+                        {
+                            prerequisiteSets = [
+                                new BigAndSmall.PrerequisiteSet
+                                {
+                                    prerequisites = [.. requiredGenes.Select(g => g.defName)],
+                                    type = PrerequisiteSet.PrerequisiteType.AllOf
+                                }
+                            ]
+                        },
+                        new GeneModExtension_TargetAffinity
+                        {
+                            targetAnimal = sapientAnimal
+                        }
+                    ];
+
+                    newGene.modExtensions.Add(GetProceduralIconData([new Pair<ThingDef, float>(sapientAnimal.animal, 0.95f)]));
+
+                    newGene.ResolveReferences();
+                    DefDatabase<GeneDef>.Add(newGene);
+                }
+
+                affinityGenes[newGene] = sapientAnimal;
             }
         }
         private static string RemoveWordsFromLabel(string label, List<string> wordsToRemove)
@@ -108,25 +214,25 @@ namespace AnimalGenes
                         continue;
                     }
 
-                    string geneDefName = $"HL_{sapientAnimal.animal.defName}_{cleanedLabel}";
+                    string geneDefName = $"AG_{sapientAnimal.animal.defName}_{cleanedLabel}";
                     GeneDef newGene = geneDefName.TryGetExistingDef<GeneDef>();
-                    GeneDef templateGene = DefDatabase<GeneDef>.GetNamed("AG_ToolTemplate");
+                    
                     if (newGene == null)
                     {
+                        GeneDef templateGene = DefDatabase<GeneDef>.GetNamed("AG_ToolTemplate");
                         newGene = typeof(GeneDef).GetConstructor([]).Invoke([]) as GeneDef;
                         CopyGeneDefFields(templateGene, newGene);
-                    }
 
-                    newGene.defName = geneDefName;
-                    newGene.label = $"{sapientAnimal.animal.label} {cleanedLabel}";
-                    newGene.generated = true;
-                    
-                    HediffDef toolHediff = CreateHediffDefForTool(t, cleanedLabel);
-                    string? toolLocation = GetToolLocationForLabel(cleanedLabel);
+                        newGene.defName = geneDefName;
+                        newGene.label = $"{sapientAnimal.animal.label} {cleanedLabel}";
+                        newGene.generated = true;
 
-                    if (toolLocation == null)
-                    {
-                        newGene.modExtensions = new List<DefModExtension>
+                        HediffDef toolHediff = CreateHediffDefForTool(t, cleanedLabel);
+                        string? toolLocation = GetToolLocationForLabel(cleanedLabel);
+
+                        if (toolLocation == null)
+                        {
+                            newGene.modExtensions = new List<DefModExtension>
                         {
                             new BigAndSmall.PawnExtension
                             {
@@ -138,25 +244,32 @@ namespace AnimalGenes
                                 ]
                             }
                         };
-                    } else {
-                        BodyPartDef targetBodyPart = DefDatabase<BodyPartDef>.GetNamed(toolLocation, true);
-                        newGene.modExtensions = new List<DefModExtension>
+                        }
+                        else
                         {
-                            new BigAndSmall.PawnExtension
+                            BodyPartDef targetBodyPart = DefDatabase<BodyPartDef>.GetNamed(toolLocation, true);
+                            newGene.modExtensions = new List<DefModExtension>
                             {
-                                applyPartHediff = [
-                                    new HediffToBodyparts
-                                    {
-                                        hediff = toolHediff,
-                                        bodyparts = [ targetBodyPart, targetBodyPart, targetBodyPart, targetBodyPart, targetBodyPart, targetBodyPart ]
-                                    }
-                                ],
-                            }
-                        };
+                                new BigAndSmall.PawnExtension
+                                {
+                                    applyPartHediff = [
+                                        new HediffToBodyparts
+                                        {
+                                            hediff = toolHediff,
+                                            bodyparts = [ targetBodyPart, targetBodyPart, targetBodyPart, targetBodyPart, targetBodyPart, targetBodyPart ]
+                                        }
+                                    ],
+                                }
+                            };
+                        }
+
+                        newGene.modExtensions.Add(GetProceduralIconData([new Pair<ThingDef, float>(sapientAnimal.animal, 0.95f)]));
+
+                        newGene.ResolveReferences();
+                        DefDatabase<GeneDef>.Add(newGene);
                     }
 
-                    newGene.ResolveReferences();
-                    DefDatabase<GeneDef>.Add(newGene);
+
                     AddGeneToHumanLikeAnimal(sapientAnimal, newGene);
                     createdTools.Add(cleanedLabel);
                     Log.Message($"Generated new tool gene {newGene.defName} for {sapientAnimal.animal.defName} with tool {cleanedLabel}");
@@ -164,7 +277,7 @@ namespace AnimalGenes
             }
         }
 
-        private static String? GetToolLocationForLabel(string cleanedLabel)
+        private static string GetToolLocationForLabel(string cleanedLabel)
         {
             foreach (var kvp in toolDefaultLocations)
             {
@@ -181,18 +294,19 @@ namespace AnimalGenes
         {
             string gediffDefDefName = $"AG_natural_{cleanedLabel}";
             HediffDef newHediff = gediffDefDefName.TryGetExistingDef<HediffDef>();
-            HediffDef hediffTemplate = DefDatabase<HediffDef>.GetNamed("AG_NaturalWeapon_Template_Hediff");
+            
             if (newHediff == null)
             {
+                HediffDef hediffTemplate = DefDatabase<HediffDef>.GetNamed("AG_NaturalWeapon_Template_Hediff");
                 newHediff = typeof(HediffDef).GetConstructor([]).Invoke([]) as HediffDef;
                 CopyHediffDefFields(hediffTemplate, newHediff);
-            }
-            newHediff.defName = gediffDefDefName;
-            newHediff.generated = true;
-            newHediff.label = $"{cleanedLabel.CapitalizeFirst()}";
 
-            newHediff.comps = [ 
-                new HediffCompProperties_VerbGiver {
+                newHediff.defName = gediffDefDefName;
+                newHediff.generated = true;
+                newHediff.label = $"{cleanedLabel.CapitalizeFirst()}";
+
+                newHediff.comps = [
+                    new HediffCompProperties_VerbGiver {
                     tools = [
                         new Tool {
                             id = $"AG_tool_{cleanedLabel}",
@@ -205,9 +319,11 @@ namespace AnimalGenes
                         }
                     ]
                 }
-            ];
+                ];
 
-            DefDatabase<HediffDef>.Add(newHediff);
+                DefDatabase<HediffDef>.Add(newHediff);
+            }
+
             return newHediff;
         }
         public static void CopyHediffDefFields(HediffDef sThing, HediffDef newThing)
@@ -243,26 +359,29 @@ namespace AnimalGenes
 
                 string geneDefName = $"HL_{sapientAnimal.animal.defName}_armor";
                 GeneDef newGene = geneDefName.TryGetExistingDef<GeneDef>();
-                GeneDef templateGene = DefDatabase<GeneDef>.GetNamed("AG_ArmorTemplate");
-
                 if (newGene == null)
                 {
+                    GeneDef templateGene = DefDatabase<GeneDef>.GetNamed("AG_ArmorTemplate");
                     newGene = typeof(GeneDef).GetConstructor([]).Invoke([]) as GeneDef;
                     CopyGeneDefFields(templateGene, newGene);
+
+                    newGene.defName = geneDefName;
+                    newGene.label = $"{sapientAnimal.animal.label} skin";
+                    newGene.generated = true;
+
+                    newGene.statOffsets =
+                    [
+                        new() { stat = StatDefOf.ArmorRating_Blunt, value = blunt },
+                        new() { stat = StatDefOf.ArmorRating_Sharp, value = sharp },
+                        new() { stat = StatDefOf.ArmorRating_Heat, value = heat }
+                    ];
+
+                    newGene.modExtensions = new List<DefModExtension>([GetProceduralIconData([new Pair<ThingDef, float>(sapientAnimal.animal, 0.95f)])]);
+
+                    newGene.ResolveReferences();
+                    DefDatabase<GeneDef>.Add(newGene);
                 }
-                newGene.defName = geneDefName;
-                newGene.label = $"{sapientAnimal.animal.label} skin";
-                newGene.generated = true;
 
-                newGene.statOffsets = new List<StatModifier>
-                {
-                    new StatModifier { stat = StatDefOf.ArmorRating_Blunt, value = blunt },
-                    new StatModifier { stat = StatDefOf.ArmorRating_Sharp, value = sharp },
-                    new StatModifier { stat = StatDefOf.ArmorRating_Heat, value = heat }
-                };
-
-                newGene.ResolveReferences();
-                DefDatabase<GeneDef>.Add(newGene);
                 AddGeneToHumanLikeAnimal(sapientAnimal, newGene);
             }
         }
@@ -311,35 +430,31 @@ namespace AnimalGenes
 
         private static void CreateShearableGene(HumanlikeAnimal sapientAnimal, CompProperties_Shearable shearableComp)
         {
-            //Log.Message($"Generating gene for shearable comp on {sapientAnimal.animal.defName}");
-
             string geneDefName = $"HL_{sapientAnimal.animal.defName}_shearable";
             GeneDef newGene = geneDefName.TryGetExistingDef<GeneDef>();
-            GeneDef templateGene = DefDatabase<GeneDef>.GetNamed("AG_ProductionTemplate");
-
             if (newGene == null) {
+                GeneDef templateGene = DefDatabase<GeneDef>.GetNamed("AG_ProductionTemplate");
+
                 newGene = typeof(GeneDef).GetConstructor([]).Invoke([]) as GeneDef;
                 CopyGeneDefFields(templateGene, newGene);
+
+                newGene.defName = geneDefName;
+                newGene.label = $"{sapientAnimal.animal.label} {shearableComp.woolDef.label} producer";
+                newGene.generated = true;
+
+                BigAndSmall.ProductionGeneSettings settings = typeof(BigAndSmall.ProductionGeneSettings).GetConstructor([]).Invoke([]) as BigAndSmall.ProductionGeneSettings;
+                settings.product = shearableComp.woolDef;
+                settings.baseAmount = (int)Math.Ceiling(shearableComp.woolAmount / sapientAnimal.animal.race.baseBodySize);
+                settings.frequencyInDays = shearableComp.shearIntervalDays;
+                settings.progressName = "Growing";
+                settings.saveKey = newGene.defName;
+
+                newGene.modExtensions = new List<DefModExtension>([settings, GetProceduralIconData([new Pair<ThingDef, float>(sapientAnimal.animal, 0.95f), new Pair<ThingDef, float>(shearableComp.woolDef, 0.4f)])]);
+
+                newGene.ResolveReferences();
+                DefDatabase<GeneDef>.Add(newGene);
             }
-            newGene.defName = geneDefName;
-            newGene.label = $"Shearable {sapientAnimal.animal.label}";
-            newGene.generated = true;
-
-            BigAndSmall.ProductionGeneSettings settings = typeof(BigAndSmall.ProductionGeneSettings).GetConstructor([]).Invoke([]) as BigAndSmall.ProductionGeneSettings;
-            settings.product = shearableComp.woolDef;
-            settings.baseAmount = (int)Math.Ceiling(shearableComp.woolAmount / sapientAnimal.animal.race.baseBodySize);
-            settings.frequencyInDays = shearableComp.shearIntervalDays;
-            settings.progressName = "Growing";
-            settings.saveKey = newGene.defName;
-
-            newGene.modExtensions = new List<DefModExtension>( [settings] );
-
-            newGene.ResolveReferences();
-            DefDatabase<GeneDef>.Add(newGene);
             AddGeneToHumanLikeAnimal(sapientAnimal, newGene);
-
-            //Log.Message($"Generated new gene {DefDatabase<GeneDef>.GetNamed(geneDefName).defName} for {sapientAnimal.animal.defName}");
-            //Log.Message($"Product: {settings.product}, Amount: {settings.baseAmount}, Interval: {settings.frequencyInDays} days");
         }
 
         public static void CopyGeneDefFields(GeneDef sThing, GeneDef newThing)
@@ -366,35 +481,36 @@ namespace AnimalGenes
 
         private static void CreateMilkableGene(HumanlikeAnimal sapientAnimal, CompProperties_Milkable milkableComp)
         {
-            //Log.Message($"Generating gene for milkable comp on {sapientAnimal.animal.defName}");
-
             string geneDefName = $"HL_{sapientAnimal.animal.defName}_milkable";
             GeneDef newGene = geneDefName.TryGetExistingDef<GeneDef>();
-            GeneDef templateGene = DefDatabase<GeneDef>.GetNamed("AG_ProductionTemplate");
-
             if (newGene == null)
             {
+                GeneDef templateGene = DefDatabase<GeneDef>.GetNamed("AG_ProductionTemplate");
                 newGene = typeof(GeneDef).GetConstructor([]).Invoke([]) as GeneDef;
                 CopyGeneDefFields(templateGene, newGene);
+
+                newGene.defName = geneDefName;
+                newGene.label = $"{sapientAnimal.animal.label} {milkableComp.milkDef.label} producer";
+                newGene.generated = true;
+
+                BigAndSmall.ProductionGeneSettings settings = typeof(BigAndSmall.ProductionGeneSettings).GetConstructor([]).Invoke([]) as BigAndSmall.ProductionGeneSettings;
+                settings.product = milkableComp.milkDef;
+                settings.baseAmount = (int)Math.Ceiling(milkableComp.milkAmount / sapientAnimal.animal.race.baseBodySize);
+                settings.frequencyInDays = milkableComp.milkIntervalDays;
+                settings.progressName = "Filling";
+                settings.saveKey = newGene.defName;
+
+                newGene.modExtensions = new List<DefModExtension>([settings, GetProceduralIconData([new Pair<ThingDef, float>(sapientAnimal.animal, 0.95f), new Pair<ThingDef, float>(milkableComp.milkDef, 0.4f)])]);
+                newGene.ResolveReferences();
+                DefDatabase<GeneDef>.Add(newGene);
             }
-            newGene.defName = geneDefName;
-            newGene.label = $"Milkable {sapientAnimal.animal.label}";
-            newGene.generated = true;
+        }
 
-            BigAndSmall.ProductionGeneSettings settings = typeof(BigAndSmall.ProductionGeneSettings).GetConstructor([]).Invoke([]) as BigAndSmall.ProductionGeneSettings;
-            settings.product = milkableComp.milkDef;
-            settings.baseAmount = (int)Math.Ceiling(milkableComp.milkAmount / sapientAnimal.animal.race.baseBodySize);
-            settings.frequencyInDays = milkableComp.milkIntervalDays;
-            settings.progressName = "Filling";
-            settings.saveKey = newGene.defName;
-
-            newGene.modExtensions = new List<DefModExtension>([settings]);
-
-            newGene.ResolveReferences();
-            DefDatabase<GeneDef>.Add(newGene);
-
-            //Log.Message($"Generated new gene {DefDatabase<GeneDef>.GetNamed(geneDefName).defName} for {sapientAnimal.animal.defName}");
-            //Log.Message($"Product: {settings.product}, Amount: {settings.baseAmount}, Interval: {settings.frequencyInDays} days");
+        private static GeneModExtension_ProceduralIconData GetProceduralIconData(List<Pair<ThingDef, float>> iconThingDefsAndScale)
+        {
+            return new GeneModExtension_ProceduralIconData {
+                iconThingDefsAndScale = iconThingDefsAndScale
+            };
         }
     }
 }

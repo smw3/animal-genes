@@ -87,7 +87,7 @@ namespace AnimalGenes
                         newGene = Helpers.GeneDefFromTemplate.GenerateGeneDef(template, null, []);
 
                         newGene.defName = geneDefName;
-                        newGene.label = $"Natural Weapon ({cleanedLabel})";
+                        newGene.label = "NaturalWeapon".Translate().Replace("{0}", cleanedLabel);
                         newGene.generated = true;
 
                         HediffDef toolHediff = CreateHediffDefForTool(t, cleanedLabel);

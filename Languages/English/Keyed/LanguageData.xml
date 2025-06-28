@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+
+  <BodySizeLarger>larger</BodySizeLarger>
+  <BodySizeSmaller>smaller</BodySizeSmaller>
+  <BodySizeLabel>x{0} bodysize</BodySizeLabel>
+  
+  <ProductionLabel>{0} producer ({1})</ProductionLabel>
+  <ProductionShearedVerb>sheared</ProductionShearedVerb>
+  <ProductionShearedGrowing>Growing</ProductionShearedGrowing>
+  <ProductionMilkedVerb>milked</ProductionMilkedVerb>
+  <ProductionMilkedGrowing>Filling</ProductionMilkedGrowing>
+  
+  <NaturalWeapon>Natural Weapon ({0})</NaturalWeapon>
+</LanguageData>

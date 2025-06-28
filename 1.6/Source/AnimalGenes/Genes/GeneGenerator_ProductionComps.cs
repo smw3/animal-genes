@@ -65,15 +65,15 @@ namespace AnimalGenes
             if (newGene == null)
             {
                 string productName = shearableComp.woolDef.label;
-                newGene = template.GenerateGeneDef(sapientAnimal.animal, ["sheared", productName], "Shearable");
-                newGene.label = $"{productName} producer ({sapientAnimal.animal.label})";
+                newGene = template.GenerateGeneDef(sapientAnimal.animal, ["ProductionShearedVerb".Translate(), productName], "Shearable");
+                newGene.label = "ProductionLabel".Translate().Replace("{0}",  productName).Replace("{1}", sapientAnimal.animal.label);
 
                 BigAndSmall.ProductionGeneSettings settings = new()
                 {
                     product = shearableComp.woolDef,
                     baseAmount = (int)Math.Ceiling(shearableComp.woolAmount / sapientAnimal.animal.race.baseBodySize),
                     frequencyInDays = shearableComp.shearIntervalDays,
-                    progressName = "Growing",
+                    progressName = "ProductionShearedGrowing".Translate(),
                     saveKey = newGene.defName
                 };
 
@@ -119,15 +119,15 @@ namespace AnimalGenes
             if (newGene == null)
             {
                 string productName = milkableComp.milkDef.label;
-                newGene = template.GenerateGeneDef(sapientAnimal.animal, ["milked", productName], "Milkable");
-                newGene.label = $"{productName} producer ({sapientAnimal.animal.label})";
+                newGene = template.GenerateGeneDef(sapientAnimal.animal, ["ProductionMilkedVerb".Translate(), productName], "Milkable");
+                newGene.label = "ProductionLabel".Translate().Replace("{0}", productName).Replace("{1}", sapientAnimal.animal.label);
 
                 ProductionGeneSettings settings = new()
                 {
                     product = milkableComp.milkDef,
                     baseAmount = (int)Math.Ceiling(milkableComp.milkAmount / sapientAnimal.animal.race.baseBodySize),
                     frequencyInDays = milkableComp.milkIntervalDays,
-                    progressName = "Producing",
+                    progressName = "ProductionMilkedGrowing".Translate(),
                     saveKey = newGene.defName
                 };
 

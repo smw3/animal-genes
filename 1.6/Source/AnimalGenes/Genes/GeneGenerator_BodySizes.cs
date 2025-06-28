@@ -27,10 +27,10 @@ namespace AnimalGenes
                     GeneDef newGene = geneDefName.TryGetExistingDef<GeneDef>();
                     if (newGene == null)
                     {
-                        string sizeLabel = roundedBodySize < 1.0f ? "smaller" : "larger";
+                        string sizeLabel = roundedBodySize < 1.0f ? "BodySizeSmaller".Translate() : "BodySizeLarger".Translate();
                         newGene = GeneDefFromTemplate.GenerateGeneDef(template, null, [sizeLabel]);
                         newGene.defName = geneDefName;
-                        newGene.label = $"x{roundedBodySize} bodysize";
+                        newGene.label = "BodySizeLabel".Translate().Replace("{0}", roundedBodySize.ToString());
 
                         newGene.statFactors = [
                             new StatModifier

@@ -68,13 +68,21 @@ namespace AnimalGenes
         {
             foreach (var sapientAnimal in SapientAnimals)
             {
-                // I thought I might have to remove natural armor here, but they don't get any in the first place..
+                
 
                 // set body size to default, as it is now handled by genes
                 sapientAnimal.humanlikeThing.SetStatBaseValue(BSDefs.SM_BodySizeOffset, 1.0f - sapientAnimal.humanlikeThing.race.baseBodySize);
 
                 setBaseToDefault(sapientAnimal, StatDefOf.MoveSpeed);
                 setBaseToDefault(sapientAnimal, StatDefOf.CarryingCapacity);
+                setBaseToDefault(sapientAnimal, StatDefOf.ToxicEnvironmentResistance);
+                setBaseToDefault(sapientAnimal, StatDefOf.ToxicResistance);
+                setBaseToDefault(sapientAnimal, StatDefOf.ComfyTemperatureMin);
+                setBaseToDefault(sapientAnimal, StatDefOf.ComfyTemperatureMax);
+                // I thought I might have to remove natural armor here, but they don't get any in the first place.. still, just in case
+                setBaseToDefault(sapientAnimal, StatDefOf.ArmorRating_Sharp);
+                setBaseToDefault(sapientAnimal, StatDefOf.ArmorRating_Blunt);
+                setBaseToDefault(sapientAnimal, StatDefOf.ArmorRating_Heat);
             }
         }
 

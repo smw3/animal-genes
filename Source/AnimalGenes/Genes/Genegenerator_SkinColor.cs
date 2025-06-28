@@ -1,4 +1,5 @@
-﻿using BigAndSmall;
+﻿using AnimalGenes.Defs;
+using BigAndSmall;
 using System;
 using System.Collections.Generic;
 using Verse;
@@ -7,12 +8,31 @@ namespace AnimalGenes
 {
     public class Genegenerator_SkinColor
     {
+
         public static void AssignGenes(List<HumanlikeAnimal> sapientAnimals)
         {
             foreach (var sapientAnimal in sapientAnimals)
             {
                 ThingDef leather = sapientAnimal.animal.race.leatherDef;
-                if (leather == null || leather.graphicData == null || leather.graphicData.color == null)
+                if (leather == null)
+                {
+                    continue;
+                }
+
+                foreach (var setting in AnimalGeneSettingsDef.AllSettings) {
+                    if (setting.GeneForLeatherDefs.thingDefNames.Contains(leather.defName))
+                    {
+                        GeneDef geneDef = DefDatabase<GeneDef>.GetNamed(setting.GeneForLeatherDefs.geneDefName);
+                        if (geneDef == null)
+                        {
+                            Log.Error($"[AnimalGenes] No gene definition found for {setting.GeneForLeatherDefs.geneDefName} for leather {leather.defName} override.");
+                        } else  {
+                            GeneGenerator.AddGeneToHumanLikeAnimal(sapientAnimal, geneDef);
+                        }
+                    }
+                }
+
+                if (leather.graphicData == null || leather.graphicData.color == null)
                 {
                     Check.DebugLog($"{sapientAnimal.animal.defName} has no valid leather definition or color.");
                     continue;

@@ -28,12 +28,16 @@ namespace AnimalGenes
         {
             Listing_Standard listingStandard = new();
             listingStandard.Begin(inRect);
+            listingStandard.Label("RESTART YOUR GAME after changing any settings.");
             listingStandard.Label("Behavior Features");
+            listingStandard.Label("");
             listingStandard.CheckboxLabeled("Enable grazing behavior", ref settings.AllowGrazingBehavior, "Allow genes that change Pawns food-seeking behavior. This may have performance impacts if you have many hungry sapient animals.");
             listingStandard.CheckboxLabeled("Enable dendrovore behavior", ref settings.AllowDendrovoreBehavior, "Allow genes that change Pawns food-seeking behavior. This may have performance impacts if you have many hungry sapient animals.");
             listingStandard.CheckboxLabeled("Enable predator behavior", ref settings.AllowPredatorBehavior, "Allow genes that change Pawns food-seeking behavior. This may have performance impacts if you have many hungry sapient animals.");
-
+            listingStandard.CheckboxLabeled("Enable crossbreeding", ref settings.EnableCrossbreeding, "Allows sapient animals and colonists/tame animals of the same kind to produce offspring. Off by default due to the implications.");
+            listingStandard.Label("");
             listingStandard.Label("Debug");
+            listingStandard.Label("");
             listingStandard.CheckboxLabeled("Enable debug log", ref settings.DebugEnabled, "Enable verbose logging. Use only for debugging purposes.");
             listingStandard.End();
 
@@ -52,16 +56,6 @@ namespace AnimalGenes
         public static void Prefix(bool hotReload)
         {
             GeneGenerator.GenerateGenes();
-        }
-    }
-
-    [HarmonyPatch(typeof(HumanlikeAnimalGenerator), nameof(HumanlikeAnimalGenerator.SetAnimalStatDefValues))]
-    static class HumanlikeAnimalGenerator_SetAnimalStatDefValues_Patch
-    {
-        static void Postfix(ThingDef humanThing, ThingDef animalThing, ThingDef newThing, float fineManipulation, PawnExtension pExt)
-        {
-            newThing.SetStatBaseValue(BSDefs.SM_FlirtChance, 1);
-            newThing.SetStatBaseValue(StatDefOf.Fertility, 1);
         }
     }
 

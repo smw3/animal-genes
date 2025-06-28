@@ -123,15 +123,20 @@ namespace AnimalGenes
                     Check.DebugLog($"Generating affinity gene {newGene.defName} for {sapientAnimal.animal.defName} with {requiredGenes.Count} required genes.");
                     newGene.modExtensions =
                     [
-                        new BigAndSmall.GenePrerequisites
+                        new GenePrerequisites
                         {
                             prerequisiteSets = [
-                                new BigAndSmall.PrerequisiteSet
+                                new PrerequisiteSet
                                 {
                                     prerequisites = [.. requiredGenes.Select(g => g.defName)],
                                     type = PrerequisiteSet.PrerequisiteType.AllOf
                                 }
                             ]
+                        },
+                        new PawnExtension // Effectively the same as the "very early maturity" gene
+                        {
+                            babyStartAge = 10,
+                            sizeByAgeMult = new SimpleCurve([ new CurvePoint(10, 0.2f), new CurvePoint(13, 1) ])
                         },
                         new TargetAffinity
                         {

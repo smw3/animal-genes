@@ -12,7 +12,7 @@ namespace AnimalGenes
 {
     public static class RaceMorpher
     {
-        public static void SwapPawnToSapientAnimal(this Pawn humanPawn, HumanlikeAnimal humanlikeAnimal)
+        public static void SwapPawnToSapientAnimal(Pawn humanPawn, HumanlikeAnimal humanlikeAnimal)
         {
             // Empty inventory
             if (humanPawn.inventory != null && humanPawn.inventory?.innerContainer != null)
@@ -109,11 +109,6 @@ namespace AnimalGenes
                     Check.DebugLog($"Gene {geneDef.defName} is already an endogene for pawn {pawn.Name}, skipping.");
                 }
             }
-        }
-
-        public static bool IsSapientAnimal(this Pawn pawn)
-        {            
-            return HumanlikeAnimalGenerator.humanlikeAnimals.Values.Select(h => h.humanlikeThing).Contains(pawn.def);
         }
     }
 }

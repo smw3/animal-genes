@@ -69,6 +69,7 @@
     <Compile Include="ANGDefs.cs" />
     <Compile Include="Behaviors\DietBehaviors.cs" />
     <Compile Include="Behaviors\ProductionBehaviors.cs" />
+    <Compile Include="Behaviors\ReproductionBehaviors.cs" />
     <Compile Include="DebugHelpers\Check.cs" />
     <Compile Include="Defs\AnimalGeneSettings.cs" />
     <Compile Include="GeneModExtensions\EnableBehavior.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Components\GeneIconGeneratorComponent.cs" />
     <Compile Include="GeneModExtensions\ProceduralIconData.cs" />
     <Compile Include="GeneModExtensions\TargetAffinity.cs" />
+    <Compile Include="Helpers\ExtensionMethods.cs" />
     <Compile Include="Helpers\IconHelper.cs" />
     <Compile Include="Main_early.cs" />
     <Compile Include="Graphics\PawnRenderNodeWorker_FlipWhenCrawling_OnlyNonSapient.cs" />

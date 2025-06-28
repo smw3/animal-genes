@@ -1,4 +1,5 @@
 ﻿using AnimalGenes.GeneModExtensions;
+using AnimalGenes.Helpers;
 using HarmonyLib;
 using RimWorld;
 using System;
@@ -18,24 +19,7 @@ namespace AnimalGenes.Behaviors
 {
     public static class DietBehaviors
     {       
-        public static bool CanGraze(this Pawn pawn)
-        {
-            return pawn.genes != null &&
-                pawn.genes.DontMindRawFood &&
-                pawn.genes.GenesListForReading.Where(g => g.def.GetModExtension<EnableBehavior>()?.canGraze ?? false).Any();
-        }
-        public static bool IsDendrovore(this Pawn pawn)
-        {
-            return pawn.genes != null &&
-                pawn.genes.DontMindRawFood &&
-                pawn.genes.GenesListForReading.Where(g => g.def.GetModExtension<EnableBehavior>()?.canEatTrees ?? false).Any();
-        }
-        public static bool IsPredator(this Pawn pawn)
-        {
-            return pawn.genes != null &&
-                pawn.genes.DontMindRawFood &&
-                pawn.genes.GenesListForReading.Where(g => g.def.GetModExtension<EnableBehavior>()?.isPredator ?? false).Any();
-        }
+
     }
 
     [HarmonyPatch(typeof(FoodUtility), nameof(FoodUtility.BestFoodSourceOnMap))]

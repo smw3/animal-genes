@@ -123,15 +123,15 @@ namespace AnimalGenes
                 DefHelper.CopyGeneDefFields(templateGene, newGene);
 
                 newGene.defName = geneDefName;
-                newGene.label = $"{sapientAnimal.animal.label} {milkableComp.milkDef.label} producer";
+                newGene.label = $"{sapientAnimal.animal.label.CapitalizeFirst()} {milkableComp.milkDef.label} producer";
                 newGene.generated = true;
 
-                BigAndSmall.ProductionGeneSettings settings = new()
+                ProductionGeneSettings settings = new()
                 {
                     product = milkableComp.milkDef,
                     baseAmount = (int)Math.Ceiling(milkableComp.milkAmount / sapientAnimal.animal.race.baseBodySize),
                     frequencyInDays = milkableComp.milkIntervalDays,
-                    progressName = "Filling",
+                    progressName = "Producing",
                     saveKey = newGene.defName
                 };
 
@@ -142,7 +142,7 @@ namespace AnimalGenes
 
                 newGene.modExtensions = new List<DefModExtension>([
                     settings, productionDependsOnGender,
-                    IconHelper.GetProceduralIconData([new Pair<ThingDef, float>(sapientAnimal.animal, 0.95f), new Pair<ThingDef, float>(milkableComp.milkDef, 0.4f)])]);
+                    IconHelper.GetProceduralIconData([new Pair<ThingDef, float>(sapientAnimal.animal, 0.95f), new Pair<ThingDef, float>(milkableComp.milkDef, 0.5f)])]);
                 newGene.ResolveReferences();
                 DefDatabase<GeneDef>.Add(newGene);
             }

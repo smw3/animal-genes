@@ -45,7 +45,7 @@ namespace AnimalGenes.Behaviors
         {
             if (!prey.RaceProps.canBePredatorPrey)
             {
-                Check.DebugLog($"Prey: {prey} race can't be prey");
+                //Check.DebugLog($"Prey: {prey} race can't be prey");
                 return false;
             }
             if (!prey.RaceProps.IsFlesh)
@@ -54,26 +54,26 @@ namespace AnimalGenes.Behaviors
             }
             if (prey.RaceProps.Humanlike) // Maybe check for traits that would make pawn not care about killing people
             {
-                Check.DebugLog($"Prey: {prey} humanlike");
+                //Check.DebugLog($"Prey: {prey} humanlike");
                 return false;
             }
             if (prey.BodySize > predator.RaceProps.maxPreyBodySize)
             {
-                Check.DebugLog($"Prey: {prey} too large");
+                //Check.DebugLog($"Prey: {prey} too large");
                 return false;
             }
             if (!prey.Downed)
             {
                 if (prey.kindDef.combatPower > 2f * predator.kindDef.combatPower)
                 {
-                    Check.DebugLog($"Prey: {prey} {prey.kindDef.combatPower} vs {predator.kindDef.combatPower}");
+                    //Check.DebugLog($"Prey: {prey} {prey.kindDef.combatPower} vs {predator.kindDef.combatPower}");
                     return false;
                 }
                 float adjustedPreyPower = prey.kindDef.combatPower * prey.health.summaryHealth.SummaryHealthPercent * prey.BodySize;
                 float adjustedPredatorPower = predator.kindDef.combatPower * predator.health.summaryHealth.SummaryHealthPercent * predator.BodySize;
                 if (adjustedPreyPower >= adjustedPredatorPower)
                 {
-                    Check.DebugLog($"Prey: {prey} adjusted {adjustedPreyPower} vs {adjustedPredatorPower}");
+                    //Check.DebugLog($"Prey: {prey} adjusted {adjustedPreyPower} vs {adjustedPredatorPower}");
                     return false;
                 }
             }
@@ -120,7 +120,7 @@ namespace AnimalGenes.Behaviors
                     {
                         num = preyScoreFor;
                         pawn = potentialPrey;
-                        Check.DebugLog($"Potential prey: {pawn} {num}");
+                        //Check.DebugLog($"Potential prey: {pawn} {num}");
                     }
                 }
             }
@@ -152,7 +152,7 @@ namespace AnimalGenes.Behaviors
             if (eater.IsPredator() && AnimalGenesModSettings.Settings.AllowPredatorBehavior)
             {
                 Thing bestPrey = BestPawnToHuntForSapientPredator(eater);
-                Check.DebugLog($"Predator best prey: {bestPrey}");
+                //Check.DebugLog($"Predator best prey: {bestPrey}");
 
                 __result = bestPrey;
                 foodDef = bestPrey?.def;

@@ -10,7 +10,7 @@
     <minAgeActive>15</minAgeActive>
     <biostatCpx>1</biostatCpx>
     <biostatMet>-2</biostatMet>
-	<!-- Procedurally generated
+    <!-- Procedurally generated
     <modExtensions>
       <li Class="BigAndSmall.ProductionGeneSettings">
         <product>Chocolate</product>
@@ -20,6 +20,6 @@
         <saveKey>BS_ChocolateProduction</saveKey>
       </li>
     </modExtensions>
-	-->
+    -->
   </GeneDef>
 </Defs>

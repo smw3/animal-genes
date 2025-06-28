@@ -15,9 +15,10 @@ namespace AnimalGenes
             float colorDistance = float.MaxValue;
             foreach (var geneDef in geneDefs)
             {
-                if (geneDef.defName.StartsWith("Skin_") && geneDef.skinColorOverride.HasValue)
+                if ((geneDef.defName.StartsWith("Skin_") || geneDef.defName.StartsWith("ANG_Skin_")) && geneDef.skinColorOverride.HasValue)
                 {
                     float distance = ColorDistance(color, geneDef.skinColorOverride.Value);
+                    //Check.DebugLog($"GeneDefForSkinColor: Checking gene {geneDef.defName} with color {geneDef.skinColorOverride.Value} against target color {color}. Distance: {distance}");
                     if (distance < colorDistance)
                     {
                         colorDistance = distance;
@@ -25,6 +26,13 @@ namespace AnimalGenes
                     }
                 }
             }
+
+            if (colorDistance > 40.0)
+            {
+                Check.DebugLog($"No good color match found for color {color}. Closest match is {closestGene?.defName ?? "none"} with distance {colorDistance}.");
+                return null;
+            }
+
             return closestGene;
         }
 
@@ -49,9 +57,9 @@ namespace AnimalGenes
             return closestGene;
         }
 
+        // Redmean color distance calculation
         private static float ColorDistance(Color color, Color targetColor)
-        {
-            // Redmean color distance calculation
+        {            
             float red_bar = (color.r * 255.0f + targetColor.r * 255.0f) / 2.0f;
             float red_delta = color.r * 255.0f - targetColor.r * 255.0f;
             float green_delta = color.g * 255.0f - targetColor.g * 255.0f;

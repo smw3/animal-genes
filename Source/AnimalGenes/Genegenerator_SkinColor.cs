@@ -17,11 +17,13 @@ namespace AnimalGenes
                     Check.DebugLog($"{sapientAnimal.animal.defName} has no valid leather definition or color.");
                     continue;
                 }
+                Check.DebugLog($"Looking for good color gene for {sapientAnimal.animal.defName} with leather {leather.defName}.");
                 GeneDef skinColorGene = ColorHelper.GeneDefForSkinColor(leather.graphicData.color);
                 // If you ignore human skin tones, orange and pale yellow end up being very close to the default skin color
-                if (skinColorGene.defName == "Skin_Orange" || skinColorGene.defName == "Skin_PaleYellow") { 
+                if (skinColorGene == null || skinColorGene.defName == "Skin_Orange" || skinColorGene.defName == "Skin_PaleYellow") { 
                     continue;
                 }
+                Check.DebugLog($"Assigning color gene {skinColorGene.defName} for {sapientAnimal.animal.defName}.");
                 GeneGenerator.AddGeneToHumanLikeAnimal(sapientAnimal, skinColorGene);
             }
         }

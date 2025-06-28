@@ -62,13 +62,26 @@ namespace AnimalGenes.Behaviors
                 hediff_Pregnant.SetParents(female, male, geneSet);
 
                 female.health.AddHediff(hediff_Pregnant, null, null, null);
-            } else {
+            }
+            else
+            {
                 Hediff_Pregnant hediff_Pregnant = (Hediff_Pregnant)HediffMaker.MakeHediff(HediffDefOf.Pregnant, female, null);
                 hediff_Pregnant.SetParents(female, male, null);
 
                 female.health.AddHediff(hediff_Pregnant, null, null, null);
             }
             return false;
+        }
+    }
+
+    [HarmonyPatch(typeof(SocialCardUtility), "ShouldShowPawnRelations")]
+    [HarmonyPriority(Priority.Last)]
+    public static class SocialCardUtility_ShouldShowPawnRelations
+    {
+        public static void Postfix(ref bool __result, Pawn pawn, Pawn selPawnForSocialInfo)
+        {
+            if (__result) return;
+            __result = ((!pawn.Dead || pawn.Corpse != null) && pawn.Name != null && !pawn.relations.hidePawnRelations && !selPawnForSocialInfo.relations.hidePawnRelations && pawn.relations.everSeenByPlayer);
         }
     }
 }

@@ -133,10 +133,10 @@ namespace AnimalGenes
                                 }
                             ]
                         },
-                        new PawnExtension // Effectively the same as the "very early maturity" gene
+                        new PawnExtension // Effectively the same as the "early maturity" gene
                         {
-                            babyStartAge = 10,
-                            sizeByAgeMult = new SimpleCurve([ new CurvePoint(10, 0.2f), new CurvePoint(13, 1) ])
+                            babyStartAge = 3,
+                            sizeByAgeMult = new SimpleCurve([ new CurvePoint(3, 0.6f), new CurvePoint(13, 1) ])
                         },
                         new TargetAffinity
                         {

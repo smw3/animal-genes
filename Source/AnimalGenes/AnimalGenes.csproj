@@ -66,31 +66,31 @@
     <Reference Include="UnityEngine.TextRenderingModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Check.cs" />
-    <Compile Include="ColorHelper.cs" />
+    <Compile Include="Debug\Check.cs" />
+    <Compile Include="Helpers\ColorHelper.cs" />
     <Compile Include="Config.cs" />
-    <Compile Include="DefHelper.cs" />
-    <Compile Include="GeneDebugMenu.cs" />
-    <Compile Include="GeneGenerator.cs" />
-    <Compile Include="GeneGenerator_Armor.cs" />
-    <Compile Include="GeneGenerator_BodySizes.cs" />
-    <Compile Include="GeneGenerator_BodyTypes.cs" />
-    <Compile Include="GeneGenerator_Diet.cs" />
-    <Compile Include="GeneGenerator_Health.cs" />
-    <Compile Include="GeneGenerator_ProductionComps.cs" />
-    <Compile Include="Genegenerator_SkinColor.cs" />
-    <Compile Include="GeneGenerator_Speed.cs" />
-    <Compile Include="GeneGenerator_Temperature.cs" />
-    <Compile Include="GeneGenerator_Tools.cs" />
+    <Compile Include="Helpers\DefHelper.cs" />
+    <Compile Include="Debug\GeneDebugMenu.cs" />
+    <Compile Include="Genes\GeneGenerator.cs" />
+    <Compile Include="Genes\GeneGenerator_Armor.cs" />
+    <Compile Include="Genes\GeneGenerator_BodySizes.cs" />
+    <Compile Include="Genes\GeneGenerator_BodyTypes.cs" />
+    <Compile Include="Genes\GeneGenerator_Diet.cs" />
+    <Compile Include="Genes\GeneGenerator_Health.cs" />
+    <Compile Include="Genes\GeneGenerator_ProductionComps.cs" />
+    <Compile Include="Genes\Genegenerator_SkinColor.cs" />
+    <Compile Include="Genes\GeneGenerator_Speed.cs" />
+    <Compile Include="Genes\GeneGenerator_Temperature.cs" />
+    <Compile Include="Genes\GeneGenerator_Tools.cs" />
     <Compile Include="GeneIconGeneratorComponent.cs" />
-    <Compile Include="GeneModExtension_ProceduralIcon.cs" />
-    <Compile Include="GeneModExtension_TargetAffinity.cs" />
-    <Compile Include="IconHelper.cs" />
+    <Compile Include="Genes\GeneModExtension_ProceduralIcon.cs" />
+    <Compile Include="Genes\GeneModExtension_TargetAffinity.cs" />
+    <Compile Include="Helpers\IconHelper.cs" />
     <Compile Include="Main_early.cs" />
-    <Compile Include="PawnRenderNodeWorker_FlipWhenCrawling_OnlyNonSapient.cs" />
+    <Compile Include="Graphics\PawnRenderNodeWorker_FlipWhenCrawling_OnlyNonSapient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RaceMorpher.cs" />
-    <Compile Include="TextHelper.cs" />
+    <Compile Include="Helpers\RaceMorpher.cs" />
+    <Compile Include="Helpers\TextHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

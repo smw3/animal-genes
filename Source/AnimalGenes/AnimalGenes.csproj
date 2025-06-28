@@ -10,6 +10,7 @@
     <RootNamespace>AnimalGenes</RootNamespace>
     <AssemblyName>AnimalGenes</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <LangVersion>latest</LangVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -39,7 +40,8 @@
       <HintPath>D:\SteamLibrary\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="BigAndSmall">
+    <Reference Include="BigAndSmall, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>D:\SteamLibrary\steamapps\workshop\content\294100\2925432336\1.6\Base\Assemblies\BigAndSmall.dll</HintPath>
     </Reference>
     <Reference Include="BSXeno">
@@ -60,9 +62,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Check.cs" />
-    <Compile Include="HarmonyPatches.cs" />
+    <Compile Include="GeneGenerator.cs" />
+    <Compile Include="Main_early.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RaceDefGene.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

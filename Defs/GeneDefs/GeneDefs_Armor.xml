@@ -1,0 +1,38 @@
+<Defs>
+	<GeneDef Name="AG_Base_Armor" Abstract="True">
+		<displayCategory>AG_Armor</displayCategory>
+		
+		<exclusionTags>
+			<li>AG_Base_Armor</li>
+			<li>BS_Armour</li>
+			<li>Armor</li>
+			<li>Armour</li>
+			<li>Armor</li>
+		</exclusionTags>
+	</GeneDef>
+	
+	<GeneDef Name="AG_ArmorTemplate" ParentName="AG_Base_Armor">
+		<defName>AG_ArmorTemplate</defName>
+		<label>Tough Skin</label>
+		<description>Carriers of this gene have naturally tough skin.</description>
+		<iconPath>UI/Icons/Genes/Skills/Animals/Strong</iconPath>
+		
+		<displayOrderInCategory>20</displayOrderInCategory>
+		<!--
+		<statOffsets>
+			<ArmorRating_Blunt>0.15</ArmorRating_Blunt>
+			<ArmorRating_Sharp>0.25</ArmorRating_Sharp>
+		</statOffsets>
+		-->
+		<biostatCpx>1</biostatCpx>
+		<biostatMet>-1</biostatMet>
+		<symbolPack>
+			<prefixSymbols>
+				<li>
+					<symbol>thick-skinned</symbol>
+				</li>
+			</prefixSymbols>
+		</symbolPack>
+		<selectionWeight>1</selectionWeight>
+	</GeneDef>
+</Defs>

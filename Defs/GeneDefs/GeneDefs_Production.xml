@@ -1,0 +1,25 @@
+<Defs>
+  <GeneDef>
+    <defName>AG_ProductionTemplate</defName>
+    <label>chocolate production</label>
+    <description>Carriers of this gene produce something like an animal would.</description>
+    <geneClass>BigAndSmall.ProductionGene</geneClass>
+    <iconPath>UI/Icons/Genes/Skills/Animals/Strong</iconPath>
+    <displayOrderInCategory>666</displayOrderInCategory>
+    <displayCategory>AG_Production</displayCategory>
+    <minAgeActive>15</minAgeActive>
+    <biostatCpx>1</biostatCpx>
+    <biostatMet>-2</biostatMet>
+	<!-- Procedurally generated
+    <modExtensions>
+      <li Class="BigAndSmall.ProductionGeneSettings">
+        <product>Chocolate</product>
+        <frequencyInDays>2</frequencyInDays>
+        <baseAmount>6</baseAmount>
+        <progressName>Marabou Switzere Progress</progressName>
+        <saveKey>BS_ChocolateProduction</saveKey>
+      </li>
+    </modExtensions>
+	-->
+  </GeneDef>
+</Defs>

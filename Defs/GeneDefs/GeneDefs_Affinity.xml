@@ -2,7 +2,7 @@
 	<GeneDef>
 		<defName>ANG_Animal_Affinity_Template</defName>
 		<label>Animal affinity</label>
-		<description>Carriers of this gene may be indistinguishable from the real animal, if their genes agree. When in balance, compensates for any metabolic cost all relevant genes have.</description>
+		<description>Carriers of this gene may be indistinguishable from the real animal, if their genes agree. When in balance, compensates for any metabolic cost all relevant genes have.\nOnce activated, will turn all relevant genes into endogenes, REPLACING any existing ones.</description>
 		<iconPath>UI/Icons/Genes/Skills/Animals/Strong</iconPath>
 		<displayOrderInCategory>775</displayOrderInCategory>
 		<biostatCpx>2</biostatCpx>

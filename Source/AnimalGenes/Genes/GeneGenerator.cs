@@ -49,7 +49,7 @@ namespace AnimalGenes
             GeneGenerator_BodySizes.GenerateGenes(SapientAnimals);  
 
             // Assign existing genes
-            Genegenerator_SkinColor.AssignGenes(SapientAnimals);
+            Genegenerator_SkinColor.AssignGenesByLeather(SapientAnimals);
             GeneGenerator_Diet.AssignGenes(SapientAnimals);
             GeneGenerator_Speed.AssignGenes(SapientAnimals);
             GeneGenerator_Temperature.AssignGenes(SapientAnimals);
@@ -71,8 +71,6 @@ namespace AnimalGenes
         {
             foreach (var sapientAnimal in SapientAnimals)
             {
-                
-
                 // set body size to default, as it is now handled by genes
                 sapientAnimal.humanlikeThing.SetStatBaseValue(BSDefs.SM_BodySizeOffset, 1.0f - sapientAnimal.humanlikeThing.race.baseBodySize);
 
@@ -86,6 +84,7 @@ namespace AnimalGenes
                 SetBaseToDefault(sapientAnimal, StatDefOf.ArmorRating_Sharp);
                 SetBaseToDefault(sapientAnimal, StatDefOf.ArmorRating_Blunt);
                 SetBaseToDefault(sapientAnimal, StatDefOf.ArmorRating_Heat);
+                SetBaseToDefault(sapientAnimal, StatDefOf.MaxHitPoints);
             }
         }
 

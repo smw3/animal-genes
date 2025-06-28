@@ -45,6 +45,8 @@ namespace AnimalGenes
                         new() { stat = StatDefOf.ArmorRating_Heat, value = heat }
                     ];
 
+                    newGene.biostatMet = (int)(-2.0f * (blunt + sharp + heat) / 3.0f);
+
                     newGene.modExtensions = new List<DefModExtension>([IconHelper.GetProceduralIconData([new Pair<ThingDef, float>(sapientAnimal.animal, 0.95f)])]);
 
                     newGene.ResolveReferences();

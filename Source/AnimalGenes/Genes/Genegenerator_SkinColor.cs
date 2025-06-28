@@ -8,16 +8,12 @@ namespace AnimalGenes
 {
     public class Genegenerator_SkinColor
     {
-
-        public static void AssignGenes(List<HumanlikeAnimal> sapientAnimals)
+        public static void AssignGenesByLeather(List<HumanlikeAnimal> sapientAnimals)
         {
             foreach (var sapientAnimal in sapientAnimals)
             {
                 ThingDef leather = sapientAnimal.animal.race.leatherDef;
-                if (leather == null)
-                {
-                    continue;
-                }
+                if (leather == null) continue;
 
                 foreach (var setting in AnimalGeneSettingsDef.AllSettings) {
                     if (setting.GeneForLeatherDefs.thingDefNames.Contains(leather.defName))
@@ -25,26 +21,28 @@ namespace AnimalGenes
                         foreach (var geneDefName in setting.GeneForLeatherDefs.geneDefNames)
                         {
                             GeneDef geneDef = DefDatabase<GeneDef>.GetNamedSilentFail(geneDefName);
-                            if (geneDef != null)
-                            {   
-                                // May reference genes of mods that aren't loaded, so just silently ignore those
-                                GeneGenerator.AddGeneToHumanLikeAnimal(sapientAnimal, geneDef);
-                            }
+                            // May reference genes of mods that aren't loaded, so just silently ignore those
+                            if (geneDef != null) GeneGenerator.AddGeneToHumanLikeAnimal(sapientAnimal, geneDef);
                         }
                     }
                 }
 
-                if (leather.graphicData == null || leather.graphicData.color == null)
+                if (leather.graphicData == null || leather.graphicData.color == null) continue;
+
+                if (leather.label.Contains("fur")) // sometimes leather is fur, so we can assign hair color..
                 {
-                    Check.DebugLog($"{sapientAnimal.animal.defName} has no valid leather definition or color.");
-                    continue;
+                    GeneDef hairColorGene = ColorHelper.GeneDefForHairColor(leather.graphicData.color);
+                    GeneGenerator.AddGeneToHumanLikeAnimal(sapientAnimal, hairColorGene);
+                    Check.DebugLog($"Added hair color gene {hairColorGene.defName} for leather/fur color {leather.graphicData.color} to {sapientAnimal.animal.defName}");
                 }
+
                 Check.DebugLog($"Looking for good color gene for {sapientAnimal.animal.defName} with leather {leather.defName}.");
                 GeneDef skinColorGene = ColorHelper.GeneDefForSkinColor(leather.graphicData.color);
-                // If you ignore human skin tones, orange and pale yellow end up being very close to the default skin color
+                // If you ignore human skin tones, orange and pale yellow end up being very close to the default skin color, so we just skip those
                 if (skinColorGene == null || skinColorGene.defName == "Skin_Orange" || skinColorGene.defName == "Skin_PaleYellow") { 
                     continue;
                 }
+
                 Check.DebugLog($"Assigning color gene {skinColorGene.defName} for {sapientAnimal.animal.defName}.");
                 GeneGenerator.AddGeneToHumanLikeAnimal(sapientAnimal, skinColorGene);
             }

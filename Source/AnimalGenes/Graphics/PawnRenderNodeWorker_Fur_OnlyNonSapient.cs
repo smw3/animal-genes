@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Verse;
 
-namespace AnimalGenes
+namespace AnimalGenes.Graphics
 {
-    public class PawnRenderNodeWorker_FlipWhenCrawling_OnlyNonSapient : PawnRenderNodeWorker_FlipWhenCrawling
+    public class PawnRenderNodeWorker_Fur_OnlyNonSapient : PawnRenderNodeWorker_Fur
     {
         public override bool CanDrawNow(PawnRenderNode node, PawnDrawParms parms)
         {
@@ -18,6 +18,6 @@ namespace AnimalGenes
                 return false;
             }
             return base.CanDrawNow(node, parms);
-        }   
+        }
     }
 }

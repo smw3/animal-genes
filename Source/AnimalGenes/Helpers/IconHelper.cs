@@ -5,6 +5,7 @@ using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+
 using Verse;
 
 namespace AnimalGenes
@@ -63,7 +64,7 @@ namespace AnimalGenes
             int x = (destination.width - drawWidth) / 2;
             int y = (destination.height - drawHeight) / 2;
 
-            Graphics.DrawTexture(new Rect(x, y, drawWidth, drawHeight), source, sourceMaterial);
+            UnityEngine.Graphics.DrawTexture(new Rect(x, y, drawWidth, drawHeight), source, sourceMaterial);
 
             GL.PopMatrix();
             RenderTexture.active = previous;

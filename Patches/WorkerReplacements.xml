@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+    <Operation Class="PatchOperationReplace">
+        <xpath>//workerClass[text() = 'PawnRenderNodeWorker_Fur']</xpath>
+        <value><workerClass>AnimalGenes.Graphics.PawnRenderNodeWorker_Fur_OnlyNonSapient</workerClass></value>
+    </Operation>
+</Patch>

@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="DebugHelpers\Check.cs" />
     <Compile Include="Defs\AnimalGeneSettings.cs" />
+    <Compile Include="Graphics\PawnRenderNodeWorker_Fur_OnlyNonSapient.cs" />
     <Compile Include="Helpers\ColorHelper.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Helpers\DefHelper.cs" />

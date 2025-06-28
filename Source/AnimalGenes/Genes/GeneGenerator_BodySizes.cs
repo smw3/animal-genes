@@ -48,6 +48,9 @@ namespace AnimalGenes
                             newGene.description = "Carriers of this gene are noticably larger.";
                         }
 
+                        float metMult = roundedBodySize < 1.0f ? 1.0f / roundedBodySize : roundedBodySize;
+                        newGene.biostatMet = -(int)Math.Abs(metMult);
+
                         newGene.ResolveReferences();
                         DefDatabase<GeneDef>.Add(newGene);
                     }

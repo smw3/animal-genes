@@ -2,6 +2,18 @@
 	<GeneDef Name="ANG_Base_Armor" Abstract="True">
 		<displayCategory>ANG_Armor</displayCategory>
 		
+
+	</GeneDef>
+	
+	<AnimalGenes.Helpers.GeneTemplate>
+		<defName>ANG_Armor_Template</defName>
+		<label>natural armor</label>
+		<keyTag>armor</keyTag>
+		<description>Carriers of this gene have naturally tough skin.</description>
+		<iconPath>UI/Icons/Genes/Skills/Animals/Strong</iconPath>
+		<displayCategory>ANG_Armor</displayCategory>
+		<canGenerateInGeneSet>true</canGenerateInGeneSet>
+		<selectionWeight>0.5</selectionWeight>		
 		<exclusionTags>
 			<li>ANG_Base_Armor</li>
 			<li>BS_Armour</li>
@@ -9,30 +21,5 @@
 			<li>Armour</li>
 			<li>Armor</li>
 		</exclusionTags>
-	</GeneDef>
-	
-	<GeneDef Name="ANG_ArmorTemplate" ParentName="ANG_Base_Armor">
-		<defName>ANG_ArmorTemplate</defName>
-		<label>Tough Skin</label>
-		<description>Carriers of this gene have naturally tough skin.</description>
-		<iconPath>UI/Icons/Genes/Skills/Animals/Strong</iconPath>
-		
-		<displayOrderInCategory>20</displayOrderInCategory>
-		<!--
-		<statOffsets>
-			<ArmorRating_Blunt>0.15</ArmorRating_Blunt>
-			<ArmorRating_Sharp>0.25</ArmorRating_Sharp>
-		</statOffsets>
-		-->
-		<biostatCpx>1</biostatCpx>
-		<biostatMet>-1</biostatMet>
-		<symbolPack>
-			<prefixSymbols>
-				<li>
-					<symbol>thick-skinned</symbol>
-				</li>
-			</prefixSymbols>
-		</symbolPack>
-		<selectionWeight>1</selectionWeight>
-	</GeneDef>
+	</AnimalGenes.Helpers.GeneTemplate>
 </Defs>

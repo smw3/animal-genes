@@ -1,53 +1,50 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-    <GeneDef>
-        <defName>ANG_BodyType_Template</defName>
-        <label>bodytype affinity</label>
-        <description>While still seeming perfectly humanoid, carriers of this gene possess a bone structure that is somewhat similar to that of a </description>
-        <iconPath>UI/Icons/Genes/Skills/Animals/Strong</iconPath>
-        <displayOrderInCategory>775</displayOrderInCategory>
-        <biostatCpx>2</biostatCpx>
-        <biostatMet>0</biostatMet>
-        <displayCategory>ANG_Bodytypes</displayCategory>
-        <selectionWeight>0.5</selectionWeight>
-    </GeneDef>
-    
-    <GeneDef>
-        <defName>ANG_Feathers</defName>
-        <label>featherskin</label>
-        <labelShortAdj>featherskinned</labelShortAdj>
-        <description>Carriers of this gene grow feathers, which somewhat protect them from cold and hot temperatures.</description>
-        <biostatCpx>1</biostatCpx>
-        <biostatMet>-1</biostatMet>
-        <displayCategory>Miscellaneous</displayCategory>
-        <displayOrderInCategory>400</displayOrderInCategory>
-        <iconPath>UI/Icons/Genes/Gene_Furskin</iconPath>
-        <iconColor>(0.35, 0.35, 0.35)</iconColor>
-        <statOffsets>
-            <ComfyTemperatureMin>-5</ComfyTemperatureMin>
-            <ComfyTemperatureMax>5</ComfyTemperatureMax>
-        </statOffsets>
-        <exclusionTags>
-            <li>Fur</li>
-            <li>Feathers</li>
-        </exclusionTags>
-        <missingGeneRomanceChanceFactor>0.2</missingGeneRomanceChanceFactor>
-    </GeneDef>
-    
-    <!-- Yes, somehow GREEN is closer to a rhino's color than light gray otherwise... -->
-    <GeneDef ParentName="GeneSkinColorOverride">
-        <defName>ANG_Skin_DarkGray</defName>
-        <label>dark gray skin</label>
-        <labelShortAdj>dark gray</labelShortAdj>
-        <description>Carriers of this gene produce a pigment that turns their skin dark gray.</description>
-        <skinColorOverride>(150, 150, 150)</skinColorOverride>
-        <displayOrderInCategory>97</displayOrderInCategory>
-        <symbolPack>
-            <prefixSymbols>
-                <li>
-                    <symbol>gray</symbol>
-                </li>
-            </prefixSymbols>
-        </symbolPack>
-    </GeneDef>
+	<AnimalGenes.Helpers.GeneTemplate>
+		<defName>ANG_BodyType_Template</defName>
+		<label>bodytype affinity</label>
+		<keyTag>BodyType</keyTag>
+		<description>While still seeming perfectly humanoid, carriers of this gene possess a bone structure that is somewhat similar to that of a {0}.</description>
+		<iconPath>UI/Icons/Genes/Skills/Animals/Strong</iconPath>
+		<displayCategory>ANG_Bodytypes</displayCategory>
+		<canGenerateInGeneSet>true</canGenerateInGeneSet>
+		<selectionWeight>0.5</selectionWeight>
+	</AnimalGenes.Helpers.GeneTemplate>
+	<GeneDef>
+		<defName>ANG_Feathers</defName>
+		<label>featherskin</label>
+		<labelShortAdj>featherskinned</labelShortAdj>
+		<description>Carriers of this gene grow feathers, which somewhat protect them from cold and hot temperatures.</description>
+		<biostatCpx>1</biostatCpx>
+		<biostatMet>-1</biostatMet>
+		<displayCategory>Miscellaneous</displayCategory>
+		<displayOrderInCategory>400</displayOrderInCategory>
+		<iconPath>UI/Icons/Genes/Gene_Furskin</iconPath>
+		<iconColor>(0.35, 0.35, 0.35)</iconColor>
+		<statOffsets>
+			<ComfyTemperatureMin>-5</ComfyTemperatureMin>
+			<ComfyTemperatureMax>5</ComfyTemperatureMax>
+		</statOffsets>
+		<exclusionTags>
+			<li>Fur</li>
+			<li>Feathers</li>
+		</exclusionTags>
+		<missingGeneRomanceChanceFactor>0.2</missingGeneRomanceChanceFactor>
+	</GeneDef>
+	<!-- Yes, somehow GREEN is closer to a rhino's color than light gray otherwise... -->
+	<GeneDef ParentName="GeneSkinColorOverride">
+		<defName>ANG_Skin_DarkGray</defName>
+		<label>dark gray skin</label>
+		<labelShortAdj>dark gray</labelShortAdj>
+		<description>Carriers of this gene produce a pigment that turns their skin dark gray.</description>
+		<skinColorOverride>(150, 150, 150)</skinColorOverride>
+		<displayOrderInCategory>97</displayOrderInCategory>
+		<symbolPack>
+			<prefixSymbols>
+				<li>
+					<symbol>gray</symbol>
+				</li>
+			</prefixSymbols>
+		</symbolPack>
+	</GeneDef>
 </Defs>

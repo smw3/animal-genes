@@ -84,4 +84,16 @@ namespace AnimalGenes.Behaviors
             __result = ((!pawn.Dead || pawn.Corpse != null) && pawn.Name != null && !pawn.relations.hidePawnRelations && !selPawnForSocialInfo.relations.hidePawnRelations && pawn.relations.everSeenByPlayer);
         }
     }
+
+    [HarmonyPatch(typeof(RaceProperties), nameof(RaceProperties.ConfigErrors))]
+    public static class RaceProperties_ConfigErrors
+    {
+        public static void Postfix(ref IEnumerable<string> __result, ThingDef thingDef)
+        {
+            if (__result != null && __result.Any(s => s != null && s.Contains("not an animal")))
+            {
+                __result = Enumerable.Empty<string>();
+            }
+        }
+    }
 }

@@ -83,9 +83,8 @@ namespace AnimalGenes
 
                     if (newGene == null)
                     {
-                        GeneDef templateGene = DefDatabase<GeneDef>.GetNamed("ANG_ToolTemplate");
-                        newGene = typeof(GeneDef).GetConstructor([]).Invoke([]) as GeneDef;
-                        DefHelper.CopyGeneDefFields(templateGene, newGene);
+                        Helpers.GeneTemplate template = DefDatabase<Helpers.GeneTemplate>.GetNamed("ANG_ToolTemplate");
+                        newGene = Helpers.GeneDefFromTemplate.GenerateGeneDef(template, null, []);
 
                         newGene.defName = geneDefName;
                         newGene.label = $"Natural Weapon ({cleanedLabel})";

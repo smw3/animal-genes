@@ -1,4 +1,5 @@
 ﻿using AnimalGenes.GeneModExtensions;
+using AnimalGenes.Helpers;
 using BigAndSmall;
 using RimWorld;
 using System;
@@ -104,21 +105,16 @@ namespace AnimalGenes
                     Check.DebugLog($"Sapient animal {sapientAnimal.animal.defName} has only one gene, that's quite few.");
                 }
 
-                string geneDefName = $"ANG_{sapientAnimal.animal.defName}_Affinity";
+                Helpers.GeneTemplate template = DefDatabase<Helpers.GeneTemplate>.GetNamed("ANG_Animal_Affinity_Template");
+                string geneDefName = template.GenerateDefName(sapientAnimal.animal);
+
                 GeneDef newGene = geneDefName.TryGetExistingDef<GeneDef>();
                 if (newGene == null)
                 {
-                    GeneDef templateGene = DefDatabase<GeneDef>.GetNamed("ANG_Animal_Affinity_Template");
-                    Check.NotNull(templateGene, "ANG_Animal_Affinity_Template gene template not found");
-
-                    newGene = typeof(GeneDef).GetConstructor([]).Invoke([]) as GeneDef;
-                    DefHelper.CopyGeneDefFields(templateGene, newGene);
-
-                    newGene.defName = geneDefName;
+                    newGene = GeneDefFromTemplate.GenerateGeneDef(template, sapientAnimal.animal, []);
+                    Check.NotNull(newGene, "Failed to create affinity gene from template");
                     Check.NotNull(newGene, "Failed to create new GeneDef instance for affinity gene");
                     Check.NotNull(sapientAnimal.animal.label, sapientAnimal.animal + " label is null");
-                    newGene.label = $"{sapientAnimal.animal.label.CapitalizeFirst()} Affinity";
-                    newGene.generated = true;
 
                     Check.DebugLog($"Generating affinity gene {newGene.defName} for {sapientAnimal.animal.defName} with {requiredGenes.Count} required genes.");
                     newGene.modExtensions =
@@ -144,7 +140,6 @@ namespace AnimalGenes
                         }
                     ];
                     newGene.biostatMet = -requiredGenes.Select(g => g.biostatMet).Sum();
-
                     newGene.modExtensions.Add(IconHelper.GetProceduralIconData([new Pair<ThingDef, float>(sapientAnimal.animal, 0.95f)]));
 
                     newGene.ResolveReferences();

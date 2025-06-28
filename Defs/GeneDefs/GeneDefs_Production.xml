@@ -1,25 +1,13 @@
 <Defs>
-  <GeneDef>
-    <defName>ANG_ProductionTemplate</defName>
-    <label>chocolate production</label>
-    <description>Carriers of this gene produce something like an animal would.</description>
-    <geneClass>BigAndSmall.ProductionGene</geneClass>
-    <iconPath>UI/Icons/Genes/Skills/Animals/Strong</iconPath>
-    <displayOrderInCategory>666</displayOrderInCategory>
-    <displayCategory>ANG_Production</displayCategory>
-    <minAgeActive>15</minAgeActive>
-    <biostatCpx>1</biostatCpx>
-    <biostatMet>-2</biostatMet>
-    <!-- Procedurally generated
-    <modExtensions>
-      <li Class="BigAndSmall.ProductionGeneSettings">
-        <product>Chocolate</product>
-        <frequencyInDays>2</frequencyInDays>
-        <baseAmount>6</baseAmount>
-        <progressName>Marabou Switzere Progress</progressName>
-        <saveKey>BS_ChocolateProduction</saveKey>
-      </li>
-    </modExtensions>
-    -->
-  </GeneDef>
+	<AnimalGenes.Helpers.GeneTemplate>
+		<defName>ANG_ProductionTemplate</defName>
+		<label>resource production</label>
+		<keyTag>Production</keyTag>
+		<description>Carriers of this gene produce something like an animal would. Pawn can be {0} for {1}.</description>
+		<geneClass>BigAndSmall.ProductionGene</geneClass>
+		<iconPath>UI/Icons/Genes/Skills/Animals/Strong</iconPath>
+		<displayCategory>ANG_Production</displayCategory>
+		<canGenerateInGeneSet>true</canGenerateInGeneSet>
+		<selectionWeight>0.5</selectionWeight>
+	</AnimalGenes.Helpers.GeneTemplate>
 </Defs>

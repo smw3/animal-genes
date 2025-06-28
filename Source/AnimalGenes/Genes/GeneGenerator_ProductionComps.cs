@@ -1,4 +1,5 @@
 ﻿using AnimalGenes.GeneModExtensions;
+using AnimalGenes.Helpers;
 using BigAndSmall;
 using RimWorld;
 using System;
@@ -57,18 +58,15 @@ namespace AnimalGenes
 
         private static void CreateShearableGene(HumanlikeAnimal sapientAnimal, CompProperties_Shearable shearableComp)
         {
-            string geneDefName = $"ANG_{sapientAnimal.animal.defName}_shearable";
+            Helpers.GeneTemplate template = DefDatabase<Helpers.GeneTemplate>.GetNamed("ANG_ProductionTemplate");
+            string geneDefName = template.GenerateDefName(sapientAnimal.animal, "Shearable");
+
             GeneDef newGene = geneDefName.TryGetExistingDef<GeneDef>();
             if (newGene == null)
             {
-                GeneDef templateGene = DefDatabase<GeneDef>.GetNamed("ANG_ProductionTemplate");
-
-                newGene = typeof(GeneDef).GetConstructor([]).Invoke([]) as GeneDef;
-                DefHelper.CopyGeneDefFields(templateGene, newGene);
-
-                newGene.defName = geneDefName;
-                newGene.label = $"{shearableComp.woolDef.label.CapitalizeFirst()} producer ({sapientAnimal.animal.label})";
-                newGene.generated = true;
+                string productName = shearableComp.woolDef.label;
+                newGene = template.GenerateGeneDef(sapientAnimal.animal, ["sheared", productName], "Shearable");
+                newGene.label = $"{productName} producer ({sapientAnimal.animal.label})";
 
                 BigAndSmall.ProductionGeneSettings settings = new()
                 {
@@ -114,17 +112,15 @@ namespace AnimalGenes
 
         private static void CreateMilkableGene(HumanlikeAnimal sapientAnimal, CompProperties_Milkable milkableComp)
         {
-            string geneDefName = $"ANG_{sapientAnimal.animal.defName}_milkable";
+            Helpers.GeneTemplate template = DefDatabase<Helpers.GeneTemplate>.GetNamed("ANG_ProductionTemplate");
+            string geneDefName = template.GenerateDefName(sapientAnimal.animal, "Milkable");
+
             GeneDef newGene = geneDefName.TryGetExistingDef<GeneDef>();
             if (newGene == null)
             {
-                GeneDef templateGene = DefDatabase<GeneDef>.GetNamed("ANG_ProductionTemplate");
-                newGene = typeof(GeneDef).GetConstructor([]).Invoke([]) as GeneDef;
-                DefHelper.CopyGeneDefFields(templateGene, newGene);
-
-                newGene.defName = geneDefName;
-                newGene.label = $"{sapientAnimal.animal.label.CapitalizeFirst()} {milkableComp.milkDef.label} producer";
-                newGene.generated = true;
+                string productName = milkableComp.milkDef.label;
+                newGene = template.GenerateGeneDef(sapientAnimal.animal, ["milked", productName], "Milkable");
+                newGene.label = $"{productName} producer ({sapientAnimal.animal.label})";
 
                 ProductionGeneSettings settings = new()
                 {

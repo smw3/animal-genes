@@ -99,6 +99,8 @@
     <Compile Include="GeneModExtensions\ProceduralIconData.cs" />
     <Compile Include="GeneModExtensions\TargetAffinity.cs" />
     <Compile Include="Helpers\ExtensionMethods.cs" />
+    <Compile Include="Helpers\GeneDefFromTemplate.cs" />
+    <Compile Include="Helpers\GeneTemplate.cs" />
     <Compile Include="Helpers\IconHelper.cs" />
     <Compile Include="Main_early.cs" />
     <Compile Include="Graphics\PawnRenderNodeWorker_FlipWhenCrawling_OnlyNonSapient.cs" />

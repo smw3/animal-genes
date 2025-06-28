@@ -1,4 +1,5 @@
-﻿using BigAndSmall;
+﻿using AnimalGenes.Helpers;
+using BigAndSmall;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,40 +13,25 @@ namespace AnimalGenes
     {
         public static void GenerateGenes(List<HumanlikeAnimal> sapientAnimals)
         {
-            Dictionary<string, GeneDef> bodyTypeGenes = [];
             foreach (var sapientAnimal in sapientAnimals)
             {
-                bodyTypeGenes.TryGetValue(sapientAnimal.animal.race.body.label, out var existingGene);
-                if (existingGene == null)
+                var bodyType = sapientAnimal.animal.race.body;              
+                Helpers.GeneTemplate template = DefDatabase<Helpers.GeneTemplate>.GetNamed("ANG_BodyType_Template");
+                string geneDefName = template.GenerateDefName(null, bodyType.label);
+
+                GeneDef newGene = geneDefName.TryGetExistingDef<GeneDef>();
+                if (newGene == null)
                 {
-                    var bodyType = sapientAnimal.animal.race.body;
-                    string geneDefName = $"ANG_{bodyType.defName}_BodyType";
-                    GeneDef newGene = geneDefName.TryGetExistingDef<GeneDef>();
-                    if (newGene == null)
-                    {
-                        GeneDef templateGene = DefDatabase<GeneDef>.GetNamed("ANG_BodyType_Template");
-                        Check.NotNull(templateGene, "ANG_BodyType_Template gene template not found");
+                    newGene = GeneDefFromTemplate.GenerateGeneDef(template, null, [bodyType.label], bodyType.label);
+                    newGene.generated = true;
+                    Check.DebugLog($"Generating body type gene {newGene.defName} for {bodyType.label}.");
 
-                        newGene = typeof(GeneDef).GetConstructor([]).Invoke([]) as GeneDef;
-                        DefHelper.CopyGeneDefFields(templateGene, newGene);
+                    newGene.modExtensions = [IconHelper.GetProceduralIconData([new Pair<ThingDef, float>(sapientAnimal.animal, 0.95f)])];
 
-                        newGene.defName = geneDefName;
-                        Check.NotNull(newGene, "Failed to create new GeneDef instance for body type gene");
-
-                        newGene.label = $"{bodyType.label.CapitalizeFirst()} body type";
-                        newGene.description += $"{bodyType.label}";
-                        newGene.generated = true;
-                        Check.DebugLog($"Generating body type gene {newGene.defName} for {bodyType.label}.");
-
-                        newGene.modExtensions = [IconHelper.GetProceduralIconData([new Pair<ThingDef, float>(sapientAnimal.animal, 0.95f)])];
-
-                        newGene.ResolveReferences();
-                        DefDatabase<GeneDef>.Add(newGene);
-                    }
-                    existingGene = newGene;
-                    bodyTypeGenes[bodyType.label] = existingGene;
-                }
-                GeneGenerator.AddGeneToHumanLikeAnimal(sapientAnimal, existingGene);
+                    newGene.ResolveReferences();
+                    DefDatabase<GeneDef>.Add(newGene);
+                }                
+                GeneGenerator.AddGeneToHumanLikeAnimal(sapientAnimal, newGene);
             }
         }
     }

@@ -1,19 +1,15 @@
 <Defs>
-	<GeneDef>
-		<defName>ANG_Animal_Size_Template</defName>
+	<AnimalGenes.Helpers.GeneTemplate>
+		<defName>ANG_BodySize_Template</defName>
+		<label>bodysize</label>
+		<keyTag>BodySize</keyTag>
+		<description>Carriers of this gene are noticably {0}.</description>
+		<iconPath>UI/Icons/Genes/Skills/Animals/Strong</iconPath>
+		<displayCategory>ANG_Bodytypes</displayCategory>
+		<canGenerateInGeneSet>true</canGenerateInGeneSet>
+		<selectionWeight>0.5</selectionWeight>
 		<exclusionTags>
 			<li>BodySize</li>
 		</exclusionTags>
-		<label>Animal size</label>
-		<description>Animal size template</description>
-		<iconPath>UI/Icons/Genes/Skills/Animals/Strong</iconPath>
-		<displayOrderInCategory>775</displayOrderInCategory>
-		<biostatCpx>2</biostatCpx>
-		<biostatMet>-2</biostatMet>
-		<displayCategory>ANG_Size</displayCategory>
-		<selectionWeight>0.5</selectionWeight>
-		<statFactors>
-			<CarryingCapacity>1</CarryingCapacity>
-		</statFactors>
-	</GeneDef>
+	</AnimalGenes.Helpers.GeneTemplate>
 </Defs>

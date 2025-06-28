@@ -1,4 +1,5 @@
-﻿using BigAndSmall;
+﻿using AnimalGenes.Helpers;
+using BigAndSmall;
 using RimWorld;
 using System;
 using System.Collections.Generic;
@@ -26,17 +27,13 @@ namespace AnimalGenes
                     continue;
                 }
 
-                string geneDefName = $"ANG_{sapientAnimal.animal.defName}_armor";
+                Helpers.GeneTemplate template = DefDatabase<Helpers.GeneTemplate>.GetNamed("ANG_Armor_Template");
+                string geneDefName = template.GenerateDefName(sapientAnimal.animal);
+
                 GeneDef newGene = geneDefName.TryGetExistingDef<GeneDef>();
                 if (newGene == null)
                 {
-                    GeneDef templateGene = DefDatabase<GeneDef>.GetNamed("ANG_ArmorTemplate");
-                    newGene = typeof(GeneDef).GetConstructor([]).Invoke([]) as GeneDef;
-                    DefHelper.CopyGeneDefFields(templateGene, newGene);
-
-                    newGene.defName = geneDefName;
-                    newGene.label = $"{sapientAnimal.animal.label} skin";
-                    newGene.generated = true;
+                    newGene = GeneDefFromTemplate.GenerateGeneDef(template, sapientAnimal.animal, []);
 
                     newGene.statOffsets =
                     [

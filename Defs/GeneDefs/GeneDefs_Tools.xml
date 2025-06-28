@@ -1,27 +1,12 @@
 <Defs>
-	<GeneDef>
+	<AnimalGenes.Helpers.GeneTemplate>
 		<defName>ANG_ToolTemplate</defName>
-		<label>Natural Weapon</label>
+		<label>natural weapon</label>
+		<keyTag>Tool</keyTag>
 		<description>Carriers of this gene possess natural weapons.</description>
 		<iconPath>UI/Icons/Genes/Skills/Animals/Strong</iconPath>
-		<displayOrderInCategory>775</displayOrderInCategory>
-		<biostatCpx>2</biostatCpx>
-		<biostatMet>-2</biostatMet>
 		<displayCategory>ANG_Weapons</displayCategory>
+		<canGenerateInGeneSet>true</canGenerateInGeneSet>
 		<selectionWeight>0.5</selectionWeight>
-		<modExtensions>
-		<!-- Procedurally added
-			<li Class="BigAndSmall.PawnExtension">
-				<applyPartHediff>
-					<li>
-						<hediff>ANG_NaturalWeapon_Template_Hediff</hediff>
-						<bodyparts>
-							<li>Hand</li>
-						</bodyparts>
-					</li>
-				</applyPartHediff>
-			</li>
-		-->
-		</modExtensions>
-	</GeneDef>
+	</AnimalGenes.Helpers.GeneTemplate>
 </Defs>

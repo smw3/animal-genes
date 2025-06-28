@@ -82,7 +82,7 @@
     <Compile Include="Genes\GeneGenerator_Speed.cs" />
     <Compile Include="Genes\GeneGenerator_Temperature.cs" />
     <Compile Include="Genes\GeneGenerator_Tools.cs" />
-    <Compile Include="GeneIconGeneratorComponent.cs" />
+    <Compile Include="Components\GeneIconGeneratorComponent.cs" />
     <Compile Include="Genes\GeneModExtension_ProceduralIcon.cs" />
     <Compile Include="Genes\GeneModExtension_TargetAffinity.cs" />
     <Compile Include="Helpers\IconHelper.cs" />

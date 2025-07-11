@@ -21,7 +21,7 @@
 		<renderNodeProperties Inherit="False">
 			<li>
 				<parentTagDef>Body</parentTagDef>
-				<workerClass>PawnRenderNodeWorker_FlipWhenCrawling</workerClass>
+				<workerClass>AnimalGenes.PawnRenderNodeWorker_FlipWhenCrawling_OnlyNonSapient</workerClass>
 				<texPath>Things/Pawn/Animal/Genes/Wings/Chicken</texPath>
 				<drawSize>(1.125,1.125)</drawSize>
 				<colorType>Hair</colorType>
@@ -59,7 +59,7 @@
 		<renderNodeProperties Inherit="False">
 			<li>
 				<parentTagDef>Body</parentTagDef>
-				<workerClass>PawnRenderNodeWorker_FlipWhenCrawling</workerClass>
+				<workerClass>AnimalGenes.PawnRenderNodeWorker_FlipWhenCrawling_OnlyNonSapient</workerClass>
 				<texPath>Things/Pawn/Animal/Genes/Wings/Duck</texPath>
 				<drawSize>(1.125,1.125)</drawSize>
 				<colorType>Hair</colorType>
@@ -97,7 +97,7 @@
 		<renderNodeProperties Inherit="False">
 			<li>
 				<parentTagDef>Body</parentTagDef>
-				<workerClass>PawnRenderNodeWorker_FlipWhenCrawling</workerClass>
+				<workerClass>AnimalGenes.PawnRenderNodeWorker_FlipWhenCrawling_OnlyNonSapient</workerClass>
 				<texPath>Things/Pawn/Animal/Genes/Wings/Goose</texPath>
 				<drawSize>(1.125,1.125)</drawSize>
 				<colorType>Hair</colorType>

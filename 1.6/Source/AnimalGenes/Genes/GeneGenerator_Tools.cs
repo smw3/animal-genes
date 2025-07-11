@@ -132,9 +132,12 @@ namespace AnimalGenes
                         {
                             Check.DebugLog($"Adding cosemtic addition to gene {newGene.defName}");
                             cosmeticAdditions[cleanedLabel].Invoke(cleanedLabel, sapientAnimal, newGene);
+                        } else
+                        {
+                            newGene.renderNodeProperties = [];
                         }
 
-                        newGene.ResolveReferences();
+                            newGene.ResolveReferences();
                         DefDatabase<GeneDef>.Add(newGene);
                     }
 

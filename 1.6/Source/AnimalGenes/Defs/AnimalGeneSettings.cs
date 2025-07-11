@@ -9,8 +9,14 @@ namespace AnimalGenes.Defs
 {
     public class GeneForLeatherDefs : DefModExtension
     {
-        public List<string> geneDefNames = [];
         public List<string> thingDefNames = [];
+        public List<string> geneDefNames = [];
+    }
+
+    public class GeneForAnimalDefs : DefModExtension
+    {
+        public List<string> animalDefNames = [];
+        public List<string> geneDefNames = [];
     }
 
     public class AnimalGeneSettingsDef : Def
@@ -20,5 +26,6 @@ namespace AnimalGenes.Defs
             _allSettings ??= DefDatabase<AnimalGeneSettingsDef>.AllDefsListForReading;
 
         public GeneForLeatherDefs GeneForLeatherDefs;
+        public GeneForAnimalDefs GeneForAnimalDefs;
     }
 }

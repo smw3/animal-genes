@@ -14,19 +14,6 @@ namespace AnimalGenes
             {
                 ThingDef leather = sapientAnimal.animal.race.leatherDef;
                 if (leather == null) continue;
-
-                foreach (var setting in AnimalGeneSettingsDef.AllSettings) {
-                    if (setting.GeneForLeatherDefs.thingDefNames.Contains(leather.defName))
-                    {
-                        foreach (var geneDefName in setting.GeneForLeatherDefs.geneDefNames)
-                        {
-                            GeneDef geneDef = DefDatabase<GeneDef>.GetNamedSilentFail(geneDefName);
-                            // May reference genes of mods that aren't loaded, so just silently ignore those
-                            if (geneDef != null) GeneGenerator.AddGeneToHumanLikeAnimal(sapientAnimal, geneDef);
-                        }
-                    }
-                }
-
                 if (leather.graphicData == null || leather.graphicData.color == null) continue;
 
                 if (leather.label.Contains("fur")) // sometimes leather is fur, so we can assign hair color..

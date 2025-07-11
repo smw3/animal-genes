@@ -80,6 +80,7 @@
     <Compile Include="Defs\AnimalGeneSettings.cs" />
     <Compile Include="GeneModExtensions\EnableBehavior.cs" />
     <Compile Include="GeneModExtensions\ProductionDependsOnGender.cs" />
+    <Compile Include="Genes\GeneGenerator_Overrides.cs" />
     <Compile Include="Genes\GeneGenerator_Wings.cs" />
     <Compile Include="Graphics\PawnRenderNodeWorker_Fur_OnlyNonSapient.cs" />
     <Compile Include="HarmonyPatches\GeneExtractor.cs" />

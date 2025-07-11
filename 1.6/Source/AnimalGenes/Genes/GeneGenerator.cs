@@ -59,6 +59,8 @@ namespace AnimalGenes
             GeneGenerator_Temperature.AssignGenes(SapientAnimals);
             GeneGenerator_Health.AssignGenes(SapientAnimals);
 
+            GeneGenerator_Overrides.AssignGenes(SapientAnimals);
+
             // Must be done last, after all other genes have been generated
             GenerateAffinityGenes();
 

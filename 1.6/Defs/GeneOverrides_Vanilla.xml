@@ -82,4 +82,19 @@
             </geneDefNames>
         </GeneForLeatherDefs>
     </AnimalGenes.Defs.AnimalGeneSettingsDef>
+	
+	<!-- Colors -->
+	<!-- Not all animals have a proper indicator what color they are -->
+	<AnimalGenes.Defs.AnimalGeneSettingsDef>
+        <defName>ANG_Gene_Override_Defs_White_Hair</defName>
+        <GeneForAnimalDefs>
+            <animalDefNames>
+                <li>Chicken</li>
+                <li>Goose</li>
+            </animalDefNames>
+            <geneDefNames>
+                <li>Hair_SnowWhite</li>
+            </geneDefNames>
+        </GeneForAnimalDefs>
+    </AnimalGenes.Defs.AnimalGeneSettingsDef>
 </Defs>

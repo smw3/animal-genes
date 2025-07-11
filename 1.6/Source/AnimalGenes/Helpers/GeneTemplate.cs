@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Verse;
 
 namespace AnimalGenes.Helpers
 {
@@ -11,5 +12,7 @@ namespace AnimalGenes.Helpers
         public string iconPath = "";
         public List<string> exclusionTags = [];
         public Type geneClass = null;
+
+        public List<PawnRenderNodeProperties> renderNodeProperties = [];
     }
 }

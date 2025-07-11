@@ -80,9 +80,12 @@ namespace AnimalGenes
             {
                 if (GeneGenerator.affinityGenes.ContainsKey(gene.def))
                 {
-                    if (PrerequisiteValidator.Validate(gene.def, gene.pawn) is string pFailReason && pFailReason != "") {
+                    if (PrerequisiteValidator.Validate(gene.def, gene.pawn) is string pFailReason && pFailReason != "")
+                    {
                         Check.DebugLog($"Gene {gene.def.defName} failed prerequisite validation: {pFailReason}");
-                    } else { 
+                    }
+                    else
+                    {
                         HumanlikeAnimal target = gene.def.GetModExtension<TargetAffinity>()?.targetAnimal;
                         Check.NotNull(target, "target cannot be null in GeneModExtension_TargetAffinity Gene_OverrideBy_Patch");
                         if (gene.pawn.def != target.humanlikeThing)

@@ -35,16 +35,5 @@ namespace AnimalGenes.Helpers
         {
             RaceMorpher.SwapPawnToSapientAnimal(humanPawn, humanlikeAnimal);
         }
-
-        private static readonly Dictionary<ThingDef, Boolean> IsSapientAnimalCache = [];
-        public static bool IsSapientAnimal(this Pawn pawn)
-        {
-            if (IsSapientAnimalCache.TryGetValue(pawn.def, out bool isSapientAnimal)) {
-                return isSapientAnimal;
-            }
-            isSapientAnimal = HumanlikeAnimalGenerator.humanlikeAnimals.Values.Select(h => h.humanlikeThing).Contains(pawn.def);
-            IsSapientAnimalCache.Add(pawn.def, isSapientAnimal);
-            return isSapientAnimal;
-        }
     }
 }

@@ -38,13 +38,15 @@ namespace AnimalGenes
                 // Diet genes if B&S Genes is loaded
                 if (ModsConfig.IsActive("RedMattis.BigSmall.Core"))
                 {
-                    if (foodType.HasFlag(FoodTypeFlags.VegetarianRoughAnimal) || foodType.HasFlag(FoodTypeFlags.VegetarianAnimal))
+                    bool herbivore = foodType.HasFlag(FoodTypeFlags.VegetarianRoughAnimal) || foodType.HasFlag(FoodTypeFlags.VegetarianAnimal);
+                    bool carnivore = foodType.HasFlag(FoodTypeFlags.CarnivoreAnimal) || foodType.HasFlag(FoodTypeFlags.CarnivoreAnimalStrict);
+                    if (herbivore && !carnivore)
                     {
                         GeneDef herbivoreGene = DefDatabase<GeneDef>.GetNamed("BS_Diet_Herbivore");
                         GeneGenerator.AddGeneToHumanLikeAnimal(sapientAnimal, herbivoreGene);
                     }
 
-                    if (foodType.HasFlag(FoodTypeFlags.CarnivoreAnimal) || foodType.HasFlag(FoodTypeFlags.CarnivoreAnimalStrict))
+                    if (!herbivore && carnivore)
                     {
                         GeneDef herbivoreGene = DefDatabase<GeneDef>.GetNamed("BS_Diet_Carnivore");
                         GeneGenerator.AddGeneToHumanLikeAnimal(sapientAnimal, herbivoreGene);

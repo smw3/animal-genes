@@ -1,0 +1,127 @@
+<Defs>
+	<AnimalGenes.Helpers.GeneTemplate>
+		<defName>ANG_WingsTemplate</defName>
+		<label>wings</label>
+		<keyTag>Wings</keyTag>
+		<description>Carriers of this gene possess majestic {0} wings.</description>
+		<iconPath>UI/Icons/Genes/Skills/Animals/Strong</iconPath>
+		<displayCategory>ANG_Wings</displayCategory>
+		<canGenerateInGeneSet>true</canGenerateInGeneSet>
+		<selectionWeight>0.5</selectionWeight>
+	</AnimalGenes.Helpers.GeneTemplate>
+	
+	<GeneDef>
+		<defName>ANG_Chicken_Wings</defName>
+		<label>chicken wings</label>
+		<description>Carriers of this gene possess majestic chicken wings.</description>
+		<iconPath>Things/Pawn/Animal/Genes/Wings/Chicken_north</iconPath>
+		<displayCategory>ANG_Wings</displayCategory>
+		<canGenerateInGeneSet>true</canGenerateInGeneSet>
+		<selectionWeight>0.5</selectionWeight>
+		<renderNodeProperties Inherit="False">
+			<li>
+				<parentTagDef>Body</parentTagDef>
+				<workerClass>PawnRenderNodeWorker_FlipWhenCrawling</workerClass>
+				<texPath>Things/Pawn/Animal/Genes/Wings/Chicken</texPath>
+				<drawSize>(1.125,1.125)</drawSize>
+				<colorType>Hair</colorType>
+				<drawData>
+					<defaultData>
+						<layer>-2</layer>
+					</defaultData>
+					<dataNorth>
+						<offset>(0.0, 0, -0.0)</offset>
+						<layer>90</layer>
+					</dataNorth>
+					<dataSouth>
+						<offset>(-0.0, 0, -0.0)</offset>
+					</dataSouth>
+					<dataEast>
+						<offset>(-0.0, 0, -0.0)</offset>
+						<layer>90</layer>
+					</dataEast>
+					<dataWest>
+						<offset>(-0.0, 0, -0.0)</offset>
+						<layer>90</layer>
+					</dataWest>
+				</drawData>
+			</li>
+		</renderNodeProperties>
+	</GeneDef>
+		<GeneDef>
+		<defName>ANG_Duck_Wings</defName>
+		<label>duck wings</label>
+		<description>Carriers of this gene possess majestic duck wings.</description>
+		<iconPath>Things/Pawn/Animal/Genes/Wings/Duck_north</iconPath>
+		<displayCategory>ANG_Wings</displayCategory>
+		<canGenerateInGeneSet>true</canGenerateInGeneSet>
+		<selectionWeight>0.5</selectionWeight>
+		<renderNodeProperties Inherit="False">
+			<li>
+				<parentTagDef>Body</parentTagDef>
+				<workerClass>PawnRenderNodeWorker_FlipWhenCrawling</workerClass>
+				<texPath>Things/Pawn/Animal/Genes/Wings/Duck</texPath>
+				<drawSize>(1.125,1.125)</drawSize>
+				<colorType>Hair</colorType>
+				<drawData>
+					<defaultData>
+						<layer>-2</layer>
+					</defaultData>
+					<dataNorth>
+						<offset>(0.0, 0, -0.0)</offset>
+						<layer>90</layer>
+					</dataNorth>
+					<dataSouth>
+						<offset>(-0.0, 0, -0.0)</offset>
+					</dataSouth>
+					<dataEast>
+						<offset>(-0.0, 0, -0.0)</offset>
+						<layer>90</layer>
+					</dataEast>
+					<dataWest>
+						<offset>(-0.0, 0, -0.0)</offset>
+						<layer>90</layer>
+					</dataWest>
+				</drawData>
+			</li>
+		</renderNodeProperties>
+	</GeneDef>
+		<GeneDef>
+		<defName>ANG_Goose_Wings</defName>
+		<label>goose wings</label>
+		<description>Carriers of this gene possess majestic goose wings.</description>
+		<iconPath>Things/Pawn/Animal/Genes/Wings/Goose_north</iconPath>
+		<displayCategory>ANG_Wings</displayCategory>
+		<canGenerateInGeneSet>true</canGenerateInGeneSet>
+		<selectionWeight>0.5</selectionWeight>
+		<renderNodeProperties Inherit="False">
+			<li>
+				<parentTagDef>Body</parentTagDef>
+				<workerClass>PawnRenderNodeWorker_FlipWhenCrawling</workerClass>
+				<texPath>Things/Pawn/Animal/Genes/Wings/Goose</texPath>
+				<drawSize>(1.125,1.125)</drawSize>
+				<colorType>Hair</colorType>
+				<drawData>
+					<defaultData>
+						<layer>-2</layer>
+					</defaultData>
+					<dataNorth>
+						<offset>(0.0, 0, -0.0)</offset>
+						<layer>90</layer>
+					</dataNorth>
+					<dataSouth>
+						<offset>(-0.0, 0, -0.0)</offset>
+					</dataSouth>
+					<dataEast>
+						<offset>(-0.0, 0, -0.0)</offset>
+						<layer>90</layer>
+					</dataEast>
+					<dataWest>
+						<offset>(-0.0, 0, -0.0)</offset>
+						<layer>90</layer>
+					</dataWest>
+				</drawData>
+			</li>
+		</renderNodeProperties>
+	</GeneDef>
+</Defs>

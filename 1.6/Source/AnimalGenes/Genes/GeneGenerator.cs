@@ -1,4 +1,5 @@
 ﻿using AnimalGenes.GeneModExtensions;
+using AnimalGenes.Genes;
 using AnimalGenes.Helpers;
 using BigAndSmall;
 using RimWorld;
@@ -48,7 +49,8 @@ namespace AnimalGenes
             GeneGenerator_Armor.GenerateGenes(SapientAnimals);
             GeneGenerator_Tools.GenerateGenes(SapientAnimals);
             GeneGenerator_BodyTypes.GenerateGenes(SapientAnimals);
-            GeneGenerator_BodySizes.GenerateGenes(SapientAnimals);  
+            GeneGenerator_BodySizes.GenerateGenes(SapientAnimals);
+            GeneGenerator_Wings.GenerateGenes(SapientAnimals);
 
             // Assign existing genes
             Genegenerator_SkinColor.AssignGenesByLeather(SapientAnimals);

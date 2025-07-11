@@ -42,6 +42,7 @@ namespace AnimalGenes.Helpers
                 selectionWeight = template.selectionWeight,
                 exclusionTags = template.exclusionTags,
                 geneClass = template.geneClass ?? typeof(Gene),
+                renderNodeProperties = template.renderNodeProperties,
                 generated = true
             };
 

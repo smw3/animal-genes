@@ -20,17 +20,10 @@ namespace AnimalGenes.Behaviors
         [HarmonyPatch(typeof(ProductionGene), nameof(ProductionGene.TickEvent))]
         static class FoodUtility_ProductionGene_TickEvent_Patch
         {
-            static ConditionalWeakTable<Gene, ProductionDependsOnGender> propCache = new();
 
             public static bool Prefix(Gene __instance)
             {
-                propCache.TryGetValue(__instance, out ProductionDependsOnGender props);
-                if (props == null)
-                {
-                    props = __instance.def.GetModExtension<ProductionDependsOnGender>();
-                    propCache.Add(__instance, props);
-                }
-
+                ProductionDependsOnGender props = __instance.def.GetModExtension<ProductionDependsOnGender>();
                 if (props == null || props.activeIfGender == Gender.None) return true;
                 if (__instance.pawn.gender == props.activeIfGender) return true;
 

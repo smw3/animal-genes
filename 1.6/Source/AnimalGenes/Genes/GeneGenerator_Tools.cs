@@ -130,6 +130,7 @@ namespace AnimalGenes
 
                         if (cosmeticAdditions.ContainsKey(cleanedLabel))
                         {
+                            Check.DebugLog($"Adding cosemtic addition to gene {newGene.defName}");
                             cosmeticAdditions[cleanedLabel].Invoke(cleanedLabel, sapientAnimal, newGene);
                         }
 
@@ -197,6 +198,7 @@ namespace AnimalGenes
 
         static void AddRenderNodePropertiesFromOtherGene(string label, HumanlikeAnimal animal, GeneDef toolGene, GeneDef graphicGene)
         {
+            Check.DebugLog($"Copying render property from {graphicGene.defName} to {toolGene.defName}");
             if (graphicGene == null)
             {
                 // This is fine, we can reference genes from other mods that may not be loaded

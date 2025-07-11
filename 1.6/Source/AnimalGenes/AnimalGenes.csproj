@@ -27,7 +27,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\Assemblies\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -80,7 +80,10 @@
     <Compile Include="Defs\AnimalGeneSettings.cs" />
     <Compile Include="GeneModExtensions\EnableBehavior.cs" />
     <Compile Include="GeneModExtensions\ProductionDependsOnGender.cs" />
+    <Compile Include="Genes\GeneGenerator_Wings.cs" />
     <Compile Include="Graphics\PawnRenderNodeWorker_Fur_OnlyNonSapient.cs" />
+    <Compile Include="HarmonyPatches\GeneExtractor.cs" />
+    <Compile Include="Helpers\AnimalHelper.cs" />
     <Compile Include="Helpers\ColorHelper.cs" />
     <Compile Include="Helpers\DefHelper.cs" />
     <Compile Include="DebugHelpers\GeneDebugMenu.cs" />

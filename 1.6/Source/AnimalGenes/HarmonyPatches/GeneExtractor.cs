@@ -55,6 +55,10 @@ namespace AnimalGenes.HarmonyPatches
             _StartTick.Value.SetValue(ge, val);
         }
 
+        private static Lazy<FieldInfo> _SelectedPawn = new(() => AccessTools.Field(typeof(Building_GeneExtractor), "selectedPawn"));
+        private static Lazy<FieldInfo> _SustainerWorking = new(() => AccessTools.Field(typeof(Building_GeneExtractor), "sustainerWorking"));
+        private static Lazy<FieldInfo> _PowerCutTicks = new(() => AccessTools.Field(typeof(Building_GeneExtractor), "powerCutTicks"));
+
         public static bool Prefix(Building_GeneExtractor __instance)
         {
             Pawn pawn = ContainedPawn(__instance);
@@ -62,6 +66,10 @@ namespace AnimalGenes.HarmonyPatches
             {
                 HumanlikeAnimal hla = HumanlikeAnimals.GetHumanlikeAnimalFor(pawn.def);
                 if (hla == null) return true;
+
+                _SelectedPawn.Value.SetValue(__instance, null);
+                _SustainerWorking.Value.SetValue(__instance, null);
+                _PowerCutTicks.Value.SetValue(__instance, 0);
 
                 Rand.PushState(pawn.thingIDNumber ^ StartTick(__instance));
                 Genepack genepack = AnimalHelper.GenerateGenepackFor(hla);
@@ -73,6 +81,12 @@ namespace AnimalGenes.HarmonyPatches
 				{
                     GenPlace.TryPlaceThing(genepack, intVec, __instance.Map, ThingPlaceMode.Near, null, null, null, 1);
                 }
+
+                int ticksForRegrowth = Mathf.RoundToInt(60000f * GeneTuning.GeneExtractorRegrowingDurationDaysRange.RandomInRange);
+                pawn.health.AddHediff(HediffDefOf.XenogermLossShock, null, null, null);
+                Hediff hediff = HediffMaker.MakeHediff(HediffDefOf.XenogermReplicating, pawn, null);
+                hediff.TryGetComp<HediffComp_Disappears>().ticksToDisappear = ticksForRegrowth;
+                pawn.health.AddHediff(hediff, null, null, null);
 
                 Rand.PopState();
                 SetStartTick(__instance, -1);

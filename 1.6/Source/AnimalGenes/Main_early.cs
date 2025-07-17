@@ -35,6 +35,7 @@ namespace AnimalGenes
             listingStandard.CheckboxLabeled("Enable dendrovore behavior", ref settings.AllowDendrovoreBehavior, "Allow genes that change Pawns food-seeking behavior. This may have performance impacts if you have many hungry sapient animals.");
             listingStandard.CheckboxLabeled("Enable predator behavior", ref settings.AllowPredatorBehavior, "Allow genes that change Pawns food-seeking behavior. This may have performance impacts if you have many hungry sapient animals.");
             listingStandard.CheckboxLabeled("Enable crossbreeding", ref settings.EnableCrossbreeding, "Allows sapient animals and colonists/tame animals of the same kind to produce offspring. Off by default due to the implications.");
+            listingStandard.CheckboxLabeled("Overwrite endogenes on transform", ref settings.OverwriteEndogenesOnTransform, "When a pawn transforms, all existing endogenes are removed and replaced.");
             listingStandard.Label("");
             listingStandard.Label("Debug");
             listingStandard.Label("");

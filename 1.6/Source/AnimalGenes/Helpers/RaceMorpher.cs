@@ -38,7 +38,7 @@ namespace AnimalGenes
                     .SelectMany(ps => ps.prerequisites).ToList();
                 preReqs.Add(affinityGeneDef.defName);
 
-                RemoveExistingEndogenes(humanPawn, preReqs);
+                if (AnimalGenesModSettings.Settings.OverwriteEndogenesOnTransform) RemoveExistingEndogenes(humanPawn, preReqs);
                 Endogenify(preReqs, humanPawn);
             }
 

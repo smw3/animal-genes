@@ -16,6 +16,7 @@ namespace AnimalGenes
         public bool AllowPredatorBehavior = true;
 
         public bool EnableCrossbreeding = false;
+        public bool OverwriteEndogenesOnTransform = true;
 
 
         public static AnimalGenesModSettings Settings => LoadedModManager.GetMod<Main_early>().GetSettings<AnimalGenesModSettings>();
@@ -27,6 +28,7 @@ namespace AnimalGenes
             Scribe_Values.Look(ref AllowDendrovoreBehavior, "AllowDendrovoreBehavior");
             Scribe_Values.Look(ref AllowPredatorBehavior, "AllowPredatorBehavior");
             Scribe_Values.Look(ref EnableCrossbreeding, "EnableCrossbreeding");
+            Scribe_Values.Look(ref OverwriteEndogenesOnTransform, "OverwriteEndogenesOnTransform");
             base.ExposeData();
         }
     }

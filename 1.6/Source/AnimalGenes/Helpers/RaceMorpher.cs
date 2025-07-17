@@ -33,12 +33,13 @@ namespace AnimalGenes
 
             if (humanPawn.genes.HasXenogene(affinityGeneDef) || humanPawn.genes.HasEndogene(affinityGeneDef))
             {
-                RemoveExistingEndogenes(humanPawn);
-
-                Endogenify(affinityGeneDef.GetModExtension<BigAndSmall.GenePrerequisites>()?.prerequisiteSets
+                List<string> preReqs = affinityGeneDef.GetModExtension<BigAndSmall.GenePrerequisites>()?.prerequisiteSets
                     .Where(ps => ps.type == BigAndSmall.PrerequisiteSet.PrerequisiteType.AllOf)
-                    .SelectMany(ps => ps.prerequisites).ToList(), humanPawn);
-                Endogenify([affinityGeneDef.defName], humanPawn);
+                    .SelectMany(ps => ps.prerequisites).ToList();
+                preReqs.Add(affinityGeneDef.defName);
+
+                RemoveExistingEndogenes(humanPawn, preReqs);
+                Endogenify(preReqs, humanPawn);
             }
 
             // Remove any other affinity genes that might be present
@@ -68,9 +69,9 @@ namespace AnimalGenes
             }
         }
 
-        public static void RemoveExistingEndogenes(Pawn pawn)
+        public static void RemoveExistingEndogenes(Pawn pawn, List<string> preReqs)
         {
-            List<Gene> genesToRemove = [.. pawn.genes.Endogenes];
+            List<Gene> genesToRemove = [.. pawn.genes.Endogenes.Where(g => !preReqs.Contains(g.def.defName))];
             foreach (var gene in genesToRemove)
             {
                 Check.DebugLog($"Removing existing endogene {gene.def.defName} from pawn {pawn.Name}");

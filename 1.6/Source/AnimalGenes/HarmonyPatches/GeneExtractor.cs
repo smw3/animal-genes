@@ -55,26 +55,6 @@ namespace AnimalGenes.HarmonyPatches
             _StartTick.Value.SetValue(ge, val);
         }
 
-        private static readonly SimpleCurve GeneCountChanceCurve = new SimpleCurve
-        {
-            {
-                new CurvePoint(1f, 0.7f),
-                true
-            },
-            {
-                new CurvePoint(2f, 0.2f),
-                true
-            },
-            {
-                new CurvePoint(3f, 0.08f),
-                true
-            },
-            {
-                new CurvePoint(4f, 0.02f),
-                true
-            }
-        };
-
         public static bool Prefix(Building_GeneExtractor __instance)
         {
             Pawn pawn = ContainedPawn(__instance);
@@ -84,45 +64,12 @@ namespace AnimalGenes.HarmonyPatches
                 if (hla == null) return true;
 
                 Rand.PushState(pawn.thingIDNumber ^ StartTick(__instance));
-                Genepack genepack = (Genepack)ThingMaker.MakeThing(ThingDefOf.Genepack, null);
+                Genepack genepack = AnimalHelper.GenerateGenepackFor(hla);
 
-                List<GeneDef> geneDefs = GeneGenerator.GetGenesForHumanLikeAnimal(hla);
-                GeneDef affinityGene = GeneGenerator.affinityGenes.Where(kvp => kvp.Value == hla).First().Key;
-                Log.Message(affinityGene);
-                geneDefs.Append(affinityGene);
-
-
-                int num = Mathf.Min(
-                    (int)GeneCountChanceCurve.RandomElementByWeight((CurvePoint p) => p.y).x,
-                    geneDefs.Count);
-
-                Func<GeneDef, float> geneWeightDelegate(List<GeneDef> genesToAdd)
-                {
-                    return (GeneDef g) => { 
-                        if (genesToAdd.Contains(g)) return 0.0f;
-                        if (g.biostatArc > 0) return 0.0f;
-                        if (!Enumerable.Range(-5, 50).Contains(g.biostatMet + genesToAdd.Sum((GeneDef x) => x.biostatMet))) return 0.0f;
-                        return 1f;
-                    };
-                }
-
-                List<GeneDef> genesToAdd = new List<GeneDef>();
-                int genesGenerated = 0;
-                while (genesGenerated < num && 
-                    geneDefs.TryRandomElementByWeight(geneWeightDelegate(genesToAdd), out GeneDef gene))
-                {
-                    genesToAdd.Add(gene);
-                    genesGenerated++;
-                }
-
-                if (genesToAdd.Any<GeneDef>())
-				{
-                    genepack.Initialize(genesToAdd);
-                }
                 IntVec3 intVec = (__instance.def.hasInteractionCell ? __instance.InteractionCell : __instance.Position);
                 __instance.innerContainer.TryDropAll(intVec, __instance.Map, ThingPlaceMode.Near, null, null, true);
 
-                if (genesToAdd.Any<GeneDef>())
+                if (genepack != null)
 				{
                     GenPlace.TryPlaceThing(genepack, intVec, __instance.Map, ThingPlaceMode.Near, null, null, null, 1);
                 }

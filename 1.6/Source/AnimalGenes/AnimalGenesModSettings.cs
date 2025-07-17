@@ -17,6 +17,7 @@ namespace AnimalGenes
 
         public bool EnableCrossbreeding = false;
         public bool OverwriteEndogenesOnTransform = true;
+        public bool EndogenifyAffinity = true;
 
 
         public static AnimalGenesModSettings Settings => LoadedModManager.GetMod<Main_early>().GetSettings<AnimalGenesModSettings>();
@@ -29,6 +30,7 @@ namespace AnimalGenes
             Scribe_Values.Look(ref AllowPredatorBehavior, "AllowPredatorBehavior");
             Scribe_Values.Look(ref EnableCrossbreeding, "EnableCrossbreeding");
             Scribe_Values.Look(ref OverwriteEndogenesOnTransform, "OverwriteEndogenesOnTransform");
+            Scribe_Values.Look(ref EndogenifyAffinity, "EndogenifyAffinity");
             base.ExposeData();
         }
     }

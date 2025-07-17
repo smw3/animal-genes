@@ -31,7 +31,7 @@ namespace AnimalGenes
 
             humanPawn.genes.SetXenotypeDirect(DefDatabase<XenotypeDef>.GetNamed("SapientAnimal"));
 
-            if (humanPawn.genes.HasXenogene(affinityGeneDef) || humanPawn.genes.HasEndogene(affinityGeneDef))
+            if (AnimalGenesModSettings.Settings.EndogenifyAffinity && (humanPawn.genes.HasXenogene(affinityGeneDef) || humanPawn.genes.HasEndogene(affinityGeneDef)))
             {
                 List<string> preReqs = affinityGeneDef.GetModExtension<BigAndSmall.GenePrerequisites>()?.prerequisiteSets
                     .Where(ps => ps.type == BigAndSmall.PrerequisiteSet.PrerequisiteType.AllOf)

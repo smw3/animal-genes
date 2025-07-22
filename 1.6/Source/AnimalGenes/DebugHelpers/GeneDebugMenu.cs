@@ -1,4 +1,5 @@
-﻿using BigAndSmall;
+﻿using AnimalGenes.Helpers;
+using BigAndSmall;
 using HarmonyLib;
 using LudeonTK;
 using RimWorld;
@@ -77,6 +78,23 @@ namespace AnimalGenes.Debugging
                 }),
             ];
             Find.WindowStack.Add(new FloatMenu(list));
+        }
+    }
+
+    public static class DebugToolsPawns
+    {
+        [DebugAction("Animal Genes", null, false, false, false, false, false, 0, false, actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
+        private static void CreateGenepackFor(Pawn p)
+        {
+            HumanlikeAnimal hla = HumanlikeAnimals.GetHumanlikeAnimalFor(p.def);
+            if (hla != null)
+            {
+                Genepack genepack = AnimalHelper.GenerateGenepackFor(hla);
+                if (genepack != null)
+                {
+                    GenPlace.TryPlaceThing(genepack, p.Position, p.Map, ThingPlaceMode.Near, null, null, null, 1);
+                }
+            }
         }
     }
 }

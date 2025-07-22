@@ -87,7 +87,7 @@ namespace AnimalGenes
 
             // Also add appropriate color genes if they exist, based on the wool color
             ThingDef wool = newGene.GetModExtension<BigAndSmall.ProductionGeneSettings>()?.product;
-            if (wool != null)
+            if (wool != null && wool.stuffProps != null)
             {
                 GeneDef hairColorGene = ColorHelper.GeneDefForHairColor(wool.stuffProps.color);
                 GeneGenerator.AddGeneToHumanLikeAnimal(sapientAnimal, hairColorGene);

@@ -31,7 +31,7 @@ namespace AnimalGenes.Helpers
             var geneDef = new GeneDef
             {
                 defName = defName,
-                label = $"{(thing != null ? thing.defName + " " : "")}{(extraDefPart != null ? extraDefPart+" " : "")}{template.label}",
+                label = $"{(thing != null ? thing.label + " " : "")}{(extraDefPart != null ? extraDefPart+" " : "")}{template.label}",
                 description = template.description,
                 customEffectDescriptions = template.customEffectDescriptions,
                 iconPath = template.iconPath,

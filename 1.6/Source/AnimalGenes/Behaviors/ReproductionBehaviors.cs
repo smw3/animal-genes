@@ -55,7 +55,7 @@ namespace AnimalGenes.Behaviors
             {
                 geneSet.AddGene(geneDef);
             }
-            geneSet.AddGene(GeneGenerator.affinityGenes.Where(ag => ag.Value.humanlikeThing == female.def).Select(ag => ag.Key).First());
+            geneSet.AddGene(GeneGenerator.affinityGenes.Where(ag => ag.Value.humanlikeAnimal == female.def).Select(ag => ag.Key).First());
 
             if (female.IsSapientAnimal())
             {

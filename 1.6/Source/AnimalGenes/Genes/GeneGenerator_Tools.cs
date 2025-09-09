@@ -50,6 +50,8 @@ namespace AnimalGenes
             foreach (var sapientAnimal in sapientAnimals)
             {
                 HashSet<string> toolsHandledForCurrentAnimal = [];
+
+                if (sapientAnimal.animal.tools.NullOrEmpty()) continue;
                 foreach (Tool t in sapientAnimal.animal.tools)
                 {
                     if (t.label.NullOrEmpty()) continue;

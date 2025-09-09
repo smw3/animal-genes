@@ -22,7 +22,7 @@ namespace AnimalGenes
             humanPawn.equipment?.DropAllEquipment(humanPawn.Position);
             humanPawn.apparel?.DropAll(humanPawn.Position);
 
-            var targetDef = humanlikeAnimal.humanlikeThing;
+            var targetDef = humanlikeAnimal.humanlikeAnimal;
             BigAndSmall.RaceMorpher.SwapThingDef(humanPawn, targetDef, true, 9001, force: true, permitFusion: false, clearHediffsToReapply: false);
 
             // Turn all affinity prerequisite genes into endogenes

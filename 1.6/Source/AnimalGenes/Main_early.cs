@@ -90,9 +90,9 @@ namespace AnimalGenes
                     {
                         HumanlikeAnimal target = gene.def.GetModExtension<TargetAffinity>()?.targetAnimal;
                         Check.NotNull(target, "target cannot be null in GeneModExtension_TargetAffinity Gene_OverrideBy_Patch");
-                        if (gene.pawn.def != target.humanlikeThing)
+                        if (gene.pawn.def != target.humanlikeAnimal)
                         {
-                            Check.DebugLog($"Pawn of def {gene.pawn.def} has ACTIVE affinity (Gene {gene.def.defName}) for target: {target.humanlikeThing.defName} but is {gene.pawn.def.defName}");
+                            Check.DebugLog($"Pawn of def {gene.pawn.def} has ACTIVE affinity (Gene {gene.def.defName}) for target: {target.humanlikeAnimal.defName} but is {gene.pawn.def.defName}");
                             RaceMorpher.SwapPawnToSapientAnimal(gene.pawn, target);
                         }
                     }

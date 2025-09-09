@@ -59,7 +59,7 @@ namespace AnimalGenes
 
                     // We've now handled _most_ of the temp tolerance via genes, so adjust the base values to account for that
                     float adjustedByGene = lowTempGene.statOffsets.Find(x => x.stat == StatDefOf.ComfyTemperatureMin)?.value ?? 0.0f;
-                    sapientAnimal.humanlikeThing.SetStatBaseValue(StatDefOf.ComfyTemperatureMin, animalLowTemp - adjustedByGene);
+                    sapientAnimal.humanlikeAnimal.SetStatBaseValue(StatDefOf.ComfyTemperatureMin, animalLowTemp - adjustedByGene);
                 }
 
 
@@ -78,7 +78,7 @@ namespace AnimalGenes
 
                     // We've now handled _most_ of the temp tolerance via genes, so adjust the base values to account for that
                     float adjustedByGene = highTempGene.statOffsets.Find(x => x.stat == StatDefOf.ComfyTemperatureMax)?.value ?? 0.0f;
-                    sapientAnimal.humanlikeThing.SetStatBaseValue(StatDefOf.ComfyTemperatureMax, animalHighTemp - adjustedByGene);
+                    sapientAnimal.humanlikeAnimal.SetStatBaseValue(StatDefOf.ComfyTemperatureMax, animalHighTemp - adjustedByGene);
                 }
             }
         }

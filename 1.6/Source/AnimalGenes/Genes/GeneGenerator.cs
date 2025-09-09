@@ -70,7 +70,7 @@ namespace AnimalGenes
         private static void SetBaseToDefault(HumanlikeAnimal sapientAnimal, StatDef statDef)
         {
             ThingDef baseliner = DefDatabase<ThingDef>.GetNamed("Human");
-            sapientAnimal.humanlikeThing.SetStatBaseValue(statDef, baseliner.statBases.GetStatValueFromList(statDef, 0.0f));
+            sapientAnimal.humanlikeAnimal.SetStatBaseValue(statDef, baseliner.statBases.GetStatValueFromList(statDef, 0.0f));
         }
 
         private static void RemoveStatDefsThatHaveGenesNow()
@@ -78,10 +78,10 @@ namespace AnimalGenes
             foreach (var sapientAnimal in SapientAnimals)
             {
                 // set body size to default, as it is now handled by genes
-                sapientAnimal.humanlikeThing.SetStatBaseValue(BSDefs.SM_BodySizeOffset, 1.0f - sapientAnimal.humanlikeThing.race.baseBodySize);
+                sapientAnimal.humanlikeAnimal.SetStatBaseValue(BSDefs.SM_BodySizeOffset, 1.0f - sapientAnimal.humanlikeAnimal.race.baseBodySize);
 
                 SetBaseToDefault(sapientAnimal, StatDefOf.MoveSpeed);
-                sapientAnimal.humanlikeThing.SetStatBaseValue(StatDefOf.CarryingCapacity, 75.0f);
+                sapientAnimal.humanlikeAnimal.SetStatBaseValue(StatDefOf.CarryingCapacity, 75.0f);
                 SetBaseToDefault(sapientAnimal, StatDefOf.ToxicEnvironmentResistance);
                 SetBaseToDefault(sapientAnimal, StatDefOf.ToxicResistance);
                 SetBaseToDefault(sapientAnimal, StatDefOf.ComfyTemperatureMin);
